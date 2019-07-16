@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Si Prima</string>
+    <string name="page_not_found_title">HALAMAN TIDAK DITEMUKAN!</string>
+    <string name="page_not_found_desc">Halaman yang anda tuju tidak ditemukan di sistem kami :(</string>
+    <string name="empty_data">DATA KOSONG!</string>
+    <string name="empty_data_desc">Data yang anda perlukan tidak tersedia untuk saat ini</string>
+</resources>

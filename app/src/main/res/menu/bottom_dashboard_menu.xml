@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:enabled="true"
+        android:icon="@drawable/home"
+        android:id="@+id/menuBeranda"
+        android:title="Beranda"
+        app:showAsAction="ifRoom"
+        android:fontFamily="@font/josefinsans_regular"/>
+    <item
+        android:enabled="true"
+        android:icon="@drawable/notif_inactive"
+        android:id="@+id/menuNotif"
+        android:title="Notif"
+        app:showAsAction="ifRoom"
+        android:fontFamily="@font/josefinsans_regular"/>
+    <item
+        android:enabled="true"
+        android:icon="@drawable/akun_inactive"
+        android:id="@+id/menuAkun"
+        android:title="Akun"
+        app:showAsAction="ifRoom"
+        android:fontFamily="@font/josefinsans_regular"/>
+</menu>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    tools:context=".Akun.Ubah_Profil">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite" >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/josefinsans_regular"
+            app:titleTextColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Ubah Profil" />
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/input"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp">
+
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_email_ced0d2" />-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:background="@color/colorWhite"
+                android:hint="Nama"
+                android:inputType="text"
+                android:textColorHint="@color/colorAbuMuda" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/input"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/colorWhite"
+                android:hint="Email"
+                android:fontFamily="@font/josefinsans_regular"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/colorAbuMuda" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/input"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:background="@color/colorWhite"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorAbuMuda" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/input"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/colorWhite"
+                android:hint="Password Konfirmasi"
+                android:fontFamily="@font/josefinsans_regular"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorAbuMuda" />
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/button"
+            android:paddingBottom="20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorWhite"
+            android:text="Ubah"/>
+    </LinearLayout>
+</LinearLayout>

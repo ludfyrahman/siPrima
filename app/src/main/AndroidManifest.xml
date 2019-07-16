@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.primaitech.siprima">
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".Config.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Karyawan.Detail_Karyawan"></activity>
+        <activity android:name=".Promo.Detail_Promo" />
+        <activity android:name=".Kavling.Detail_Kavling" />
+        <activity android:name=".Kategori_kavling.Detail_Kategori_Kavling" />
+        <activity android:name=".Divisi.Detail_Divisi" />
+        <activity android:name=".Proyek.Detail_Proyek" />
+        <activity android:name=".Akun_Bank.Detail_Akun_Bank" />
+        <activity android:name=".RAB.Fragment_Rab_Proyek" />
+        <activity android:name=".RAB.Fragment_Rab_Unit_Bisnis" />
+        <activity android:name=".RAB.RAB" />
+        <activity android:name=".Artikel.Artikel" />
+        <activity android:name=".Kavling.Kavling" />
+        <activity android:name=".Keluhan.Keluhan" />
+        <activity android:name=".Karyawan.Fragment_K_Proyek" />
+        <activity android:name=".Karyawan.Fragment_K_Unit_Bisnis" />
+        <activity android:name=".Karyawan.Karyawan" />
+        <activity android:name=".Promo.Promo" />
+        <activity android:name=".Divisi.Divisi" />
+        <activity android:name=".Akun_Bank.Fragment_Ab_Proyek" />
+        <activity android:name=".Akun_Bank.Fragment_Ab_Unit_Bisnis" />
+        <activity android:name=".Proyek.Proyek" />
+        <activity android:name=".Akun_Bank.Akun_bank" />
+        <activity android:name=".Kategori_kavling.Kategori_kavling" />
+        <activity android:name=".Akun.Ubah_Profil" />
+        <activity android:name=".Akun.Fragment_Notif" />
+        <activity android:name=".Akun.Fragment_Akun" />
+        <activity android:name=".Dashboard.Fragment_Dashboard" />
+        <activity android:name=".Dashboard.Dashboard" />
+        <activity android:name=".Akun.Login" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
