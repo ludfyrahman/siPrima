@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Karyawan.Detail_Karyawan"></activity>
+        <activity android:name=".Penjualan.Penjualan"></activity>
+        <activity android:name=".Pembeli.Detail_Pembeli" />
+        <activity android:name=".Pembeli.Fragment_Pembeli" />
+        <activity android:name=".Pembeli.Fragment_Calon_Pembeli" />
+        <activity android:name=".Pembeli.Pembeli" />
+        <activity android:name=".Karyawan.Detail_Karyawan" />
         <activity android:name=".Promo.Detail_Promo" />
         <activity android:name=".Kavling.Detail_Kavling" />
         <activity android:name=".Kategori_kavling.Detail_Kategori_Kavling" />

@@ -124,6 +124,7 @@ public class Promo extends AppCompatActivity {
 
                         }
                     }else{
+                        pd.cancel();
                         Log.d("erro", "onResponse: kosong");
                     }
                 } catch (JSONException e) {

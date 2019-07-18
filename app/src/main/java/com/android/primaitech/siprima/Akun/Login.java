@@ -155,12 +155,11 @@ public class Login extends AppCompatActivity {
                         JSONObject res = new JSONObject(response);
 
                         JSONObject respon = res.getJSONObject("respon");
-                        if(respon.getBoolean("boollogin")){
+                        if(respon.getBoolean("status")){
                             Intent intent = new Intent(getBaseContext(), Dashboard.class);
                             startActivity(intent);
                             JSONObject datalogin = res.getJSONObject("datauser");
                             JSONObject datauth = res.getJSONObject("dataauth");
-//                                    Log.e("datauthnya",""+datauth);
                             AuthData.getInstance(getApplicationContext()).setdataauth(
                                     datauth.getString("kode_auth"),
                                     datauth.getString("kode_user"),
@@ -169,15 +168,17 @@ public class Login extends AppCompatActivity {
 
                             );
                             xdatauth = datauth.getString("kode_auth");
-                            KirimTOken();
+//                            KirimTOken();
                             AuthData.getInstance(getApplicationContext()).setdatauser(
+                                    datauth.getString("kode_auth"),
                                     datalogin.getString("kode_role"),
                                     datalogin.getString("kode_user"),
                                     datalogin.getString("nama_user"),
+                                    datalogin.getString("kode_unit"),
+                                    datalogin.getString("kode_proyek"),
                                     datalogin.getString("email"),
                                     datalogin.getString("akses_data")
                             );
-
                         }else{
                             Toast.makeText(getBaseContext(), respon.getString("pesan"), Toast.LENGTH_SHORT).show();
 

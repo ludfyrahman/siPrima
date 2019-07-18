@@ -138,6 +138,7 @@ public class Fragment_Ab_Unit_Bisnis extends Fragment {
                                 pd.cancel();
                             }else{
                                 not_found.setVisibility(View.VISIBLE);
+                                pd.cancel();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

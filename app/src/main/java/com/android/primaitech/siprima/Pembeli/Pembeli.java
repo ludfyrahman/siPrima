@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.RAB;
+package com.android.primaitech.siprima.Pembeli;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -31,8 +31,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RAB extends AppCompatActivity {
-
+public class Pembeli extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -44,7 +43,7 @@ public class RAB extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rab);
+        setContentView(R.layout.activity_pembeli);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
@@ -65,11 +64,34 @@ public class RAB extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         setupViewPager(mViewPager);
+    }
+    public  void delete(final String kode){
 
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", kode);
+                params.put("tipedata", "akunBank");
+//                params.put("tipe_akun", "1");
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
     private void setupViewPager(final ViewPager viewPager) {
         Intent data = getIntent();
-
         final String kode_menu = data.getStringExtra("kode_menu");
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
             @Override
@@ -126,6 +148,7 @@ public class RAB extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("tipedata", "submenu");
                 params.put("kode_menu", kode_menu);
+                params.put("kode", AuthData.getInstance(Pembeli.this).getAuthKey());
                 params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
                 return params;
             }
@@ -133,6 +156,7 @@ public class RAB extends AppCompatActivity {
 
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
+
 
     public boolean onSupportNavigateUp() {
         onBackPressed();

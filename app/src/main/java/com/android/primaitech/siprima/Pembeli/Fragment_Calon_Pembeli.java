@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Karyawan;
+package com.android.primaitech.siprima.Pembeli;
 
 import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
@@ -15,10 +15,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Karyawan.Adapter.Adapter_Karyawan;
-import com.android.primaitech.siprima.Karyawan.Model.Karyawan_Model;
+import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,11 +38,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_K_Proyek extends Fragment {
+public class Fragment_Calon_Pembeli extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Karyawan adapter;
-    private List<Karyawan_Model> list;
+    private Adapter_Pembeli adapter;
+    private List<Pembeli_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -50,14 +53,14 @@ public class Fragment_K_Proyek extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_k_proyek, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment_calon_pembeli, container, false);
         listdata = (RecyclerView)v.findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)v.findViewById(R.id.tambah);
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Karyawan(getActivity(),(ArrayList<Karyawan_Model>) list);
+        adapter = new Adapter_Pembeli(getActivity(),(ArrayList<Pembeli_Model>) list);
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -97,7 +100,7 @@ public class Fragment_K_Proyek extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"calonpembeli", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -108,15 +111,12 @@ public class Fragment_K_Proyek extends Fragment {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Karyawan_Model md = new Karyawan_Model();
-                                md.setKode_karyawan(data.getString("kode_karyawan"));
-                                md.setTipe_karyawan(data.getString("tipe_karyawan"));
-                                md.setNama_unit(data.getString("nama_unit"));
-                                md.setNama_proyek(data.getString("nama_proyek"));
-                                md.setNama_karyawan(data.getString("nama_karyawan"));
-                                md.setFoto(ServerAccess.BASE_URL+"/"+data.getString("foto_kecil"));
-                                md.setNama_divisi(data.getString("nama_divisi"));
-                                md.setTanggal_gabung(data.getString("tgl_gabung"));
+                                Pembeli_Model md = new Pembeli_Model();
+                                md.setKode_pembeli(data.getString("kode_pembeli"));
+                                md.setNama_pembeli(data.getString("nama_pembeli"));
+                                md.setNo_hp(data.getString("no_hp"));
+                                md.setNo_ktp(data.getString("no_ktp"));
+                                md.setStatus(data.getInt("status"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -126,7 +126,6 @@ public class Fragment_K_Proyek extends Fragment {
                         pd.cancel();
                         adapter.notifyDataSetChanged();
                     }else{
-                        pd.cancel();
                         not_found.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
@@ -146,9 +145,7 @@ public class Fragment_K_Proyek extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
-                params.put("tipedata", "karyawan");
-                params.put("tipe_karyawan", "2");
+                params.put("kode", AuthData.getInstance(getActivity()).getAuthKey());
                 return params;
             }
         };

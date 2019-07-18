@@ -23,7 +23,7 @@
             android:fontFamily="@font/josefinsans_regular"
             app:titleTextColor="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="Rab">
+            app:title="Pembeli">
 
         </android.support.v7.widget.Toolbar>
 

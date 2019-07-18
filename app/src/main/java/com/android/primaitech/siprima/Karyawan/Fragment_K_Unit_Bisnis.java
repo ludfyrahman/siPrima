@@ -128,6 +128,7 @@ public class Fragment_K_Unit_Bisnis extends Fragment {
                         pd.cancel();
                         adapter.notifyDataSetChanged();
                     }else{
+                        pd.cancel();
                         not_found.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {

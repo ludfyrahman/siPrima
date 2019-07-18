@@ -13,9 +13,10 @@ public class AuthData {
     private static final String sudahlogin = "n";
 
     private static final String kode_role = "kode_role";
-    private static final String kode_user = "kode_user";
     private static final String nama_user = "nama_user";
     private static final String email = "email";
+    private static final String kode_unit = "kode_unit";
+    private static final String kode_proyek = "kode_proyek";
     private static final String akses_data = "akses_data";
 
     private static final String stemail = "0";
@@ -32,13 +33,16 @@ public class AuthData {
         return mInstance;
     }
 
-    public boolean setdatauser(String xkode_role, String xkode_user,String xnama_user, String xemail, String xakses_data){
+    public boolean setdatauser(String xkode_auth, String xkode_role, String xkode_user,String xnama_user, String xkode_unit, String xkode_proyek,String xemail, String xakses_data){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        editor.putString(kodeauth, xkode_auth);
         editor.putString(kode_role, xkode_role);
-        editor.putString(kode_user, xkode_user);
+        editor.putString(kodeuser, xkode_user);
         editor.putString(nama_user, xnama_user);
+        editor.putString(kode_unit, xkode_unit);
+        editor.putString(kode_proyek, xkode_proyek);
         editor.putString(email, xemail);
         editor.putString(akses_data, xakses_data);
 
@@ -48,7 +52,7 @@ public class AuthData {
     }
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        if (sharedPreferences.getString(kode_user, null) != null) {
+        if (sharedPreferences.getString(kodeuser, null) != null) {
             return true;
         }
         return false;
@@ -89,13 +93,6 @@ public class AuthData {
     }
 
 
-    public boolean ceklogin(){
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        if(sharedPreferences.getString(kodeauth, null)!=null){
-            return true;
-        }
-        return false;
-    }
 
     public boolean logout(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -109,16 +106,6 @@ public class AuthData {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(kodeauth, null);
     }
-    public String getUsername() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-        return sharedPreferences.getString(nama_user, null);
-    }
-    public String getAksesData() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-        return sharedPreferences.getString(akses_data, null);
-    }
     public String getKode_role(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(kode_role, null);
@@ -127,6 +114,32 @@ public class AuthData {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
         return sharedPreferences.getString(kodeuser, null);
+    }
+    public String getUsername() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(nama_user, null);
+    }
+    public String getKode_unit() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(kode_unit, null);
+    }
+    public String getKode_proyek() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(kode_proyek, null);
+    }
+
+    public String getAksesData() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(akses_data, null);
+    }
+    public String getEmail() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(email, null);
     }
     public String getKodePenjualan() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

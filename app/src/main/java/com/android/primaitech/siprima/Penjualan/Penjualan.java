@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Kategori_kavling;
+package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,11 +19,9 @@ import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
-import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
-import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
-import com.android.primaitech.siprima.Proyek.Proyek;
+import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
+import com.android.primaitech.siprima.Kavling.Kavling;
+import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,11 +38,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Kategori_kavling extends AppCompatActivity {
+public class Penjualan extends AppCompatActivity {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Kategori_Kavling adapter;
-    private List<Kategori_Kavling_Model> list;
+    private Adapter_Kavling adapter;
+    private List<Kavling_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -55,7 +53,7 @@ public class Kategori_kavling extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kategori_kavling);
+        setContentView(R.layout.activity_penjualan);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
@@ -72,11 +70,11 @@ public class Kategori_kavling extends AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kategori_Kavling(Kategori_kavling.this,(ArrayList<Kategori_Kavling_Model>) list);
-        mManager = new LinearLayoutManager(Kategori_kavling.this,LinearLayoutManager.VERTICAL,false);
+        adapter = new Adapter_Kavling(Penjualan.this,(ArrayList<Kavling_Model>) list);
+        mManager = new LinearLayoutManager(Penjualan.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
-        pd = new ProgressDialog(Kategori_kavling.this);
+        pd = new ProgressDialog(Penjualan.this);
         loadJson();
         refresh = (FrameLayout) findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
@@ -89,7 +87,6 @@ public class Kategori_kavling extends AppCompatActivity {
         });
         validate();
     }
-
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -153,7 +150,7 @@ public class Kategori_kavling extends AppCompatActivity {
             }
         };
 
-        RequestHandler.getInstance(Kategori_kavling.this).addToRequestQueue(senddata);
+        RequestHandler.getInstance(Penjualan.this).addToRequestQueue(senddata);
     }
     public  void delete(final String kode){
 
@@ -174,7 +171,7 @@ public class Kategori_kavling extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", kode);
-                params.put("tipedata", "kategori_kavling");
+                params.put("tipedata", "kavling");
                 params.put("tipe_akun", "1");
                 return params;
             }
@@ -198,11 +195,16 @@ public class Kategori_kavling extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Kategori_Kavling_Model md = new Kategori_Kavling_Model();
-                                md.setKode_kategori(data.getString("kode_kategori"));
-                                md.setNama_karyawan(data.getString("nama_karyawan"));
-                                md.setNama_kategori(data.getString("nama_kategori"));
+                                Kavling_Model md = new Kavling_Model();
+                                md.setDesain_rumah(ServerAccess.upload+"/"+ServerAccess.kavling+"/"+data.getString("desain_rumah"));
+                                md.setKode_kavling(data.getString("kode_kavling"));
+                                md.setNama_kavling(data.getString("nama_kavling"));
                                 md.setNama_proyek(data.getString("nama_proyek"));
+                                md.setNama_kategori(data.getString("nama_kategori"));
+                                md.setHarga_jual(data.getString("harga_jual"));
+                                md.setTipe_rumah(data.getString("tipe_rumah"));
+                                md.setCreate_at(data.getString("create_at"));
+                                md.setStatus(data.getString("status"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -233,7 +235,7 @@ public class Kategori_kavling extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", "2");
-                params.put("tipedata", "kategori_kavling");
+                params.put("tipedata", "kavling");
                 return params;
             }
         };
