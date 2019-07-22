@@ -38,7 +38,6 @@ public class MenuData {
             };
     String kode_submenu[] = {"submenu31", "submenu32", "submenu29", "submenu30", "submenu1", "submenu2", "submenu24", "submenu25"};
     Fragment fragment[] = {new Fragment_Ab_Unit_Bisnis(), new Fragment_Ab_Proyek(), new Fragment_K_Unit_Bisnis(), new Fragment_K_Proyek(), new Fragment_Rab_Unit_Bisnis(), new Fragment_Rab_Proyek(), new Fragment_Pembeli(), new Fragment_Calon_Pembeli()};
-
     public Class halaman(String code_menu) {
         Class ret = halaman[Arrays.asList(menu).indexOf(code_menu)];
         return ret;

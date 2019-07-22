@@ -3,7 +3,15 @@
     package="com.android.primaitech.siprima">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:name=".Config.AppController"
         android:allowBackup="true"
@@ -12,10 +20,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Penjualan.Penjualan"></activity>
+        <activity android:name=".Follow_Up.Form_Follow_Up"></activity>
+        <activity android:name=".Follow_Up.Detail_Follow_Up" />
+        <activity android:name=".Pembeli.Kunjungan_Pembeli" />
+        <activity android:name=".Follow_Up.Tambah_Follow_Up" />
+        <activity android:name=".Penjualan.Detail_Penjualan" />
+        <activity android:name=".Penjualan.Penjualan" />
         <activity android:name=".Pembeli.Detail_Pembeli" />
-        <activity android:name=".Pembeli.Fragment_Pembeli" />
-        <activity android:name=".Pembeli.Fragment_Calon_Pembeli" />
         <activity android:name=".Pembeli.Pembeli" />
         <activity android:name=".Karyawan.Detail_Karyawan" />
         <activity android:name=".Promo.Detail_Promo" />
@@ -24,26 +35,17 @@
         <activity android:name=".Divisi.Detail_Divisi" />
         <activity android:name=".Proyek.Detail_Proyek" />
         <activity android:name=".Akun_Bank.Detail_Akun_Bank" />
-        <activity android:name=".RAB.Fragment_Rab_Proyek" />
-        <activity android:name=".RAB.Fragment_Rab_Unit_Bisnis" />
         <activity android:name=".RAB.RAB" />
         <activity android:name=".Artikel.Artikel" />
         <activity android:name=".Kavling.Kavling" />
         <activity android:name=".Keluhan.Keluhan" />
-        <activity android:name=".Karyawan.Fragment_K_Proyek" />
-        <activity android:name=".Karyawan.Fragment_K_Unit_Bisnis" />
         <activity android:name=".Karyawan.Karyawan" />
         <activity android:name=".Promo.Promo" />
         <activity android:name=".Divisi.Divisi" />
-        <activity android:name=".Akun_Bank.Fragment_Ab_Proyek" />
-        <activity android:name=".Akun_Bank.Fragment_Ab_Unit_Bisnis" />
         <activity android:name=".Proyek.Proyek" />
         <activity android:name=".Akun_Bank.Akun_bank" />
         <activity android:name=".Kategori_kavling.Kategori_kavling" />
         <activity android:name=".Akun.Ubah_Profil" />
-        <activity android:name=".Akun.Fragment_Notif" />
-        <activity android:name=".Akun.Fragment_Akun" />
-        <activity android:name=".Dashboard.Fragment_Dashboard" />
         <activity android:name=".Dashboard.Dashboard" />
         <activity android:name=".Akun.Login" />
         <activity android:name=".MainActivity">
@@ -53,6 +55,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".Config.AlertReceiver" />
     </application>
 
 </manifest>

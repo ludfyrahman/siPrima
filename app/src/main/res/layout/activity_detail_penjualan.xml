@@ -18,30 +18,68 @@
             app:titleTextColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="Detail  Kavling" />
+            app:title="Detail Penjualan" />
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bg"
+        android:orientation="horizontal"
         android:background="@drawable/dpb"></LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/josefinsans_semibold"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
-            android:text="Detail Kavling"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/josefinsans_semibold"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:text="Detail Penjualan"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_weight="1"
+                android:id="@+id/tanggal_penjualan"
+                android:textColor="@color/colorAbuabu"
+                android:gravity="right"
+                android:text="12 Juli 2019"/>
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.39dp"
             android:layout_marginTop="10dp"
             android:background="@color/colorAbuabu"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Nama Pembeli"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/josefinsans_regular"
+                android:id="@+id/nama_pembeli"
+                android:text="-"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,13 +137,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Nama Kategori"/>
+                android:text="Nama Karyawan"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
-                android:id="@+id/nama_kategori"
+                android:id="@+id/nama_karyawan"
                 android:text="-"/>
         </LinearLayout>
         <LinearLayout
@@ -120,33 +158,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Tipe Rumah"/>
+                android:text="Cara Pembelian"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/tipe_rumah"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="-"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Harga Produksi"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/harga_produksi"
+                android:id="@+id/cara_beli"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="-"/>
         </LinearLayout>
@@ -167,7 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/harga_jual"
+                android:id="@+id/harga_jual_bersih"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="-"/>
         </LinearLayout>
@@ -183,12 +200,34 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Status"/>
+                android:text="Uang Booking"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/status"
+                android:id="@+id/uang_booking"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="-"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Tanggal Bayar Booking"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tanggal_bayar_booking"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="-"/>

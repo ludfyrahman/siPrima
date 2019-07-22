@@ -67,7 +67,7 @@ public class Pembeli extends AppCompatActivity {
     }
     public  void delete(final String kode){
 
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"deletepembeli", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
             }
@@ -82,9 +82,9 @@ public class Pembeli extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", kode);
-                params.put("tipedata", "akunBank");
-//                params.put("tipe_akun", "1");
+                params.put("kodepembeli", kode);
+                params.put("kode", AuthData.getInstance(Pembeli.this).getAuthKey());
+
                 return params;
             }
         };

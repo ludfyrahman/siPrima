@@ -22,6 +22,7 @@ import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.R;
@@ -143,7 +144,7 @@ public class Proyek extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 params.put("tipedata", "menuAkses");
                 params.put("kode_menu", kode_menu);
                 params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
@@ -185,7 +186,7 @@ public class Proyek extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK+"dataproyek", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -233,8 +234,8 @@ public class Proyek extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
-                params.put("tipedata", "proyek");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kodeunit", "Semua");
                 return params;
             }
         };

@@ -144,7 +144,7 @@ public class Promo extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 params.put("tipedata", "menuAkses");
                 params.put("kode_menu", kode_menu);
                 params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());

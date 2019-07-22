@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Kavling;
+package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
-import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
+import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,33 +29,22 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import lecho.lib.hellocharts.model.Line;
-
-public class Detail_Kavling extends AppCompatActivity {
+public class Detail_Penjualan extends AppCompatActivity {
     ProgressDialog pd;
     LinearLayout bg;
-    TextView nama_kavling, nama_unit, nama_proyek, nama_kategori, tipe_rumah, harga_produksi, harga_jual, status;
+    TextView nama_kavling, nama_proyek, nama_karyawan, nama_pembeli, tanggal_penjualan, cara_beli, harga_jual_bersih, uang_booking, tanggal_bayar_booking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_kavling);
+        setContentView(R.layout.activity_detail_penjualan);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        pd = new ProgressDialog(Detail_Kavling.this);
+        pd = new ProgressDialog(Detail_Penjualan.this);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        nama_kavling = (TextView)findViewById(R.id.nama_kavling);
-        nama_unit = (TextView)findViewById(R.id.nama_unit);
-        nama_proyek = (TextView)findViewById(R.id.nama_proyek);
-        nama_kategori = (TextView)findViewById(R.id.nama_kategori);
-        tipe_rumah = (TextView)findViewById(R.id.tipe_rumah);
-        harga_produksi = (TextView)findViewById(R.id.harga_produksi);
-        harga_jual = (TextView)findViewById(R.id.harga_jual);
-        status = (TextView)findViewById(R.id.status);
         bg = (LinearLayout)findViewById(R.id.bg);
         if(data.hasExtra("nama_menu")) {
             toolbar.setTitle("Kavling " + data.getStringExtra("nama_menu"));
@@ -65,10 +53,19 @@ public class Detail_Kavling extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(getApplicationContext(), Kavling.class));
-                Detail_Kavling.this.onBackPressed();
+                Detail_Penjualan.this.onBackPressed();
             }
         });
         loadJson();
+        nama_kavling = (TextView)findViewById(R.id.nama_kavling);
+        nama_proyek = (TextView)findViewById(R.id.nama_proyek);
+        nama_karyawan = (TextView)findViewById(R.id.nama_karyawan);
+        nama_pembeli = (TextView)findViewById(R.id.nama_pembeli);
+        tanggal_penjualan = (TextView)findViewById(R.id.tanggal_penjualan);
+        cara_beli = (TextView)findViewById(R.id.cara_beli);
+        harga_jual_bersih = (TextView)findViewById(R.id.harga_jual_bersih);
+        uang_booking = (TextView)findViewById(R.id.uang_booking);
+        tanggal_bayar_booking = (TextView)findViewById(R.id.tanggal_bayar_booking);
     }
     private void loadJson()
     {
@@ -76,7 +73,7 @@ public class Detail_Kavling extends AppCompatActivity {
         pd.setCancelable(false);
         pd.show();
         final Intent data = getIntent();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KAVLING+"detailkavling", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN+"detailpenjualan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -84,14 +81,16 @@ public class Detail_Kavling extends AppCompatActivity {
                     pd.cancel();
                     res = new JSONObject(response);
                     JSONObject data = res.getJSONObject("data");
-                    nama_kavling.setText(data.getString("nama_kavling"));
+                    nama_kavling.setText(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
                     nama_proyek.setText(data.getString("nama_proyek"));
-                    nama_kategori.setText(data.getString("nama_kategori"));
-                    tipe_rumah.setText(data.getString("tipe_rumah"));
-                    harga_produksi.setText(ServerAccess.numberConvert(data.getString("harga_produksi")));
-                    harga_jual.setText(ServerAccess.numberConvert(data.getString("harga_jual")));
-                    status.setText(ServerAccess.status_kavling[data.getInt("status")]);
-                    Glide.with(Detail_Kavling.this)
+                    nama_karyawan.setText(data.getString("nama_karyawan"));
+                    nama_pembeli.setText(data.getString("nama_pembeli"));
+                    tanggal_penjualan.setText(ServerAccess.parseDate(data.getString("create_at")));
+                    tanggal_bayar_booking.setText(ServerAccess.parseDate(data.getString("tanggal_bayar_booking")));
+                    harga_jual_bersih.setText(ServerAccess.numberConvert(data.getString("harga_jual_bersih")));
+                    uang_booking.setText(ServerAccess.numberConvert(data.getString("uang_booking")));
+                    cara_beli.setText(ServerAccess.status_kavling[data.getInt("cara_beli")]);
+                    Glide.with(Detail_Penjualan.this)
                             .load(ServerAccess.BASE_URL+"/"+data.getString("desain_rumah"))
                             .into(new SimpleTarget<GlideDrawable>() {
                                 @Override

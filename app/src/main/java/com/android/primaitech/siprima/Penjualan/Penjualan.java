@@ -22,6 +22,8 @@ import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Penjualan.Adapter.Adapter_Penjualan;
+import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -41,8 +43,8 @@ import java.util.Map;
 public class Penjualan extends AppCompatActivity {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Kavling adapter;
-    private List<Kavling_Model> list;
+    private Adapter_Penjualan adapter;
+    private List<Penjualan_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -70,7 +72,7 @@ public class Penjualan extends AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kavling(Penjualan.this,(ArrayList<Kavling_Model>) list);
+        adapter = new Adapter_Penjualan(Penjualan.this,(ArrayList<Penjualan_Model>) list);
         mManager = new LinearLayoutManager(Penjualan.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -142,7 +144,7 @@ public class Penjualan extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 params.put("tipedata", "menuAkses");
                 params.put("kode_menu", kode_menu);
                 params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
@@ -184,7 +186,7 @@ public class Penjualan extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN+"data", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -195,16 +197,14 @@ public class Penjualan extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Kavling_Model md = new Kavling_Model();
-                                md.setDesain_rumah(ServerAccess.upload+"/"+ServerAccess.kavling+"/"+data.getString("desain_rumah"));
-                                md.setKode_kavling(data.getString("kode_kavling"));
-                                md.setNama_kavling(data.getString("nama_kavling"));
-                                md.setNama_proyek(data.getString("nama_proyek"));
-                                md.setNama_kategori(data.getString("nama_kategori"));
-                                md.setHarga_jual(data.getString("harga_jual"));
-                                md.setTipe_rumah(data.getString("tipe_rumah"));
-                                md.setCreate_at(data.getString("create_at"));
-                                md.setStatus(data.getString("status"));
+                                Penjualan_Model md = new Penjualan_Model();
+//                                md.setCover(ServerAccess.upload+"/"+data.getString("desain_rumah"));
+                                md.setNama_pembeli(data.getString("nama_pembeli"));
+                                md.setNama_penjual(data.getString("nama_karyawan"));
+                                md.setNama_penjualan(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
+                                md.setKode(data.getString("kode_penjualan"));
+                                md.setHarga_jual_bersih(data.getString("harga_jual_bersih"));
+                                md.setTanggal_penjualan(ServerAccess.parseDate(data.getString("create_at")));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -234,8 +234,7 @@ public class Penjualan extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
-                params.put("tipedata", "kavling");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 return params;
             }
         };

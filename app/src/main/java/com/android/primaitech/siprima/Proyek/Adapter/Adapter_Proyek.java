@@ -66,10 +66,11 @@ public class Adapter_Proyek extends RecyclerView.Adapter<Adapter_Proyek.ViewHold
             edit = proyek.edit;
             hapus = proyek.hapus;
             detail = proyek.detail;
-        if(!edit.equals("1"))
-            holder.edit.setVisibility(View.GONE);
-        if (!hapus.equals("1"))
-            holder.hapus.setVisibility(View.GONE);
+//        if(!edit.equals("1"))
+//            holder.edit.setVisibility(View.GONE);
+//        if (!hapus.equals("1"))
+//            holder.hapus.setVisibility(View.GONE);
+        Log.d("pesan", "editnya adalah "+edit +" hapusnya adalah "+hapus);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
     }

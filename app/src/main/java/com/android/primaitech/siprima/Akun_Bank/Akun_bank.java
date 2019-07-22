@@ -165,6 +165,7 @@ public class Akun_bank extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("tipedata", "submenu");
                 params.put("kode_menu", kode_menu);
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
                 return params;
             }

@@ -190,7 +190,7 @@ public class Fragment_Dashboard extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
+                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
                 params.put("kode_role", AuthData.getInstance(getContext()).getKode_role());
                 params.put("kode_user", AuthData.getInstance(getContext()).getKodeUser());
                 params.put("tipedata", "dataAkun");
