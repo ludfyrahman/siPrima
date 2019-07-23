@@ -26,6 +26,6 @@
         android:layout_gravity="center"
 
         android:gravity="center"
-        android:text="Detail Akun Bank"/>
+        android:text="Detail Proyek"/>
 
 </LinearLayout>

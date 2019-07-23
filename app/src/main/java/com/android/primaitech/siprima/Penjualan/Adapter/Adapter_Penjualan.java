@@ -21,6 +21,7 @@ import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
 import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
+import com.android.primaitech.siprima.Penjualan.Penjualan;
 import com.android.primaitech.siprima.R;
 import com.bumptech.glide.Glide;
 
@@ -57,10 +58,10 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
         Glide.with(activity)
                 .load(listdata.get(position).getCover())
                 .into(holder.gambar);
-        Kavling kavling = new Kavling();
-        edit = kavling.edit;
-        hapus = kavling.hapus;
-        detail = kavling.detail;
+        Penjualan penjualan = new Penjualan();
+        edit = penjualan.edit;
+        hapus = penjualan.hapus;
+        detail = penjualan.detail;
         if(!edit.equals("1"))
             holder.edit.setVisibility(View.GONE);
         if (!hapus.equals("1"))

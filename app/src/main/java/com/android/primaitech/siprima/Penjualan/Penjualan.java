@@ -70,6 +70,12 @@ public class Penjualan extends AppCompatActivity {
         listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Penjualan.this, Tambah_Penjualan.class));
+            }
+        });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
         adapter = new Adapter_Penjualan(Penjualan.this,(ArrayList<Penjualan_Model>) list);
@@ -179,7 +185,6 @@ public class Penjualan extends AppCompatActivity {
             }
         };
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
-//        startActivity(new Intent(getBaseContext(), Akun_bank.class));
     }
     private void loadJson()
     {
@@ -198,12 +203,11 @@ public class Penjualan extends AppCompatActivity {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
                                 Penjualan_Model md = new Penjualan_Model();
-//                                md.setCover(ServerAccess.upload+"/"+data.getString("desain_rumah"));
                                 md.setNama_pembeli(data.getString("nama_pembeli"));
                                 md.setNama_penjual(data.getString("nama_karyawan"));
                                 md.setNama_penjualan(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
                                 md.setKode(data.getString("kode_penjualan"));
-                                md.setHarga_jual_bersih(data.getString("harga_jual_bersih"));
+                                md.setHarga_jual_bersih(ServerAccess.numberFormat(data.getInt("harga_jual_bersih")));
                                 md.setTanggal_penjualan(ServerAccess.parseDate(data.getString("create_at")));
                                 list.add(md);
                             } catch (Exception ea) {

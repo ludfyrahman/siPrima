@@ -75,10 +75,10 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                Kunjungan_Pembeli.this.onBackPressed();
             }
         });
-        textnya = (TextView)findViewById(R.id.textnya);
+//        textnya = (TextView)findViewById(R.id.textnya);
         listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
@@ -144,7 +144,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
 //        startActivity(new Intent(getBaseContext(), Akun_bank.class));
     }
-    public void timeSet(int hourOfDay, int minute, int day, int month, int year) {
+    public void timeSet(int hourOfDay, int minute, int day, int month, int year, String kode) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
@@ -154,19 +154,20 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         c.set(Calendar.SECOND, 0);
         Log.d("pesan", "datanya adalah "+year+"-"+month+"-"+day+" "+hourOfDay+":"+minute);
         updateTimeText(c);
-        startAlarm(c);
+        startAlarm(c, kode);
     }
 
     private void updateTimeText(Calendar c) {
         String timeText = "Alarm set for: ";
         timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTimeInMillis());
 
-        textnya.setText(timeText);
+//        textnya.setText(timeText);
     }
 
-    private void startAlarm(Calendar c) {
+    private void startAlarm(Calendar c, String kode) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtra("kode", kode);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
@@ -212,7 +213,8 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                                 int tglhari = Integer.parseInt(tanggalList[2]);
                                 int jam = Integer.parseInt(timeList[0]);
                                 int menit = Integer.parseInt(timeList[1]);
-                                timeSet(jam, menit, tglhari, bulan, tahun);
+
+                                timeSet(jam, menit, tglhari, bulan, tahun, data.getString("kode_kunjungan"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();

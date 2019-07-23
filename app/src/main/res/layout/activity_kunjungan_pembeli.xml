@@ -24,11 +24,11 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:title="Follow Up User" />
         </android.support.design.widget.AppBarLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="text"
-            android:id="@+id/textnya"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="text"-->
+            <!--android:id="@+id/textnya"/>-->
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:id="@+id/swlayout"

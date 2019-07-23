@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:name=".Config.AppController"
         android:allowBackup="true"
@@ -20,7 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Follow_Up.Form_Follow_Up"></activity>
+        <activity android:name=".Kehadiran.Tambah_Absensi"></activity>
+        <activity android:name=".Kavling.Pilih_Kavling" />
+        <activity android:name=".Pembeli.Pilih_Pembeli" />
+        <activity android:name=".Kehadiran.Kehadiran" />
+        <activity android:name=".Penjualan.Form_Konfirmasi" />
+        <activity android:name=".Penjualan.Form_Pembayaran" />
+        <activity android:name=".Penjualan.Form_Data_Kavling" />
+        <activity android:name=".Penjualan.Tambah_Penjualan" />
+        <activity android:name=".Follow_Up.Form_Follow_Up" />
         <activity android:name=".Follow_Up.Detail_Follow_Up" />
         <activity android:name=".Pembeli.Kunjungan_Pembeli" />
         <activity android:name=".Follow_Up.Tambah_Follow_Up" />
@@ -55,6 +64,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".Config.AlertReceiver" />
     </application>
 

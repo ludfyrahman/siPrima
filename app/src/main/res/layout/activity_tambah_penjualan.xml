@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+    <com.githang.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.658">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="Pilih Nama Pembeli"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Pilih Pembeli"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:id="@+id/nama_pembeli_text"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Pilih Nama Pembeli"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="Data Diri Pembeli"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Nama Pembeli"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/nama_pembeli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@mipmap/input"
+                    android:ems="0"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:hint="Nama Pembeli"
+                    android:inputType="text"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingBottom="12dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Nik/No Ktp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/nik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@mipmap/input"
+                    android:ems="0"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:hint="NIk"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingBottom="12dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="No Hp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/no_hp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@mipmap/input"
+                    android:ems="0"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:hint="No Hp"
+                    android:inputType="textPhonetic"
+                    android:paddingTop="16dp"
+                    android:textSize="15sp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingBottom="12dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Email"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/input"
+                        android:ems="0"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:hint="Email"
+                        android:inputType="text"
+                        android:paddingTop="16dp"
+                        android:textSize="15sp"
+                        android:paddingLeft="24dp"
+                        android:paddingRight="24dp"
+                        android:paddingBottom="12dp" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Alamat Pembeli"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/alamat_pembeli"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/input"
+                        android:ems="0"
+                        android:gravity="top"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:hint="Alamat Pembeli"
+                        android:inputType="text"
+                        android:paddingTop="16dp"
+                        android:paddingLeft="24dp"
+                        android:textSize="15sp"
+                        android:paddingRight="24dp"
+                        android:paddingBottom="12dp" />
+                </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Data Instansi Kerja"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Nama Instansi Kerja"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/instansi_kerja"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@mipmap/input"
+                            android:ems="0"
+                            android:fontFamily="@font/josefinsans_regular"
+                            android:hint="Instansi Kerja"
+                            android:inputType="text"
+                            android:paddingTop="16dp"
+                            android:textSize="15sp"
+                            android:paddingLeft="24dp"
+                            android:paddingRight="24dp"
+                            android:paddingBottom="12dp" />
+                    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="No Telephone Instansi"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/no_telp_instansi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@mipmap/input"
+                    android:ems="0"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:hint="No Telephone Instansi"
+                    android:inputType="textPhonetic"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="24dp"
+                    android:textSize="15sp"
+                    android:paddingRight="24dp"
+                    android:paddingBottom="12dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Alamat Instansi"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/alamat_instansi"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@mipmap/input"
+                    android:ems="0"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:hint="Alamat Instansi"
+                    android:inputType="text"
+                    android:gravity="top"
+                    android:paddingTop="16dp"
+                    android:textSize="15sp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingBottom="12dp" />
+            </LinearLayout>
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/border_green"
+            android:text="Next"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

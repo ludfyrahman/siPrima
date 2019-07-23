@@ -3,11 +3,15 @@ package com.android.primaitech.siprima.Config;
 import android.annotation.TargetApi;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Follow_Up.Detail_Follow_Up;
 import com.android.primaitech.siprima.R;
 
 public class NotificationHelper extends ContextWrapper {
@@ -38,10 +42,15 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification() {
+    public NotificationCompat.Builder getChannelNotification(String kode) {
+        Intent intent = new Intent(this, Detail_Follow_Up.class);
+        intent.putExtra("kode", kode);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Pengingat Follow Up!")
                 .setContentText("Terdapat User Yang harus di Follow Up")
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.logo_app);
     }
 }

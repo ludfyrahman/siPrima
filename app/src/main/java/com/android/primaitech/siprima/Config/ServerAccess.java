@@ -25,6 +25,7 @@ public class ServerAccess {
     public static final String URL_PROYEK=ROOT_API+"proyek/";
     public static final String URL_PENJUALAN=ROOT_API+"penjualan/";
     public static final String URL_KUNJUNGAN=ROOT_API+"kunjungan/";
+    public static final String URL_KEGIATAN=ROOT_API+"kegiatan/";
     public static final String URL_LOGOUT=ROOT_API+"Api/authlogout";
     public static final String URL_NOTIF=ROOT_API+"Apikomplain/kirimnotif";
     public static final String URL_LAPORAN=ROOT_API+"Apikomplain/getlaporan/";

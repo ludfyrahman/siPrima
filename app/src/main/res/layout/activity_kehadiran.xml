@@ -22,7 +22,19 @@
                 app:titleTextColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="Penjualan" />
+                app:title="Kehadiran" />
+            <devs.mulham.horizontalcalendar.HorizontalCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:selectorColor="@color/colorPrimary"
+                android:background="@color/colorPrimary"
+                app:textColorSelected="@color/colorPrimary"
+                app:colorMiddleTextSelected="@color/colorPrimary"
+                app:colorTopTextSelected="@color/colorPrimary"
+                app:colorBottomTextSelected="@color/colorPrimary"
+                app:sizeBottomText="14sp"
+                app:sizeMiddleText="20sp"/>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -70,8 +82,8 @@
         android:backgroundTint="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:borderWidth="0dp"
         android:layout_gravity="end|bottom"
         android:layout_margin="18dp"
-        app:borderWidth="0dp"
         tools:ignore="VectorDrawableCompat" />
 </FrameLayout>
