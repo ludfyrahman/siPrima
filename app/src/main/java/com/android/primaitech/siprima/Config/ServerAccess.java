@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.28/siprima/";
-//    public static final String BASE_URL = "http://192.168.43.234/siprima/";
+    public static final String BASE_URL = "http://192.168.1.19/siprima/";
+//    public static final String BASE_URL = "http://10.212.218.137/siprima/";
 //    public static final String BASE_URL = "https://primagroup.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";
     public static final String ROOT_API = BASE_URL+"api/";
@@ -26,6 +26,7 @@ public class ServerAccess {
     public static final String URL_PENJUALAN=ROOT_API+"penjualan/";
     public static final String URL_KUNJUNGAN=ROOT_API+"kunjungan/";
     public static final String URL_KEGIATAN=ROOT_API+"kegiatan/";
+    public static final String URL_CUTI=ROOT_API+"cuti/";
     public static final String URL_LOGOUT=ROOT_API+"Api/authlogout";
     public static final String URL_NOTIF=ROOT_API+"Apikomplain/kirimnotif";
     public static final String URL_LAPORAN=ROOT_API+"Apikomplain/getlaporan/";

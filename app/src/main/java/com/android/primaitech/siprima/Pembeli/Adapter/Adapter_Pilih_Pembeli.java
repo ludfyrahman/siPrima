@@ -16,11 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
+import com.android.primaitech.siprima.Kavling.Pilih_Kavling;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Fragment_Calon_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Fragment_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pilih_Pembeli;
 import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
 import com.android.primaitech.siprima.R;
 
@@ -77,12 +80,20 @@ public class Adapter_Pilih_Pembeli extends RecyclerView.Adapter<Adapter_Pilih_Pe
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MenuData menuData = new MenuData();
+                    Pilih_Pembeli pilih_pembeli = new Pilih_Pembeli();
                     try {
-                            Intent intent = new Intent(v.getContext(), Tambah_Penjualan.class);
-                            intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
-                            intent.putExtra("kode", kode.getText().toString());
-                            v.getContext().startActivity(intent);
+                            if (pilih_pembeli.code.equals("1")){
+                                Intent intent = new Intent(v.getContext(), Tambah_Penjualan.class);
+                                intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
+                                intent.putExtra("kode", kode.getText().toString());
+                                v.getContext().startActivity(intent);
+                            }else{
+                                Intent intent = new Intent(v.getContext(), Tambah_Follow_Up.class);
+                                intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
+                                intent.putExtra("kode", kode.getText().toString());
+                                intent.putExtra("code", "2");
+                                v.getContext().startActivity(intent);
+                            }
                     } catch (Exception e) {
                         Log.d("pesan", "error");
                     }

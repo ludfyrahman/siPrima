@@ -20,6 +20,7 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Divisi.Adapter.Adapter_Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
+import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pilih_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
@@ -49,6 +50,7 @@ public class Pilih_Pembeli extends AppCompatActivity {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     ImageView close;
+    public static String code="1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +60,28 @@ public class Pilih_Pembeli extends AppCompatActivity {
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
         close = (ImageView)findViewById(R.id.fullscreen_dialog_close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), Tambah_Penjualan.class));
-            }
-        });
+//        close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                startActivity(new Intent(getBaseContext(), Tambah_Penjualan.class));
+//                Pilih_Pembeli.this.onBackPressed();
+//            }
+//        });
+        Intent data = getIntent();
+        if(data.hasExtra("code")) {
+            code = data.getStringExtra("code");
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(code.equals("1")){
+                        startActivity(new Intent(getBaseContext(), Tambah_Penjualan.class));
+                    }else{
+                        startActivity(new Intent(getBaseContext(), Tambah_Follow_Up.class));
+                    }
+//                    Pilih_Pembeli.this.onBackPressed();
+                }
+            });
+        }
         adapter = new Adapter_Pilih_Pembeli(Pilih_Pembeli.this,(ArrayList<Pembeli_Model>) list);
         mManager = new LinearLayoutManager(Pilih_Pembeli.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);

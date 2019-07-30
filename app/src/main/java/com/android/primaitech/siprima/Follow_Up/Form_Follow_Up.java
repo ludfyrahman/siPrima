@@ -74,7 +74,7 @@ public class Form_Follow_Up extends AppCompatActivity {
     ProgressDialog pd;
     Calendar myCalendar;
     Button simpan;
-    TextView nama_pembeli, prospek, pembahasan, kendala, tanggal_selesai;
+    TextView nama_pembeli, pembahasan, kendala, tanggal_selesai;
     private LocationManager locationManager;
     private LocationListener listener;
     private static final String IMAGE_DIRECTORY = "/PrimaGroup";
@@ -82,7 +82,9 @@ public class Form_Follow_Up extends AppCompatActivity {
     private ImageView gambar;
     DatePickerDialog.OnDateSetListener date;
     private Uri contentURI;
+    Button prospek_rendah, prospek_sedang, prospek_tinggi;
      double longitude = 0, latitude = 0;
+     int prospek = 0;
     Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,31 @@ public class Form_Follow_Up extends AppCompatActivity {
                 Form_Follow_Up.this.onBackPressed();
             }
         });
+        prospek_rendah = (Button)findViewById(R.id.prospek_rendah);
+        prospek_sedang = (Button)findViewById(R.id.prospek_sedang);
+        prospek_tinggi = (Button)findViewById(R.id.prospek_tinggi);
+        prospek_rendah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prospek = 1;
+                setprospek(1);
+            }
+        });
+        prospek_sedang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prospek = 2;
+                setprospek(2);
+            }
+        });
+        prospek_tinggi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prospek = 3;
+                setprospek(3);
+            }
+        });
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         listener = new LocationListener() {
             @Override
@@ -133,7 +160,7 @@ public class Form_Follow_Up extends AppCompatActivity {
         });
         nama_pembeli = (TextView) findViewById(R.id.nama_pembeli);
         nama_pembeli.setText(data.getStringExtra("nama_pembeli"));
-        prospek = (TextView)findViewById(R.id.prospek);
+//        prospek = (TextView)findViewById(R.id.prospek);
         pembahasan = (TextView)findViewById(R.id.pembahasan);
         kendala = (TextView)findViewById(R.id.kendala);
         tanggal_selesai = (TextView)findViewById(R.id.tanggal_selesai);
@@ -151,6 +178,21 @@ public class Form_Follow_Up extends AppCompatActivity {
         });
         requestMultiplePermissions();
         configure_button();
+    }
+    private void setprospek(int val){
+        if(val == 1){
+            prospek_rendah.setBackgroundResource(R.drawable.box_shadow);
+            prospek_sedang.setBackgroundResource(R.drawable.border_green);
+            prospek_tinggi.setBackgroundResource(R.drawable.border_green);
+        }else if(val == 2){
+            prospek_sedang.setBackgroundResource(R.drawable.box_shadow);
+            prospek_rendah.setBackgroundResource(R.drawable.border_green);
+            prospek_tinggi.setBackgroundResource(R.drawable.border_green);
+        }else if(val == 3){
+            prospek_tinggi.setBackgroundResource(R.drawable.box_shadow);
+            prospek_rendah.setBackgroundResource(R.drawable.border_green);
+            prospek_sedang.setBackgroundResource(R.drawable.border_green);
+        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -221,10 +263,8 @@ public class Form_Follow_Up extends AppCompatActivity {
 //        final String lat = Integer.toString(latitude);
         final String kendala_text = kendala.getText().toString().trim();
         final String bahasan = pembahasan.getText().toString().trim();
-        final String prospek_text = prospek.getText().toString().trim();
-        if(prospek_text.equals("")){
+        if(prospek == 0){
             Toast.makeText(this, "Prospek masih kosong", Toast.LENGTH_SHORT).show();
-            prospek.setFocusable(true);
         }else if(bahasan.equals("")){
             Toast.makeText(this, "Pembahasan masih kosong", Toast.LENGTH_SHORT).show();
             kendala.setFocusable(true);
@@ -293,7 +333,7 @@ public class Form_Follow_Up extends AppCompatActivity {
                     params.put("pembahasan", bahasan);
                     params.put("latitude", String.valueOf(latitude));
                     params.put("longitude", String.valueOf(longitude));
-                    params.put("prospek", prospek_text);
+                    params.put("prospek", String.valueOf(prospek));
                     params.put("kendala", kendala_text);
                     return params;
                 }

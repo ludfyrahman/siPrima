@@ -25,12 +25,16 @@ import android.widget.Toast;
 import com.android.primaitech.siprima.Config.AlertReceiver;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
+import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Kavling.Pilih_Kavling;
 import com.android.primaitech.siprima.MainActivity;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pilih_Pembeli;
+import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -58,6 +62,10 @@ public class Tambah_Follow_Up extends AppCompatActivity {
     TextView nama_pembeli, tanggal_pertemuan, alamat;
     DatePickerDialog.OnDateSetListener date;
     boolean status = false;
+    String code="1";
+    Date c = Calendar.getInstance().getTime();
+    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    String now = df.format(c);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +74,25 @@ public class Tambah_Follow_Up extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Tambah_Follow_Up.this.onBackPressed();
-            }
-        });
+        if(data.hasExtra("code")) {
+            code = data.getStringExtra("code");
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(code.equals("1")){
+//                        startActivity(new Intent(getBaseContext(), Tambah_Penjualan.class));
+                        Tambah_Follow_Up.this.onBackPressed();
+                    }else{
+                        MenuData menuData = new MenuData();
+                        menuData.kode_menu = "menu10";
+                        Intent intent = new Intent(v.getContext(), Pembeli.class);
+//                        intent.putExtra("kode", kode.getText().toString());
+                        v.getContext().startActivity(intent);
+//                        startActivity(new Intent(getBaseContext(), Pembeli.class));
+                    }
+                }
+            });
+        }
         simpan = (Button)findViewById(R.id.simpan);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +101,22 @@ public class Tambah_Follow_Up extends AppCompatActivity {
             }
         });
         nama_pembeli = (TextView) findViewById(R.id.nama_pembeli);
-        nama_pembeli.setText(data.getStringExtra("nama_pembeli"));
+        if(data.hasExtra("nama_pembeli")) {
+            nama_pembeli.setText(data.getStringExtra("nama_pembeli"));
+        }else{
+            nama_pembeli.setText("Pilih Pembeli");
+            nama_pembeli.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), Pilih_Pembeli.class);
+                    intent.putExtra("code", "2");
+                    startActivity(intent);
+//                    startActivity(new Intent(Tambah_Follow_Up.this, Pilih_Pembeli.class));
+                }
+            });
+        }
         tanggal_pertemuan = (TextView)findViewById(R.id.tanggal_pertemuan);
+        tanggal_pertemuan.setText(now);
         alamat = (TextView)findViewById(R.id.alamat);
         btn_calendar = (ImageView)findViewById(R.id.btn_calendar);
         myCalendar = Calendar.getInstance();
@@ -129,7 +164,7 @@ public class Tambah_Follow_Up extends AppCompatActivity {
         try{
             Date strDate = sdf.parse(sdf.format(myCalendar.getTime()));
             if (System.currentTimeMillis() > strDate.getTime()) {
-                Log.d("pesan", "tanggal tida valid");
+                Log.d("pesan", "tanggal tidak valid");
                 status = false;
             }else{
                 status = true;
@@ -147,7 +182,7 @@ public class Tambah_Follow_Up extends AppCompatActivity {
         if(status == false){
             Toast.makeText(this, "Tanggal Pertemuan Tidak Valid", Toast.LENGTH_SHORT).show();
         }else if(kode_pembeliFinal.equals("")){
-            Toast.makeText(this, "Nama pembeli masih kosong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nama pembeli masih belum dipilih", Toast.LENGTH_SHORT).show();
         }else if(tanggal_temu.equals("")){
             Toast.makeText(this, "Tanggal pertemuan masih kosong", Toast.LENGTH_SHORT).show();
             tanggal_pertemuan.setFocusable(true);
@@ -172,7 +207,8 @@ public class Tambah_Follow_Up extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    startActivity(new Intent(Tambah_Follow_Up.this, Dashboard.class));
+                                    Tambah_Follow_Up.this.onBackPressed();
+//                                    startActivity(new Intent(Tambah_Follow_Up.this, Dashboard.class));
 
                                 } else {
                                     Toast.makeText(

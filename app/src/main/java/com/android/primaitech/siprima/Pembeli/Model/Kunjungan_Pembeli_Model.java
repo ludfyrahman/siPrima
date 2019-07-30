@@ -1,7 +1,15 @@
 package com.android.primaitech.siprima.Pembeli.Model;
 
 public class Kunjungan_Pembeli_Model {
-    String nama_karyawan, prospek, alamat_temu, kode_kunjungan, tanggal_pertemuan, status;
+    String nama_karyawan, nama_pembeli, prospek, alamat_temu, kode_kunjungan, tanggal_pertemuan, status;
+
+    public String getNama_pembeli() {
+        return nama_pembeli;
+    }
+
+    public void setNama_pembeli(String nama_pembeli) {
+        this.nama_pembeli = nama_pembeli;
+    }
 
     public String getNama_karyawan() {
         return nama_karyawan;

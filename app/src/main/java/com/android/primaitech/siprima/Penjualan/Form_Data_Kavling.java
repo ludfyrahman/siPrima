@@ -19,6 +19,7 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Pilih_Kavling;
 import com.android.primaitech.siprima.Pembeli.Pilih_Pembeli;
+import com.android.primaitech.siprima.Penjualan.Temp.Temp_Penjualan;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -43,7 +44,7 @@ public class Form_Data_Kavling extends AppCompatActivity {
     StepView mStepView;
     Button next, prev;
     ProgressDialog pd;
-    TextView nama_kavling, nama_karyawan, harga_jual, tipe_rumah, luas_bangunan, luas_tanah, nama_proyek;
+    TextView nama_kavling,nama_pembeli, nama_karyawan, harga_jual, tipe_rumah, luas_bangunan, luas_tanah, nama_proyek;
     ImageView gambar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +95,17 @@ public class Form_Data_Kavling extends AppCompatActivity {
             }
         });
         Intent data = getIntent();
+        loadJson(Temp_Penjualan.getInstance(getBaseContext()).getKode_kavling());
         if(!data.hasExtra("kode")){
             Log.d("pesan", "kode kavling kosong");
         }else{
-            nama_kavling.setText(data.getStringExtra("nama_kavling"));
+            Temp_Penjualan.getInstance(getBaseContext()).setKode_kavling(data.getStringExtra("kode"));
             loadJson(data.getStringExtra("kode"));
         }
         loadProyek();
+    }
+    public void onBackPressed() {
+        startActivity(new Intent(Form_Data_Kavling.this, Tambah_Penjualan.class));
     }
     private void loadJson(final String kode)
     {
@@ -120,6 +125,7 @@ public class Form_Data_Kavling extends AppCompatActivity {
                     harga_jual.setText(ServerAccess.numberConvert(data.getString("harga_jual")));
                     luas_bangunan.setText(data.getString("panjang")+" x "+data.getString("lebar"));
                     luas_tanah.setText(data.getString("panjang_tanah")+" x "+data.getString("lebar_tanah"));
+                    Temp_Penjualan.getInstance(getBaseContext()).setHarga_jual(data.getString("harga_jual"));
                     Glide.with(Form_Data_Kavling.this)
                             .load(ServerAccess.BASE_URL+"/"+data.getString("desain_rumah"))
                             .into(gambar);

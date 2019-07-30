@@ -50,13 +50,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="Nama Proyek"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="right"
                     android:id="@+id/nama_proyek"
                     android:fontFamily="@font/josefinsans_regular"
@@ -71,7 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="Nama Kavling"/>
                 <TextView
@@ -80,6 +79,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:id="@+id/nama_kavling"
+                    android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="Pilih Nama Kavling"/>
             </LinearLayout>
@@ -92,7 +92,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="Nama Karyawan"/>
                 <TextView

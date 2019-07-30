@@ -48,7 +48,9 @@ public class Pembeli extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        toolbar.setTitle(data.getStringExtra("nama_menu"));
+        if(data.hasExtra("nama_menu")){
+            toolbar.setTitle(data.getStringExtra("nama_menu"));
+        }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +94,14 @@ public class Pembeli extends AppCompatActivity {
     }
     private void setupViewPager(final ViewPager viewPager) {
         Intent data = getIntent();
-        final String kode_menu = data.getStringExtra("kode_menu");
+        MenuData menuData = new MenuData();
+        String kd_menu = "";
+        if(data.hasExtra("kode_menu")){
+            kd_menu = data.getStringExtra("kode_menu");
+        }else{
+            kd_menu = menuData.kode_menu;
+        }
+        final String kode_menu = kd_menu;
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

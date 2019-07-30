@@ -21,7 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Kehadiran.Tambah_Absensi"></activity>
+        <activity android:name=".Cuti.Tambah_Cuti"></activity>
+        <activity android:name=".Cuti.Detail_Cuti" />
+        <activity android:name=".Cuti.Cuti" />
+        <activity android:name=".Kegiatan.Detail_Kegiatan" />
+        <activity android:name=".Kegiatan.Tambah_Kegiatan" />
+        <activity android:name=".Kegiatan.Kegiatan" />
+        <activity android:name=".Pembeli.Fragment_Follow_Up" />
+        <activity android:name=".Kehadiran.Tambah_Absensi" />
         <activity android:name=".Kavling.Pilih_Kavling" />
         <activity android:name=".Pembeli.Pilih_Pembeli" />
         <activity android:name=".Kehadiran.Kehadiran" />

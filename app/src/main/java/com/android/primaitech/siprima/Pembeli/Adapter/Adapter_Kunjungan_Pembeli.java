@@ -57,6 +57,7 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
         holder.alamat_temu.setText(listdata.get(position).getAlamat_temu());
         holder.prospek.setText(listdata.get(position).getProspek());
         holder.status.setText(listdata.get(position).getStatus());
+        holder.nama_pembeli.setText(listdata.get(position).getNama_pembeli());
         Kunjungan_Pembeli kunjungan_pembeli = new Kunjungan_Pembeli();
         edit = kunjungan_pembeli.edit;
         hapus = kunjungan_pembeli.hapus;
@@ -74,7 +75,7 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cv;
-        private TextView kode, nama_karyawan, alamat_temu, tanggal_pertemuan, prospek, status, edit, hapus;
+        private TextView kode, nama_karyawan, alamat_temu, tanggal_pertemuan, prospek, status, nama_pembeli, edit, hapus;
         String detailStatus;
         ProgressBar progress;
         String jumlah;
@@ -86,6 +87,7 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
             tanggal_pertemuan=(TextView) v.findViewById(R.id.tanggal_pertemuan);
             prospek=(TextView) v.findViewById(R.id.prospek);
             status = (TextView)v.findViewById(R.id.status);
+            nama_pembeli = (TextView)v.findViewById(R.id.nama_pembeli);
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
             hapus.setOnClickListener(new View.OnClickListener() {

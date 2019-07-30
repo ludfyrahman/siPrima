@@ -22,7 +22,7 @@
                 app:titleTextColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="Kehadiran" />
+                app:title="Kegiatan" />
             <devs.mulham.horizontalcalendar.HorizontalCalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"

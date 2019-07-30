@@ -22,15 +22,7 @@
                 app:titleTextColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="Kehadiran" />
-            <devs.mulham.horizontalcalendar.HorizontalCalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:selectorColor="@color/colorPrimary"
-                android:background="@color/colorWhite"
-                app:sizeBottomText="14sp"
-                app:sizeMiddleText="20sp"/>
+                app:title="Cuti" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -78,6 +70,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:borderWidth="0dp"
         android:layout_gravity="end|bottom"
         android:layout_margin="18dp"

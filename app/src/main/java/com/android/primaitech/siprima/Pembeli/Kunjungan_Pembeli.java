@@ -88,6 +88,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), Tambah_Follow_Up.class);
                 intent.putExtra("nama_pembeli", data.getStringExtra("nama_pembeli"));
                 intent.putExtra("kode_pembeli", data.getStringExtra("kode_pembeli"));
+                intent.putExtra("code", "1");
                 startActivity(intent);
             }
         });
@@ -202,6 +203,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                                 md.setTanggal_pertemuan(ServerAccess.parseDate(data.getString("tanggal_pertemuan")));
                                 md.setStatus(ServerAccess.statusFollowUp[data.getInt("status")]);
                                 md.setProspek(ServerAccess.prospek[data.getInt("prospek")]);
+                                md.setNama_pembeli(data.getString("nama_pembeli"));
                                 String date = data.getString("tanggal_pertemuan");
                                 String[] datelist = date.split(" ");
                                 String tanggal = datelist[0];

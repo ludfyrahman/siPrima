@@ -45,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="Pilih Pembeli"/>
             <TextView
@@ -54,6 +53,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:id="@+id/nama_pembeli_text"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="Pilih Nama Pembeli"/>
         </LinearLayout>
@@ -88,7 +88,7 @@
                     android:fontFamily="@font/josefinsans_regular"
                     android:hint="Nama Pembeli"
                     android:inputType="text"
-                    android:paddingTop="16dp"
+                    android:paddingTop="8dp"
                     android:paddingLeft="24dp"
                     android:paddingRight="24dp"
                     android:paddingBottom="12dp" />
@@ -116,7 +116,7 @@
                     android:hint="NIk"
                     android:inputType="text"
                     android:textSize="15sp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="8dp"
                     android:paddingLeft="24dp"
                     android:paddingRight="24dp"
                     android:paddingBottom="12dp" />
@@ -143,7 +143,7 @@
                     android:fontFamily="@font/josefinsans_regular"
                     android:hint="No Hp"
                     android:inputType="textPhonetic"
-                    android:paddingTop="16dp"
+                    android:paddingTop="8dp"
                     android:textSize="15sp"
                     android:paddingLeft="24dp"
                     android:paddingRight="24dp"
@@ -171,7 +171,7 @@
                         android:fontFamily="@font/josefinsans_regular"
                         android:hint="Email"
                         android:inputType="text"
-                        android:paddingTop="16dp"
+                        android:paddingTop="8dp"
                         android:textSize="15sp"
                         android:paddingLeft="24dp"
                         android:paddingRight="24dp"
@@ -199,7 +199,7 @@
                         android:gravity="top"
                         android:fontFamily="@font/josefinsans_regular"
                         android:hint="Alamat Pembeli"
-                        android:inputType="text"
+                        android:inputType="textMultiLine"
                         android:paddingTop="16dp"
                         android:paddingLeft="24dp"
                         android:textSize="15sp"
@@ -236,7 +236,7 @@
                             android:fontFamily="@font/josefinsans_regular"
                             android:hint="Instansi Kerja"
                             android:inputType="text"
-                            android:paddingTop="16dp"
+                            android:paddingTop="8dp"
                             android:textSize="15sp"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
@@ -264,7 +264,7 @@
                     android:fontFamily="@font/josefinsans_regular"
                     android:hint="No Telephone Instansi"
                     android:inputType="textPhonetic"
-                    android:paddingTop="16dp"
+                    android:paddingTop="8dp"
                     android:paddingLeft="24dp"
                     android:textSize="15sp"
                     android:paddingRight="24dp"

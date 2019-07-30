@@ -35,7 +35,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Pembayaran Kavling"/>
+                android:text="Konfirmasi Data"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -46,30 +46,95 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Metode Pembayawan"/>
+                android:text="Nama Pembeli"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/tunai"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/box_shadow"
-                    android:text="Tunai"
-                    android:textSize="12sp"
-                    android:layout_margin="16dp"
-                    android:textColor="@color/colorPrimary" />
-                <Button
-                    android:id="@+id/tunai_bertahap"
-                    android:layout_width="150dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/border_green"
-                    android:text="Tunai Bertahap"
-                    android:textSize="12sp"
-                    android:layout_margin="16dp"
-                    android:textColor="@color/colorPrimary" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/nama_pembeli"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="-"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Nama Kavling"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/nama_kavling"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="-"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Harga Kavling"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/harga_kavling"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="-"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Harga Bersih Kavling"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/harga_bersih"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="-"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Metode Bayar"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/metode_bayar"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -79,387 +144,242 @@
                 android:text="Diskon"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/email"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/diskon"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Total Yang Dibayar"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight=".8"
+                    android:visibility="gone"
+                    android:id="@+id/message"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRed"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:text="Sudah Termasuk Uang Booking"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/total_dibayar"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Harga Bersih"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="-"/>
-            <TextView
+                android:text="Jumlah Uang DP"/>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Uang Muka"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/uang_muka"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/jumlah_uang_dp"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Uang Booking"/>
+                android:text="Lama Angsuran DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/uang_booking"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/lama_angsuran_dp"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Tanggal Bayar Booking"/>
+                android:text="Jumlah Uang Per Angsuran DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/tanggal_bayar_booking"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/jumlah_angsuran_dp"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 23-07-2019"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Sisa DP Yang Harus Di bayar Setelah Booking"/>
+                android:text="Tanggal Pembayaran Uang DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/sisa_dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/tanggal_pembayaran_dp"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Jumlah Angsuran DP"/>
+                android:text="Jumlah Uang Booking"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/jumlah_anssuran_dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/jumlah_uang_booking"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Jumlah Uang Dp Yang Di Bayar Perbulan"/>
+                android:text="Tanggal Pembayaran Uang Booking"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/jumlah_dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/tanggal_uang_booking"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Tanggal Bayar DP"/>
+                android:text="Lama Angsuran Kavling"/>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/tanggal_bayar_dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 23-07-2019"
-                    android:inputType="date"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
-            </LinearLayout>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Sisa Uang Yang Harus Di Bayar Setelah DP"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/sisa_uang"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Lama Angsuran Bulanan"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
+                    android:padding="8dp"
                     android:id="@+id/lama_angsuran"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Jumlah Uang Angsuran Perbulan"/>
+                android:text="Jumlah Angsuran Perbulan"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:id="@+id/jumlah_angsuran"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Tanggal Bayar Angsuran"/>
+                android:text="Tanggal Pembayaran Angsuran"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/tanggal_bayar_angsuran"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/tanggal_angsuran"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Tangal Sisa Pembayaran"/>
+                android:text="Status Penjualan"/>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/tanggal_sisa_pembayaran"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:hint="Exp 20000"
-                    android:inputType="number"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
-            </LinearLayout>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Lain - Lain"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/lain_lain"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@mipmap/input"
-                    android:ems="0"
+                    android:padding="8dp"
+                    android:id="@+id/status"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:hint="lain lain"
-                    android:inputType="text"
-                    android:textSize="15sp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingBottom="12dp" />
+                    android:text="Menunggu Persetujuan Pimpinan"/>
             </LinearLayout>
 
 

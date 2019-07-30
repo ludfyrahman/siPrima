@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="Tanggal Pertemuan:"/>
                 <TextView
@@ -86,19 +86,53 @@
                     android:layout_marginRight="16dp"
                     android:src="@drawable/calendar"/>
             </LinearLayout>
-            <EditText
-                android:id="@+id/prospek"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@mipmap/input"
+                android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
-                android:hint="Prospek"
-                android:inputType="text"
-                android:padding="16dp" />
+                android:text="Prospek"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_weight="0."
+                    android:id="@+id/prospek_rendah"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_green"
+                    android:text="Rendah"
+                    android:textSize="12sp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/colorPrimary" />
+                <Button
+                    android:layout_weight="0."
+                    android:id="@+id/prospek_sedang"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_green"
+                    android:text="Sedang"
+                    android:textSize="12sp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/colorPrimary" />
+                <Button
+                    android:layout_weight="0."
+                    android:id="@+id/prospek_tinggi"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_green"
+                    android:text="Tinggi"
+                    android:textSize="12sp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Pembahasan"/>
             <EditText
                 android:id="@+id/pembahasan"
                 android:layout_width="match_parent"
@@ -111,9 +145,16 @@
                 android:ems="0"
                 android:gravity="top"
                 android:fontFamily="@font/josefinsans_regular"
-                android:hint="Pembahasan"
+                android:hint="Ex sosialisasi Pertama"
                 android:inputType="textMultiLine"
+                android:textSize="12sp"
                 android:padding="24dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Kendala"/>
             <EditText
                 android:id="@+id/kendala"
                 android:layout_width="match_parent"
@@ -124,9 +165,10 @@
                 android:layout_marginBottom="8dp"
                 android:background="@mipmap/input"
                 android:ems="0"
+                android:textSize="12sp"
                 android:gravity="top"
                 android:fontFamily="@font/josefinsans_regular"
-                android:hint="Kendala"
+                android:hint="Ex Jarak sangat jauh"
                 android:inputType="textMultiLine"
                 android:padding="24dp"/>
             <LinearLayout

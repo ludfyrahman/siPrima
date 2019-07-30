@@ -1,6 +1,11 @@
 package com.android.primaitech.siprima.Pembeli;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,12 +20,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
-import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Config.AlertReceiver;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Follow_Up.Detail_Follow_Up;
+import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
+import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Kunjungan_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Model.Kunjungan_Pembeli_Model;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -34,15 +42,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Pembeli extends Fragment {
+public class Fragment_Follow_Up extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Pembeli adapter;
-    private List<Pembeli_Model> list;
+    private Adapter_Kunjungan_Pembeli adapter;
+    private List<Kunjungan_Pembeli_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -53,14 +62,22 @@ public class Fragment_Pembeli extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_pembeli, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment_follow_up, container, false);
         listdata = (RecyclerView)v.findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)v.findViewById(R.id.tambah);
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Tambah_Follow_Up.class);
+//                intent.putExtra("kode", kode.getText().toString());
+                getContext().startActivity(intent);
+            }
+        });
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Pembeli(getActivity(),(ArrayList<Pembeli_Model>) list);
+        adapter = new Adapter_Kunjungan_Pembeli(getActivity(),(ArrayList<Kunjungan_Pembeli_Model>) list);
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -100,7 +117,7 @@ public class Fragment_Pembeli extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"datapembeli", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KUNJUNGAN+"datakunjungan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -111,12 +128,27 @@ public class Fragment_Pembeli extends Fragment {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Pembeli_Model md = new Pembeli_Model();
-                                md.setKode_pembeli(data.getString("kode_pembeli"));
+                                Kunjungan_Pembeli_Model md = new Kunjungan_Pembeli_Model();
+                                md.setKode_kunjungan(data.getString("kode_kunjungan"));
+                                md.setNama_karyawan(data.getString("nama_karyawan"));
+                                md.setAlamat_temu(data.getString("alamat_temu"));
+                                md.setTanggal_pertemuan(ServerAccess.parseDate(data.getString("tp")));
+                                md.setStatus(data.getString("status"));
+                                md.setProspek(ServerAccess.prospek[data.getInt("prospek")]);
+                                String date = data.getString("tp");
                                 md.setNama_pembeli(data.getString("nama_pembeli"));
-                                md.setNo_hp(data.getString("no_hp"));
-                                md.setNo_ktp(data.getString("no_ktp"));
-                                md.setStatus(data.getInt("status"));
+                                String[] datelist = date.split(" ");
+                                String tanggal = datelist[0];
+                                String[] tanggalList = tanggal.split("-");
+                                String time = datelist[1];
+                                String[] timeList = time.split(":");
+                                int tahun = Integer.parseInt(tanggalList[0]);
+                                int bulan = Integer.parseInt(tanggalList[1]);
+                                int tglhari = Integer.parseInt(tanggalList[2]);
+                                int jam = Integer.parseInt(timeList[0]);
+                                int menit = Integer.parseInt(timeList[1]);
+
+                                timeSet(jam, menit, tglhari, bulan, tahun, data.getString("kode_kunjungan"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -152,5 +184,28 @@ public class Fragment_Pembeli extends Fragment {
         };
 
         RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
+    }
+    public void timeSet(int hourOfDay, int minute, int day, int month, int year, String kode) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        c.set(Calendar.MONTH, month-1);
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.SECOND, 0);
+        Log.d("pesan", "datanya adalah "+year+"-"+month+"-"+day+" "+hourOfDay+":"+minute);
+        startAlarm(c, kode);
+    }
+    private void startAlarm(Calendar c, String kode) {
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), AlertReceiver.class);
+        intent.putExtra("kode", kode);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 22);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        }
     }
 }

@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/josefinsans_regular"
                 android:textColor="@color/colorPrimary"
-                android:layout_margin="8dp"
+                android:paddingBottom="8dp"
                 android:id="@+id/keterangan"
                 android:text="-"/>
         </LinearLayout>

@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Promo;
+package com.android.primaitech.siprima.Cuti;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,12 +18,13 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Cuti.Adapter.Adapter_Cuti;
+import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
-import com.android.primaitech.siprima.Kavling.Kavling;
-import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
-import com.android.primaitech.siprima.Promo.Adapter.Adapter_Promo;
-import com.android.primaitech.siprima.Promo.Model.Promo_Model;
+import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
+import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
+import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
+import com.android.primaitech.siprima.Kegiatan.Tambah_Kegiatan;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,16 +36,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Promo extends AppCompatActivity {
+public class Cuti extends  AppCompatActivity {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Promo adapter;
-    private List<Promo_Model> list;
+    private Adapter_Cuti adapter;
+    private List<Cuti_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -52,10 +56,13 @@ public class Promo extends AppCompatActivity {
     LinearLayout not_found;
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
+    Date c = Calendar.getInstance().getTime();
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    String now = df.format(c);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_promo);
+        setContentView(R.layout.activity_cuti);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
@@ -70,13 +77,22 @@ public class Promo extends AppCompatActivity {
         listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tambah_Cuti bt = new Tambah_Cuti();
+                Bundle bundle = new Bundle();
+                bt.setArguments(bundle);
+                bt.show(getSupportFragmentManager(), "Cuti");
+            }
+        });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Promo(Promo.this,(ArrayList<Promo_Model>) list);
-        mManager = new LinearLayoutManager(Promo.this,LinearLayoutManager.VERTICAL,false);
+        adapter = new Adapter_Cuti(Cuti.this,(ArrayList<Cuti_Model>) list);
+        mManager = new LinearLayoutManager(Cuti.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
-        pd = new ProgressDialog(Promo.this);
+        pd = new ProgressDialog(Cuti.this);
         loadJson();
         refresh = (FrameLayout) findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
@@ -89,6 +105,7 @@ public class Promo extends AppCompatActivity {
         });
         validate();
     }
+
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -152,7 +169,7 @@ public class Promo extends AppCompatActivity {
             }
         };
 
-        RequestHandler.getInstance(Promo.this).addToRequestQueue(senddata);
+        RequestHandler.getInstance(Cuti.this).addToRequestQueue(senddata);
     }
     public  void delete(final String kode){
 
@@ -173,7 +190,7 @@ public class Promo extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", kode);
-                params.put("tipedata", "promo");
+                params.put("tipedata", "kategori_kavling");
                 params.put("tipe_akun", "1");
                 return params;
             }
@@ -186,7 +203,7 @@ public class Promo extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_CUTI+"datacuti", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -197,13 +214,14 @@ public class Promo extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Promo_Model md = new Promo_Model();
-                                md.setCover(ServerAccess.BASE_URL+"/"+data.getString("cover_kecil"));
-                                md.setKode_promo(data.getString("kode_promo"));
-                                md.setNama_promo(data.getString("nama_promo"));
-                                md.setTanggal_mulai(data.getString("tgl_mulai"));
-                                md.setTanggal_selesai(data.getString("tgl_selesai"));
-                                md.setNama_usaha(data.getString("nama_usaha"));
+                                Cuti_Model md = new Cuti_Model();
+                                md.setKode_detail_cuti(data.getString("kode_detail"));
+                                md.setNama_karyawan(data.getString("nama_karyawan"));
+                                md.setKeterangan(data.getString("keterangan"));
+                                md.setNama_unit(data.getString("nama_unit"));
+                                md.setNama_proyek(data.getString("nama_proyek"));
+                                md.setTanggal(ServerAccess.parseDate(data.getString("create_at")));
+                                md.setStatus(data.getString("status"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -234,7 +252,8 @@ public class Promo extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("tipedata", "promo");
+                params.put("tglmulai", now);
+                params.put("tglakhir", now);
                 return params;
             }
         };

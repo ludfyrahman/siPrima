@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Kehadiran;
+package com.android.primaitech.siprima.Kegiatan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,20 +13,20 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
+import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
-import com.android.primaitech.siprima.Kavling.Kavling;
-import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Kegiatan.Adapter.Adapter_Kegiatan;
+import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
 import com.android.primaitech.siprima.Kehadiran.Adapter.Adapter_Kehadiran;
+import com.android.primaitech.siprima.Kehadiran.Kehadiran;
 import com.android.primaitech.siprima.Kehadiran.Model.Kehadiran_Model;
-import com.android.primaitech.siprima.MainActivity;
+import com.android.primaitech.siprima.Kehadiran.Tambah_Absensi;
+import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -41,7 +41,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,10 +51,11 @@ import devs.mulham.horizontalcalendar.model.CalendarEvent;
 import devs.mulham.horizontalcalendar.utils.CalendarEventsPredicate;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-public class Kehadiran extends AppCompatActivity {
+public class Kegiatan extends AppCompatActivity {
     private HorizontalCalendar horizontalCalendar;
-    private Adapter_Kehadiran adapter;
-    private List<Kehadiran_Model> list;
+    public static String buat, edit, hapus, detail;
+    private Adapter_Kegiatan adapter;
+    private List<Kegiatan_Model> list;
     private RecyclerView listdata;
     RecyclerView.LayoutManager mManager;
     ProgressDialog pd;
@@ -66,19 +66,19 @@ public class Kehadiran extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kehadiran);
-        android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_kegiatan);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        pd = new ProgressDialog(Kehadiran.this);
+        pd = new ProgressDialog(Kegiatan.this);
         if(data.hasExtra("nama_menu")) {
             toolbar.setTitle(data.getStringExtra("nama_menu"));
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Kehadiran.this.onBackPressed();
+                Kegiatan.this.onBackPressed();
             }
         });
         /* start 2 months ago from now */
@@ -129,29 +129,21 @@ public class Kehadiran extends AppCompatActivity {
                     tambah.hide();
                     Log.d("pesan", "I'm Here else");
                 }
-                Toast.makeText(Kehadiran.this, selectedDateStr + " selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Kegiatan.this, selectedDateStr + " selected!", Toast.LENGTH_SHORT).show();
                 reload(selectedDateStr);
             }
 
         });
-
-//        FloatingActionButton fab = findViewById(R.id.tambah);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                horizontalCalendar.goToday(false);
-//            }
-//        });
         listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kehadiran(Kehadiran.this,(ArrayList<Kehadiran_Model>) list);
-        mManager = new LinearLayoutManager(Kehadiran.this,LinearLayoutManager.VERTICAL,false);
+        adapter = new Adapter_Kegiatan(Kegiatan.this,(ArrayList<Kegiatan_Model>) list);
+        mManager = new LinearLayoutManager(Kegiatan.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
-        pd = new ProgressDialog(Kehadiran.this);
+        pd = new ProgressDialog(Kegiatan.this);
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         swLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -166,17 +158,40 @@ public class Kehadiran extends AppCompatActivity {
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Tambah_Absensi bt = new Tambah_Absensi();
+                Tambah_Kegiatan bt = new Tambah_Kegiatan();
                 Bundle bundle = new Bundle();
                 bundle.putString("tanggal", strDate);
                 bt.setArguments(bundle);
                 bt.show(getSupportFragmentManager(), "Tanggal");
-//                }else{
-//                    Toast.makeText(Kehadiran.this, "bukan tanggal absen", Toast.LENGTH_SHORT).show();
-//                }
             }
         });
+        validate();
+    }
+    public  void delete(final String kode){
 
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KEGIATAN+"deletekegiatan", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode_kegiatan", kode);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
+//        startActivity(new Intent(getBaseContext(), Akun_bank.class));
     }
     public void reload(String tanggal){
         not_found.setVisibility(View.GONE);
@@ -185,9 +200,62 @@ public class Kehadiran extends AppCompatActivity {
         listdata.getAdapter().notifyDataSetChanged();
         swLayout.setRefreshing(false);
     }
+
+    private void validate(){
+        Intent data = getIntent();
+
+        final String kode_menu = data.getStringExtra("kode_menu");
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(response);
+                    JSONArray arr = res.getJSONArray("data");
+                    if(arr.length() > 0) {
+                        try {
+                            JSONObject data = arr.getJSONObject(0);
+                            buat = data.getString("buat");
+                            edit = data.getString("edit");
+                            hapus = data.getString("hapus");
+                            detail = data.getString("detail");
+                            if(data.getString("buat").equals("1"))
+                                tambah.show();
+                        } catch (Exception ea) {
+                            ea.printStackTrace();
+
+                        }
+                    }else{
+                        Log.d("erro", "onResponse: kosong");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("tipedata", "menuAkses");
+                params.put("kode_menu", kode_menu);
+                params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
+                return params;
+            }
+        };
+
+        RequestHandler.getInstance(Kegiatan.this).addToRequestQueue(senddata);
+    }
     private void loadJson(final String tanggal)
     {
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KEGIATAN+"dataabsen", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KEGIATAN+"datakegiatan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -198,9 +266,9 @@ public class Kehadiran extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Kehadiran_Model md = new Kehadiran_Model();
-                                md.setKode_absensi(data.getString("kode_absensi"));
-                                md.setKeterangan(data.getString("keterangan"));
+                                Kegiatan_Model md = new Kegiatan_Model();
+                                md.setKode_kegiatan(data.getString("kode_kegiatan"));
+                                md.setKegiatan(data.getString("kegiatan"));
                                 md.setCreate_at(ServerAccess.parseDate(data.getString("create_at")));
                                 md.setNama_karyawan(data.getString("nama_karyawan"));
                                 md.setNama_proyek(data.getString("nama_proyek"));

@@ -126,6 +126,7 @@ public class Fragment_Calon_Pembeli extends Fragment {
                         pd.cancel();
                         adapter.notifyDataSetChanged();
                     }else{
+                        pd.cancel();
                         not_found.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
