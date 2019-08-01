@@ -21,7 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Cuti.Tambah_Cuti"></activity>
+        <activity android:name=".Proyek.Fragment_Info_Proyek"></activity>
+        <activity android:name=".Proyek.Fragment_Data_Legalitas" />
+        <activity android:name=".Proyek.Fragment_Data_Karyawan_Proyek" />
+        <activity android:name=".Proyek.Fragment_Data_Kavling" />
+        <activity android:name=".Proyek.Fragment_Grafik_Penjualan" />
+        <activity android:name=".Proyek.Fragment_Data_Penjualan" />
+        <activity android:name=".Pembeli.Tambah_Pembeli" />
+        <activity android:name=".Cuti.Tambah_Cuti" />
         <activity android:name=".Cuti.Detail_Cuti" />
         <activity android:name=".Cuti.Cuti" />
         <activity android:name=".Kegiatan.Detail_Kegiatan" />

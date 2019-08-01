@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Kavling.Adapter;
+package com.android.primaitech.siprima.Proyek.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,40 +16,38 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
-import com.android.primaitech.siprima.Penjualan.Detail_Penjualan;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
-import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
-import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHolder>  {
+public class Adapter_Kavling_Proyek extends RecyclerView.Adapter<Adapter_Kavling_Proyek.ViewHolder>  {
     private ArrayList<Kavling_Model> listdata;
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Kavling(Activity activity, ArrayList<Kavling_Model> listdata) {
+    Detail_Proyek detail_proyek = new Detail_Proyek();
+    public Adapter_Kavling_Proyek(Activity activity, ArrayList<Kavling_Model> listdata) {
         this.listdata = listdata;
         this.activity = activity;
     }
 
     @Override
-    public Adapter_Kavling.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Adapter_Kavling_Proyek.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.template_kavling, parent, false);
-        Adapter_Kavling.ViewHolder vh = new Adapter_Kavling.ViewHolder(v);
+        Adapter_Kavling_Proyek.ViewHolder vh = new Adapter_Kavling_Proyek.ViewHolder(v);
         return vh;
     }
     @Override
-    public void onBindViewHolder(Adapter_Kavling.ViewHolder holder, int position) {
+    public void onBindViewHolder(Adapter_Kavling_Proyek.ViewHolder holder, int position) {
         Kavling_Model md = listdata.get(position);
-        final Adapter_Kavling.ViewHolder x=holder;
+        final Adapter_Kavling_Proyek.ViewHolder x=holder;
         holder.kode.setText(listdata.get(position).getKode_kavling());
         holder.nama_kavling.setText(listdata.get(position).getNama_kategori()+"-"+listdata.get(position).getNama_kavling());
 
@@ -61,16 +59,13 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
         Glide.with(activity)
                 .load(listdata.get(position).getDesain_rumah())
                 .into(holder.gambar);
-        Kavling kavling = new Kavling();
-        edit = kavling.edit;
-        hapus = kavling.hapus;
-        detail = kavling.detail;
-        if(!edit.equals("1"))
-            holder.edit.setVisibility(View.GONE);
-        if (!hapus.equals("1"))
-            holder.hapus.setVisibility(View.GONE);
+
         holder.kode.setVisibility(View.GONE);
-        holder.detailStatus = detail;
+        if(!detail_proyek.editkavling)
+            holder.edit.setVisibility(View.GONE);
+        if (!detail_proyek.hapuskavling)
+            holder.hapus.setVisibility(View.GONE);
+        holder.detailStatus = detail_proyek.detailkavling;
     }
     @Override
     public int getItemCount() {
@@ -79,7 +74,7 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cv;
         private TextView kode, nama_kavling, harga_jual, tipe_rumah, create_at, status, nama_proyek, edit, hapus;
-        String detailStatus;
+        boolean detailStatus;
         ProgressBar progress;
         ImageView gambar;
         String jumlah;
@@ -121,7 +116,7 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
                 public void onClick(View v) {
                     MenuData menuData = new MenuData();
                     try {
-                        if(detailStatus.equals("1")){
+                        if(detailStatus){
                             Intent intent = new Intent(v.getContext(), Detail_Kavling.class);
                             intent.putExtra("kode", kode.getText().toString());
                             intent.putExtra("nama_menu", nama_kavling.getText().toString());

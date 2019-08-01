@@ -58,6 +58,7 @@ public class Detail_Kavling extends AppCompatActivity {
         harga_jual = (TextView)findViewById(R.id.harga_jual);
         status = (TextView)findViewById(R.id.status);
         bg = (LinearLayout)findViewById(R.id.bg);
+        Log.d("pesan", "kode kavling "+data.getStringExtra("kode"));
         if(data.hasExtra("nama_menu")) {
             toolbar.setTitle("Kavling " + data.getStringExtra("nama_menu"));
         }

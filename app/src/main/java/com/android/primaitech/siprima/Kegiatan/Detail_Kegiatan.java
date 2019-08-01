@@ -89,9 +89,9 @@ public class Detail_Kegiatan extends AppCompatActivity {
                     solusi.setText(data.getString("solusi"));
                     kegiatan.setText(data.getString("kegiatan"));
                     tanggal.setText(ServerAccess.parseDate(data.getString("create_at")));
-                    Glide.with(getBaseContext())
-                            .load(data.getString("foto"))
-                            .into(gambar);
+//                    Glide.with(getBaseContext())
+//                            .load(data.getString("foto"))
+//                            .into(gambar);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     pd.cancel();

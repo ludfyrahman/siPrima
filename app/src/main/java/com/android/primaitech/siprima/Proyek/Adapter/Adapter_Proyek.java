@@ -125,6 +125,7 @@ public class Adapter_Proyek extends RecyclerView.Adapter<Adapter_Proyek.ViewHold
                         if(detailStatus.equals("1")){
                             Intent intent = new Intent(v.getContext(), Detail_Proyek.class);
                             intent.putExtra("nama_menu", nama_unit.getText().toString());
+                            intent.putExtra("kode", kode.getText().toString());
                             v.getContext().startActivity(intent);
                         }
                     } catch (Exception e) {
