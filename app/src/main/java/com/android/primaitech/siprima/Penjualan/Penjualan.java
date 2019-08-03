@@ -123,6 +123,7 @@ public class Penjualan extends AppCompatActivity {
                             edit = data.getString("edit");
                             hapus = data.getString("hapus");
                             detail = data.getString("detail");
+                            Log.d("pesan", "detail penjualan adalah "+data.getString("detail"));
                             if(data.getString("buat").equals("1"))
                                 tambah.show();
                         } catch (Exception ea) {

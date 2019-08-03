@@ -3,6 +3,8 @@ package com.android.primaitech.siprima.Penjualan;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +13,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
+import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
+import com.android.primaitech.siprima.Proyek.Detail_Proyek;
+import com.android.primaitech.siprima.Proyek.Fragment_Data_Karyawan_Proyek;
+import com.android.primaitech.siprima.Proyek.Fragment_Data_Kavling;
+import com.android.primaitech.siprima.Proyek.Fragment_Data_Legalitas;
+import com.android.primaitech.siprima.Proyek.Fragment_Data_Penjualan;
+import com.android.primaitech.siprima.Proyek.Fragment_Grafik_Penjualan;
+import com.android.primaitech.siprima.Proyek.Fragment_Info_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,87 +41,102 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Detail_Penjualan extends AppCompatActivity {
-    ProgressDialog pd;
-    LinearLayout bg;
-    TextView nama_kavling, nama_proyek, nama_karyawan, nama_pembeli, tanggal_penjualan, cara_beli, harga_jual_bersih, uang_booking, tanggal_bayar_booking;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
+    LinearLayout not_found;
+    public static String kode = "", nama_proyek = "", nama_menu="";
+    public static ArrayList<String> datanya, datakaryawan, datapenjualan, datakavling, datalegalitas, datastruktur, datagrafikjual;
+    public static boolean listkyw= false,listkavling= false,listdok= false,listjual = false,adddok= false,editdok= false,hapusdok= false,addkavling= false,editkavling= false,hapuskavling= false,
+            detailkavling= false,addkaryawan= false,editkaryawan= false,hapuskaryawan= false,detailkaryawan= false,detailjual= false,addjual= false,editstruktur= false,liststruktur= false,edit= false;
+    TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_penjualan);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        pd = new ProgressDialog(Detail_Penjualan.this);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        bg = (LinearLayout)findViewById(R.id.bg);
-        if(data.hasExtra("nama_menu")) {
-            toolbar.setTitle("Kavling " + data.getStringExtra("nama_menu"));
+        nama_menu = data.getStringExtra("nama_menu");
+        kode = data.getStringExtra("kode");
+        if(data.hasExtra("nama_menu")){
+            toolbar.setTitle(data.getStringExtra("nama_menu"));
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), Kavling.class));
-                Detail_Penjualan.this.onBackPressed();
+                startActivity(new Intent(getApplicationContext(), Dashboard.class));
             }
         });
-        loadJson();
-        nama_kavling = (TextView)findViewById(R.id.nama_kavling);
-        nama_proyek = (TextView)findViewById(R.id.nama_proyek);
-        nama_karyawan = (TextView)findViewById(R.id.nama_karyawan);
-        nama_pembeli = (TextView)findViewById(R.id.nama_pembeli);
-        tanggal_penjualan = (TextView)findViewById(R.id.tanggal_penjualan);
-        cara_beli = (TextView)findViewById(R.id.cara_beli);
-        harga_jual_bersih = (TextView)findViewById(R.id.harga_jual_bersih);
-        uang_booking = (TextView)findViewById(R.id.uang_booking);
-        tanggal_bayar_booking = (TextView)findViewById(R.id.tanggal_bayar_booking);
+//        datanya = new ArrayList<String>();
+        not_found = (LinearLayout)findViewById(R.id.not_found);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        tabLayout= (TabLayout) findViewById(R.id.tabs);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        setupViewPager(mViewPager);
+//        loadData();
     }
-    private void loadJson()
-    {
-        pd.setMessage("Menampilkan Data");
-        pd.setCancelable(false);
-        pd.show();
-        final Intent data = getIntent();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN+"detailpenjualan", new Response.Listener<String>() {
+    private void loadData(){
+        Intent data = getIntent();
+        datapenjualan = new ArrayList<>();
+        final String kode = data.getStringExtra("kode");
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN + "detailpenjualan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
                 try {
-                    pd.cancel();
                     res = new JSONObject(response);
-                    JSONObject data = res.getJSONObject("data");
-                    nama_kavling.setText(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
-                    nama_proyek.setText(data.getString("nama_proyek"));
-                    nama_karyawan.setText(data.getString("nama_karyawan"));
-                    nama_pembeli.setText(data.getString("nama_pembeli"));
-                    tanggal_penjualan.setText(ServerAccess.parseDate(data.getString("create_at")));
-                    tanggal_bayar_booking.setText(ServerAccess.parseDate(data.getString("tanggal_bayar_booking")));
-                    harga_jual_bersih.setText(ServerAccess.numberConvert(data.getString("harga_jual_bersih")));
-                    uang_booking.setText(ServerAccess.numberConvert(data.getString("uang_booking")));
-                    cara_beli.setText(ServerAccess.status_kavling[data.getInt("cara_beli")]);
-                    Glide.with(Detail_Penjualan.this)
-                            .load(ServerAccess.BASE_URL+"/"+data.getString("desain_rumah"))
-                            .into(new SimpleTarget<GlideDrawable>() {
-                                @Override
-                                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                        bg.setBackground(resource);
-                                    }
-                                }
-                            });
+                    JSONObject data = res.getJSONObject("aksi");
+//                        for (int i = 0; i < arr.length(); i++) {
+                    try {
+                        listkyw = data.getBoolean("listkyw");
+                        listkavling = data.getBoolean("listkavling");
+                        listdok = data.getBoolean("listdok");
+                        listjual = data.getBoolean("listjual");
+                        adddok = data.getBoolean("adddok");
+                        editdok = data.getBoolean("editdok");
+                        hapusdok = data.getBoolean("hapusdok");
+                        addkavling = data.getBoolean("addkavling");
+                        editkavling = data.getBoolean("editkavling");
+                        hapuskavling = data.getBoolean("hapuskavling");
+                        detailkavling = data.getBoolean("detailkavling");
+                        addkaryawan = data.getBoolean("addkaryawan");
+                        editkaryawan = data.getBoolean("editkaryawan");
+                        hapuskaryawan = data.getBoolean("hapuskaryawan");
+                        detailkaryawan = data.getBoolean("detailkaryawan");
+                        detailjual = data.getBoolean("detailjual");
+                        addjual = data.getBoolean("addjual");
+                        editstruktur = data.getBoolean("editstruktur");
+                        liststruktur = data.getBoolean("liststruktur");
+                        edit = data.getBoolean("edit");
+                    } catch (Exception ea) {
+                        ea.printStackTrace();
+
+                    }
+//                        }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    pd.cancel();
                 }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        pd.cancel();
                         Log.d("volley", "errornya : " + error.getMessage());
                     }
                 }) {
@@ -118,11 +145,57 @@ public class Detail_Penjualan extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("kodekavling", data.getStringExtra("kode"));
+                params.put("kodepenjualan", kode);
                 return params;
             }
         };
 
+        AppController.getInstance().addToRequestQueue(senddata);
+    }
+    public  void delete(final String kode){
+
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"deletepembeli", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kodepembeli", kode);
+                params.put("kode", AuthData.getInstance(Detail_Penjualan.this).getAuthKey());
+
+                return params;
+            }
+        };
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
+    }
+    private void setupViewPager(final ViewPager viewPager) {
+        mSectionsPagerAdapter.addFragment(new Fragment_Info_Penjualan(), "Info Penjualan", 0);
+        mSectionsPagerAdapter.addFragment(new Fragment_Info_Pembayaran(), "Info Pembayaran", 1);
+        mSectionsPagerAdapter.addFragment(new Fragment_Riwayat_Pembayaran(), "Riwayat Pembayaran", 2);
+        mSectionsPagerAdapter.addFragment(new Fragment_Dokumen_Penjualan(), "Cetak Dokumen", 3);
+
+        viewPager.setAdapter(mSectionsPagerAdapter);
+        mSectionsPagerAdapter.notifyDataSetChanged();
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
     }
 }

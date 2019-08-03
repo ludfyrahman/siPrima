@@ -235,7 +235,7 @@ public class Proyek extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("kodeunit", "Semua");
+                params.put("kodeunit", AuthData.getInstance(getBaseContext()).getKode_unit());
                 return params;
             }
         };

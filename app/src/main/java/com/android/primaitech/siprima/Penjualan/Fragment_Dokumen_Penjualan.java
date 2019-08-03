@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Proyek;
+package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
@@ -19,16 +19,13 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Karyawan.Model.Karyawan_Model;
-import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Karyawan_Proyek;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Kavling_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Data_Karyawan_Proyek extends Fragment {
+public class Fragment_Dokumen_Penjualan extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
     private Adapter_Karyawan_Proyek adapter;
@@ -51,11 +48,11 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
-    Detail_Proyek detail_proyek = new Detail_Proyek();
+    Detail_Penjualan detail_penjualan = new Detail_Penjualan();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_data_karyawan_proyek, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment_dokumen_penjualan, container, false);
         listdata = (RecyclerView) v.findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton) v.findViewById(R.id.tambah);
@@ -67,11 +64,6 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        if (detail_proyek.addkaryawan){
-            tambah.show();
-        }else{
-            tambah.hide();
-        }
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
@@ -96,8 +88,7 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        final Detail_Proyek detail_proyek = new Detail_Proyek();
-        final String kode = detail_proyek.kode;
+        final String kode = detail_penjualan.kode;
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK + "detailproyek", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

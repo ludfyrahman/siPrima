@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Proyek;
+package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
@@ -19,16 +19,16 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Karyawan.Model.Karyawan_Model;
-import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Penjualan.Adapter.Adapter_Riwayat_Pembayaran;
+import com.android.primaitech.siprima.Penjualan.Model.Riyawat_Pembayaran_Model;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Karyawan_Proyek;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Kavling_Proyek;
+import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,11 +39,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Data_Karyawan_Proyek extends Fragment {
+public class Fragment_Riwayat_Pembayaran extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Karyawan_Proyek adapter;
-    private List<Karyawan_Model> list;
+    private Adapter_Riwayat_Pembayaran adapter;
+    private List<Riyawat_Pembayaran_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -51,27 +51,22 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
-    Detail_Proyek detail_proyek = new Detail_Proyek();
+    Detail_Penjualan detail_penjualan = new Detail_Penjualan();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_data_karyawan_proyek, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment_riwayat_pembayaran, container, false);
         listdata = (RecyclerView) v.findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton) v.findViewById(R.id.tambah);
         not_found = (LinearLayout) v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Karyawan_Proyek(getActivity(),(ArrayList<Karyawan_Model>) list);
+        adapter = new Adapter_Riwayat_Pembayaran(getActivity(),(ArrayList<Riyawat_Pembayaran_Model>) list);
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        if (detail_proyek.addkaryawan){
-            tambah.show();
-        }else{
-            tambah.hide();
-        }
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
@@ -96,27 +91,29 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        final Detail_Proyek detail_proyek = new Detail_Proyek();
-        final String kode = detail_proyek.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK + "detailproyek", new Response.Listener<String>() {
+        final String kode = detail_penjualan.kode;
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN + "detailpenjualan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
                 try {
                     pd.cancel();
                     res = new JSONObject(response);
-                    if(res.getString("datakaryawan") != "null") {
-                        JSONArray arr = res.getJSONArray("datakaryawan");
+                    if(res.getString("datariwayat") != "null") {
+                        JSONArray arr = res.getJSONArray("datariwayat");
                         if(arr.length() > 0) {
                             for (int i = 0; i < arr.length(); i++) {
                                 try {
                                     JSONObject data = arr.getJSONObject(i);
-                                    Karyawan_Model md = new Karyawan_Model();
-                                    md.setKode_karyawan(data.getString("kode_karyawan"));
-                                    md.setNama_unit(data.getString("nama_unit"));
-                                    md.setNama_proyek(data.getString("nama_proyek"));
-                                    md.setNama_karyawan(data.getString("nama_karyawan"));
-                                    md.setNama_divisi(data.getString("nama_divisi"));
+                                    Riyawat_Pembayaran_Model md = new Riyawat_Pembayaran_Model();
+                                    md.setKode_jadwal(data.getString("kode_jadwal"));
+                                    md.setKode_riwayat(data.getString("kode_penjualan"));
+                                    md.setMetode_bayar(data.getString("kode_penjualan"));
+                                    md.setNama_pembayaran(ServerAccess.jenis_pembayaran[data.getInt("nama_pembayaran")]);
+                                    md.setJumlah_bayar(data.getString("jumlah_bayar"));
+                                    md.setTanggal_bayar(ServerAccess.parseDate(data.getString("tanggal_bayar")));
+                                    md.setAngsuran_ke(data.getString("angsuran_ke"));
+                                    md.setStatus_bayar(ServerAccess.status_pembayaran[data.getInt("status_bayar")]);
                                     list.add(md);
                                 } catch (Exception ea) {
                                     ea.printStackTrace();
@@ -153,7 +150,7 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
-                params.put("kode_proyek", kode);
+                params.put("kodepenjualan", kode);
                 return params;
             }
         };

@@ -186,6 +186,7 @@ public class Kavling extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
+        Log.d("pesan", "kode proyek "+AuthData.getInstance(getBaseContext()).getKode_proyek());
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KAVLING+"datakavling", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

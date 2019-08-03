@@ -64,7 +64,7 @@
                     android:textSize="18dp"
                     android:textStyle="normal"
                     android:text="Ubah Profil"
-                    android:fontFamily="@font/josefinsans_regular"
+                    android:fontFamily="@font/josefinsans_light"
                     android:layout_width="fill_parent"
                     android:id="@+id/ubah_profil"
                     android:layout_height="wrap_content"

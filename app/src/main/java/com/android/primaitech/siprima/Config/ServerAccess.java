@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.19/siprima/";
-//    public static final String BASE_URL = "http://10.212.218.137/siprima/";
-//    public static final String BASE_URL = "https://primagroup.primaitech.com/";
+    public static final String BASE_URL = "http://192.168.1.27/siprima/";
+//    public static final String BASE_URL = "http://192.168.43.234/siprima/";
+//    public static final String BASE_URL = "http://siprima.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";
     public static final String ROOT_API = BASE_URL+"api/";
     public static final String result = ROOT_API+"api/getdataresult/";
@@ -35,6 +35,11 @@ public class ServerAccess {
     public static String status_kavling[] = {"dihapus", "Tersedia", "Dipesan", "Terjual"};
     public static String statusFollowUp[] = {"Belum Dikunjungi", "Selesai"};
     public static String prospek[] = {"-", "Rendah", "Sedang", "Tinggi"};
+    public static String bulan[] = {"", "Januari", "Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember" };
+    public static String statusPenjualan[] = {"Batal","Proses Angsuran","Menunggu Persetujuan","Selesai","Di Tolak"};
+    public static String jenis_pembayaran[] = {"","Uang Booking","Bayar DP","Angsuran Bulanan","Pembayaran Cash"};
+    public static String status_pembayaran[] = {"Belum Lunas","Lunas", "Menunggu Konfirmasi"};
+    public static String metode[] = {"","Cash","Transfer Bank"};
     public static String numberFormat(int val){
         NumberFormat nf =NumberFormat.getInstance();
         return nf.format(val);

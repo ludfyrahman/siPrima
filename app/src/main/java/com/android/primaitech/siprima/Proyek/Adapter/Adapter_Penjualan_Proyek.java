@@ -19,6 +19,7 @@ import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Penjualan.Adapter.Adapter_Penjualan;
+import com.android.primaitech.siprima.Penjualan.Detail_Penjualan;
 import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
 import com.android.primaitech.siprima.Penjualan.Penjualan;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
@@ -89,7 +90,7 @@ public class Adapter_Penjualan_Proyek extends RecyclerView.Adapter<Adapter_Penju
                     MenuData menuData = new MenuData();
                     try {
                         if(detailStatus){
-                            Intent intent = new Intent(v.getContext(), Detail_Kavling.class);
+                            Intent intent = new Intent(v.getContext(), Detail_Penjualan.class);
                             intent.putExtra("kode", kode.getText().toString());
                             intent.putExtra("nama_menu", nama_penjualan.getText().toString());
                             v.getContext().startActivity(intent);

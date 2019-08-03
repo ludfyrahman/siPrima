@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Proyek;
+package com.android.primaitech.siprima.Kavling;
 
 import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
@@ -18,17 +18,17 @@ import android.widget.LinearLayout;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Karyawan.Model.Karyawan_Model;
-import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Karyawan_Proyek;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Kavling_Proyek;
+import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Progress_Kavling;
+import com.android.primaitech.siprima.Kavling.Model.Progress_Kavling_Model;
+import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
+import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Penjualan_Proyek;
+import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,11 +39,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Data_Karyawan_Proyek extends Fragment {
+public class Fragment_Info_Progress extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Karyawan_Proyek adapter;
-    private List<Karyawan_Model> list;
+    private Adapter_Progress_Kavling adapter;
+    private List<Progress_Kavling_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -55,23 +55,23 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_data_karyawan_proyek, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment_info_progress, container, false);
         listdata = (RecyclerView) v.findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton) v.findViewById(R.id.tambah);
         not_found = (LinearLayout) v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Karyawan_Proyek(getActivity(),(ArrayList<Karyawan_Model>) list);
+        adapter = new Adapter_Progress_Kavling(getActivity(),(ArrayList<Progress_Kavling_Model>) list);
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
-        loadJson();
-        if (detail_proyek.addkaryawan){
+        if (detail_proyek.addjual){
             tambah.show();
         }else{
             tambah.hide();
         }
+        loadJson();
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
@@ -96,41 +96,37 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        final Detail_Proyek detail_proyek = new Detail_Proyek();
-        final String kode = detail_proyek.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK + "detailproyek", new Response.Listener<String>() {
+        Detail_Kavling detail_kavling = new Detail_Kavling();
+        final String kode = detail_kavling.kode;
+        final ArrayList<String> datapenjualan= detail_proyek.datapenjualan;
+
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KAVLING + "detailkavling", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
                 try {
                     pd.cancel();
                     res = new JSONObject(response);
-                    if(res.getString("datakaryawan") != "null") {
-                        JSONArray arr = res.getJSONArray("datakaryawan");
-                        if(arr.length() > 0) {
-                            for (int i = 0; i < arr.length(); i++) {
-                                try {
-                                    JSONObject data = arr.getJSONObject(i);
-                                    Karyawan_Model md = new Karyawan_Model();
-                                    md.setKode_karyawan(data.getString("kode_karyawan"));
-                                    md.setNama_unit(data.getString("nama_unit"));
-                                    md.setNama_proyek(data.getString("nama_proyek"));
-                                    md.setNama_karyawan(data.getString("nama_karyawan"));
-                                    md.setNama_divisi(data.getString("nama_divisi"));
-                                    list.add(md);
-                                } catch (Exception ea) {
-                                    ea.printStackTrace();
-                                    pd.cancel();
-                                    not_found.setVisibility(View.VISIBLE);
-                                    Log.d("error" ,ea.getMessage());
-                                }
+                    JSONArray arr = res.getJSONArray("dataprogreskavling");
+                    if(arr.length() > 0) {
+                        for (int i = 0; i < arr.length(); i++) {
+                            try {
+                                JSONObject data = arr.getJSONObject(i);
+                                Progress_Kavling_Model md = new Progress_Kavling_Model();
+                                md.setKode_kavling(data.getString("kode_kavling"));
+                                md.setKode_progres(data.getString("kode_progres"));
+                                md.setJudul(data.getString("judul"));
+                                md.setDeskripsi(data.getString("deskripsi"));
+                                md.setFoto_kecil(data.getString("foto_kecil"));
+                                md.setCreate_at(data.getString("create_at"));
+                                list.add(md);
+                            } catch (Exception ea) {
+                                ea.printStackTrace();
+
                             }
-                            pd.cancel();
-                            adapter.notifyDataSetChanged();
-                        }else{
-                            pd.cancel();
-                            not_found.setVisibility(View.VISIBLE);
                         }
+                        pd.cancel();
+                        adapter.notifyDataSetChanged();
                     }else{
                         pd.cancel();
                         not_found.setVisibility(View.VISIBLE);
@@ -153,7 +149,7 @@ public class Fragment_Data_Karyawan_Proyek extends Fragment {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
-                params.put("kode_proyek", kode);
+                params.put("kodekavling", kode);
                 return params;
             }
         };

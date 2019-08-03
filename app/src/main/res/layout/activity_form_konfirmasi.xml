@@ -41,116 +41,129 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/colorAbuMuda"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Nama Pembeli"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Nama Pembeli"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/nama_pembeli"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Nama Kavling"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Nama Kavling"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/nama_kavling"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Harga Kavling"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Harga Kavling"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/harga_kavling"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Harga Bersih Kavling"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Harga Bersih Kavling"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/harga_bersih"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Metode Bayar"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Metode Bayar"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/metode_bayar"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Diskon"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Diskon"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/diskon"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
@@ -191,40 +204,44 @@
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Jumlah Uang DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Jumlah Uang DP"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/jumlah_uang_dp"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Lama Angsuran DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Lama Angsuran DP"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/lama_angsuran_dp"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
@@ -233,17 +250,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="Jumlah Uang Per Angsuran DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/jumlah_angsuran_dp"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
@@ -252,36 +271,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="Tanggal Pembayaran Uang DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/tanggal_pembayaran_dp"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:text="Jumlah Uang Booking"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Jumlah Uang Booking"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
                     android:id="@+id/jumlah_uang_booking"
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>

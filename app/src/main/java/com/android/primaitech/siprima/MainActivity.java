@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PACKAGE_NAME = getApplicationContext().getPackageName();
-
         final Intent i = new Intent(this, Login.class);
         Thread timer = new Thread() {
             public void run() {
