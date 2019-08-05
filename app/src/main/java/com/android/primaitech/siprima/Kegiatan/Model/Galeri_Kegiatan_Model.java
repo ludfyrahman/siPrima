@@ -2,6 +2,15 @@ package com.android.primaitech.siprima.Kegiatan.Model;
 
 public class Galeri_Kegiatan_Model {
     String kode_galery, foto_kecil, keterangan, tanggal, foto;
+    int index;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public String getFoto() {
         return foto;

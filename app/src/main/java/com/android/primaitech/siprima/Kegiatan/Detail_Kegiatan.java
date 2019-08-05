@@ -63,9 +63,7 @@ public class Detail_Kegiatan extends AppCompatActivity {
     Button selesai;
     Context context;
     RecyclerView.LayoutManager mManager;
-    private static final String[] IMAGE_PATH_LIST = {
-            "https://asset-a.grid.id/crop/0x0:0x0/700x465/photo/2019/01/14/3862055033.png", "https://asset-a.grid.id/crop/0x0:0x0/700x465/photo/2019/01/14/3862055033.png",
-    };
+    final ArrayList<String> uriString = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,17 +92,10 @@ public class Detail_Kegiatan extends AppCompatActivity {
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        final Uri uri = Uri.parse("android.resource://" + getPackageName() + "/drawable/android1");
-        final Uri uri2 = Uri.parse("android.resource://" + getPackageName() + "/drawable/android3");
-
-        final ArrayList<String> uriString = new ArrayList<>();
-        uriString.add(uri.toString());
-        uriString.add(uri2.toString());
-        uriString.add(uri.toString());
         status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onImageClickAction(uriString, 0);
+                onImageClickAction(0);
             }
         });
         final Intent data = getIntent();
@@ -137,37 +128,14 @@ public class Detail_Kegiatan extends AppCompatActivity {
             }
         });
     }
-    private void onImageClickAction(ArrayList<String> uriString, int pos) {
+    public void onImageClickAction(int pos) {
         Intent fullImageIntent = new Intent(Detail_Kegiatan.this, FullScreenImageViewActivity.class);
         fullImageIntent.putExtra(FullScreenImageViewActivity.URI_LIST_DATA, uriString);
         fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, pos);
         startActivity(fullImageIntent);
 
     }
-    public void previewImage(){
-//        Intent fullImageIntent = new Intent(Detail_Kegiatan.this, FullScreenImageViewActivity.class);
-//        fullImageIntent.putExtra(FullScreenImageViewActivity.URI_LIST_DATA, uriString);
-//        fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, 0);
-//        startActivity(fullImageIntent);
-//        ArrayList<String> imageList = new ArrayList<>();
-//        Collections.addAll(imageList, IMAGE_PATH_LIST);
-//
-//        Album.gallery(this)
-//                .checkedList(imageList)
-//                .checkable(true)
-//                .widget(
-//                        Widget.newDarkBuilder(this)
-//                                .title("Galeri")
-//                                .build()
-//                )
-//                .onResult(new Action<ArrayList<String>>() {
-//                    @Override
-//                    public void onAction(@NonNull ArrayList<String> result) {
-//                        // TODO If it is optional, here you can accept the results of user selection.
-//                    }
-//                })
-//                .start();
-    }
+
     private void loadKegiatan(){
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
@@ -189,7 +157,8 @@ public class Detail_Kegiatan extends AppCompatActivity {
                                     md.setKode_galery(data.getString("kode_galeri"));
                                     md.setFoto_kecil(ServerAccess.BASE_URL+""+data.getString("foto_kecil"));
                                     md.setFoto(ServerAccess.BASE_URL+""+data.getString("foto"));
-                                    Log.d("pesan", data.getString("keterangan"));
+                                    uriString.add(ServerAccess.BASE_URL+""+data.getString("foto"));
+                                    md.setIndex(i);
                                     md.setTanggal(ServerAccess.parseDate(data.getString("create_at")));
                                     md.setKeterangan(data.getString("keterangan"));
                                     list.add(md);
@@ -235,6 +204,7 @@ public class Detail_Kegiatan extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(senddata);
     }
     public void reload(){
+        list.clear();
         loadJson();
     }
 

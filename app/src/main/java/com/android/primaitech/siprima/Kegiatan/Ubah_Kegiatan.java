@@ -157,8 +157,7 @@ public class Ubah_Kegiatan extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    Detail_Kegiatan detail_kegiatan = new Detail_Kegiatan();
-                                    detail_kegiatan.reload();
+                                    ((Detail_Kegiatan)getBaseContext()).reload();
                                     Ubah_Kegiatan.this.onBackPressed();
 
                                 } else {

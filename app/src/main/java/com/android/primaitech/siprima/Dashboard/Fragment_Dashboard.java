@@ -41,9 +41,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -174,9 +173,9 @@ public class Fragment_Dashboard extends Fragment {
                             String dir = serverAccess.bannerProyek;
                             Glide.with(getActivity())
                                     .load(ServerAccess.BASE_URL+"/"+data.getString("banner"))
-                                    .into(new SimpleTarget<GlideDrawable>() {
+                                    .into(new SimpleTarget<Drawable>() {
                                         @Override
-                                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                                 banner.setBackground(resource);
                                             }

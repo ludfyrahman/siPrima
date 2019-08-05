@@ -146,7 +146,7 @@ public class Tambah_Galeri  extends BottomSheetDialogFragment {
                                 JSONObject obj = new JSONObject(new String(response.data));
                                 JSONObject data = obj.getJSONObject("respon");
                                 if (data.getBoolean("status")) {
-
+                                    ((Detail_Kegiatan)getContext()).reload();
                                     Toast.makeText(
                                             getContext(),
                                             data.getString("pesan"),

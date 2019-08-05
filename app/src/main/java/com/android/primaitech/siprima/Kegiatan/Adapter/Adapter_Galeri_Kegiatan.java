@@ -55,6 +55,7 @@ public class Adapter_Galeri_Kegiatan extends RecyclerView.Adapter<Adapter_Galeri
                 .into(holder.gambar);
         holder.edit.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
+        holder.index = listdata.get(position).getIndex();
         holder.mContext = context;
 
     }
@@ -63,11 +64,11 @@ public class Adapter_Galeri_Kegiatan extends RecyclerView.Adapter<Adapter_Galeri
         return listdata.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView cv;
         String gambarText;
         Context mContext;
         private TextView kode, keterangan,tanggal, edit, hapus;
         ImageView gambar;
+        int index;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -79,16 +80,17 @@ public class Adapter_Galeri_Kegiatan extends RecyclerView.Adapter<Adapter_Galeri
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Detail_Kegiatan detail_kegiatan = new Detail_Kegiatan();
-                    detail_kegiatan.delete(kode.getText().toString());
+                    if (mContext instanceof Detail_Kegiatan) {
+                        ((Detail_Kegiatan)mContext).delete(kode.getText().toString());
+                    }
                 }
             });
             gambar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    if (mContext instanceof Detail_Kegiatan) {
-//                        ((Detail_Kegiatan)mContext).previewImage();
-//                    }
+                    if (mContext instanceof Detail_Kegiatan) {
+                        ((Detail_Kegiatan)mContext).onImageClickAction(index);
+                    }
 
                 }
             });
