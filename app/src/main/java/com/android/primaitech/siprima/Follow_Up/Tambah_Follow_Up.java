@@ -246,7 +246,7 @@ public class Tambah_Follow_Up extends AppCompatActivity {
                     params.put("kode", AuthData.getInstance(Tambah_Follow_Up.this).getAuthKey());
                     params.put("kode_pembeli", kode_pembeliFinal);
                     params.put("tanggal_pertemuan", tanggal_temu);
-                    params.put("kode_karyawan", "2");
+                    params.put("kode_karyawan", AuthData.getInstance(getBaseContext()).getAksesData());
                     params.put("alamat_temu", alamat_pertemuan);
                     return params;
                 }

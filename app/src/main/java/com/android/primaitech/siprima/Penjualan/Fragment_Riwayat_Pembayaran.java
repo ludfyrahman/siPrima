@@ -56,6 +56,7 @@ public class Fragment_Riwayat_Pembayaran extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_fragment_riwayat_pembayaran, container, false);
+
         listdata = (RecyclerView) v.findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton) v.findViewById(R.id.tambah);

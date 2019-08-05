@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     TextView textnya;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,7 +172,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         Intent intent = new Intent(this, AlertReceiver.class);
         intent.putExtra("kode", kode);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-
+        ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 22);
         }
@@ -185,6 +187,11 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         pd.show();
         Intent data = getIntent();
         final String kode_pembeli = data.getStringExtra("kode_pembeli");
+        final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        List<Integer> minutes = new ArrayList<>();
+
+        final AlarmManager [] alarmManagers = new AlarmManager[minutes.size()];
+
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -193,6 +200,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                     res = new JSONObject(response);
                     JSONArray arr = res.getJSONArray("data");
                     if(arr.length() > 0) {
+                        Intent intents[] = new Intent[arr.length()];
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
@@ -216,7 +224,33 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                                 int jam = Integer.parseInt(timeList[0]);
                                 int menit = Integer.parseInt(timeList[1]);
 
-                                timeSet(jam, menit, tglhari, bulan, tahun, data.getString("kode_kunjungan"));
+//                                Calendar c = Calendar.getInstance();
+//                                c.set(Calendar.HOUR_OF_DAY, jam);
+//                                c.set(Calendar.MINUTE, menit);
+//                                c.set(Calendar.DAY_OF_MONTH, tglhari);
+//                                c.set(Calendar.MONTH, bulan-1);
+//                                c.set(Calendar.YEAR, tahun);
+//                                c.set(Calendar.SECOND, 0);
+//                                Intent intent = new Intent(getBaseContext(), AlertReceiver.class);
+//                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
+//                                ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+//                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//                                        c.getTimeInMillis(),
+//                                        pendingIntent);
+//
+//                                intentArray.add(pendingIntent);
+
+                                intents[i] = new Intent(getApplicationContext(),AlertReceiver.class);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intents[i], 0);
+                                Calendar c = Calendar.getInstance();
+                                c.set(Calendar.HOUR_OF_DAY, jam);
+                                c.set(Calendar.MINUTE, menit);
+                                c.set(Calendar.DAY_OF_MONTH, tglhari);
+                                c.set(Calendar.MONTH, bulan-1);
+                                c.set(Calendar.YEAR, tahun);
+                                c.set(Calendar.SECOND, 0);
+                                alarmManagers[i] = (AlarmManager)getApplicationContext().getSystemService(ALARM_SERVICE);
+                                alarmManagers[i].set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();

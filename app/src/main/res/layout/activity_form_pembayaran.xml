@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorWhite">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:fontFamily="@font/josefinsans_regular"
+            app:titleTextColor="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Penjualan">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
     <com.githang.stepview.StepView
         android:id="@+id/step_view"
         android:layout_width="match_parent"
