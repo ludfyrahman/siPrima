@@ -49,7 +49,7 @@ public class Karyawan extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        toolbar.setTitle(data.getStringExtra("nama_menu"));
+        toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +96,7 @@ public class Karyawan extends AppCompatActivity {
     private void setupViewPager(final ViewPager viewPager) {
         Intent data = getIntent();
 
-        final String kode_menu = data.getStringExtra("kode_menu");
+        final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

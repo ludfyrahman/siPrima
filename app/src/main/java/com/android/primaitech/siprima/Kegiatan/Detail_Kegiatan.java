@@ -32,6 +32,7 @@ import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
 import com.android.primaitech.siprima.MainActivity;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -123,8 +124,8 @@ public class Detail_Kegiatan extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), Pembeli.class));
-                Detail_Kegiatan.this.onBackPressed();
+                startActivity(new Intent(getApplicationContext(), Kegiatan.class));
+//                Detail_Kegiatan.this.onBackPressed();
             }
         });
     }

@@ -72,9 +72,7 @@ public class Kegiatan extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
         pd = new ProgressDialog(Kegiatan.this);
-        if(data.hasExtra("nama_menu")) {
-            toolbar.setTitle(data.getStringExtra("nama_menu"));
-        }
+        toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,7 +201,7 @@ public class Kegiatan extends AppCompatActivity {
     private void validate(){
         Intent data = getIntent();
 
-        final String kode_menu = data.getStringExtra("kode_menu");
+        final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

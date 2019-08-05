@@ -68,8 +68,8 @@ public class Detail_Pembeli extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), Pembeli.class));
-                Detail_Pembeli.this.onBackPressed();
+                startActivity(new Intent(getApplicationContext(), Pembeli.class));
+//                Detail_Pembeli.this.onBackPressed();
             }
         });
     }

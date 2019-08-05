@@ -25,7 +25,7 @@ public class Detail_Karyawan extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Akun_bank.class));
+                startActivity(new Intent(getApplicationContext(), Karyawan.class));
             }
         });
     }

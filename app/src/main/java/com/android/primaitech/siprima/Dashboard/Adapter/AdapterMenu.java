@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
@@ -77,8 +78,8 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
                     MenuData menuData = new MenuData();
                     try {
                         Intent intent = new Intent(v.getContext(), menuData.halaman(kode_menu.getText().toString()));
-                        menuData.nama_menu = judul.getText().toString();
-                        menuData.kode_menu = kode_menu.getText().toString();
+                        AuthData.getInstance(v.getContext()).setKodeMenu(kode_menu.getText().toString());
+                        AuthData.getInstance(v.getContext()).setNamaMenu(judul.getText().toString());
                         intent.putExtra("kode_menu", kode_menu.getText().toString());
                         intent.putExtra("nama_menu",judul.getText().toString());
                         v.getContext().startActivity(intent);

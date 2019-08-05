@@ -1,16 +1,23 @@
 package com.android.primaitech.siprima.Dashboard;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.primaitech.siprima.Akun.Login;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.RequestHandler;
@@ -111,19 +119,38 @@ public class Fragment_Dashboard extends Fragment {
         });
 
         checkRevisiCode();
+        checkConnection();
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i("pesan", "onStart() called");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("pesan ", "Onresume");
+        Log.i("pesan", "onResume() called");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("pesan", "on Pause");
+        Log.i("pesan", "onPause() called");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("pesan", "onStop() called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("pesan", "onDestroy() called");
     }
 
     private void checkRevisiCode() {
@@ -212,23 +239,40 @@ public class Fragment_Dashboard extends Fragment {
 
         RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
     }
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-//            URL url = new URL(src);
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setDoInput(true);
-//            connection.connect();
-//            InputStream input = connection.getInputStream();
-//            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            InputStream srt = new java.net.URL(src).openStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(srt);
-            return myBitmap;
-        } catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
-            Log.d("error", "pesan error "+e.getMessage());
-            return null;
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
         }
+    }
+    public void checkConnection(){
+        if(isOnline()){
+            Toast.makeText(getContext(), "You are connected to Internet", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getContext(), "You are not connected to Internet", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void onBackPressed() {
+        new AlertDialog.Builder(getContext())
+                .setIcon(R.drawable.logo_app)
+                .setTitle("Keluar Aplikasi")
+                .setMessage("Apakah Anda Yakin Ingin Keluar Dari Aplikasi?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AuthData.getInstance(getContext()).logout();
+                        startActivity(new Intent(getContext(), Login.class));
+                        ActivityCompat.finishAffinity(getActivity());
+
+                    }
+
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
     }
     private void loadJson()
     {

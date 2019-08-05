@@ -21,6 +21,8 @@ public class AuthData {
 
     private static final String stemail = "0";
     private static final String kode_penjualan = "kode_penjualan";
+    private static final String kode_menu = "kode_menu";
+    private static final String nama_menu = "nama_menu";
 
 
     private AuthData(Context context){
@@ -77,7 +79,24 @@ public class AuthData {
 
         return true;
     }
+    public boolean setKodeMenu(String xst){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        editor.putString(kode_menu, xst);
+        editor.apply();
+
+        return true;
+    }
+    public boolean setNamaMenu(String xst){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(nama_menu, xst);
+        editor.apply();
+
+        return true;
+    }
     public boolean setdataauth(String xkodeauth, String xkodeuser,String xexpired_date, String sudahceklogin){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -136,11 +155,22 @@ public class AuthData {
 
         return sharedPreferences.getString(akses_data, null);
     }
+    public String getKode_menu() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(kode_menu, null);
+    }
+    public String getNama_menu() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(nama_menu, null);
+    }
     public String getEmail() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
         return sharedPreferences.getString(email, null);
     }
+
     public String getKodePenjualan() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 

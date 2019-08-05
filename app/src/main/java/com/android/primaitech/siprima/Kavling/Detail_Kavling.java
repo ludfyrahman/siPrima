@@ -69,7 +69,7 @@ public class Detail_Kavling extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                startActivity(new Intent(getApplicationContext(), Kavling.class));
             }
         });
         not_found = (LinearLayout)findViewById(R.id.not_found);

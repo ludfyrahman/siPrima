@@ -53,7 +53,7 @@ public class Tambah_Penjualan extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                startActivity(new Intent(getApplicationContext(), Penjualan.class));
             }
         });
         mStepView = (StepView) findViewById(R.id.step_view);

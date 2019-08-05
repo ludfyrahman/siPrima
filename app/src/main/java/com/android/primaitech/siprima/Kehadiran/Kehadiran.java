@@ -72,9 +72,7 @@ public class Kehadiran extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
         pd = new ProgressDialog(Kehadiran.this);
-        if(data.hasExtra("nama_menu")) {
-            toolbar.setTitle(data.getStringExtra("nama_menu"));
-        }
+        toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

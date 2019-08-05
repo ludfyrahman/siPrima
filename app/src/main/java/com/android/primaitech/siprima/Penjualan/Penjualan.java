@@ -1,21 +1,27 @@
 package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.android.primaitech.siprima.Akun.Login;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
+import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
@@ -59,8 +65,9 @@ public class Penjualan extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
+        MenuData menuData = new MenuData();
         Intent data = getIntent();
-        toolbar.setTitle(data.getStringExtra("nama_menu"));
+        toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +102,9 @@ public class Penjualan extends AppCompatActivity {
         });
         validate();
     }
+    public void onBackPressed() {
+        startActivity(new Intent(Penjualan.this, Dashboard.class));
+    }
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -106,9 +116,8 @@ public class Penjualan extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        Intent data = getIntent();
 
-        final String kode_menu = data.getStringExtra("kode_menu");
+        final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
