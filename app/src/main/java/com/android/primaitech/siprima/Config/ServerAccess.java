@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.27/siprima/";
+    public static final String BASE_URL = "http://192.168.1.5/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
 //    public static final String BASE_URL = "http://siprima.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";

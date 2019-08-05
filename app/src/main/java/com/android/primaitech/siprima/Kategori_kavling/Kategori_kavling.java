@@ -89,6 +89,17 @@ public class Kategori_kavling extends AppCompatActivity {
         });
         validate();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("pesan ", "Onresume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("pesan", "on Pause");
+    }
 
     public void reload(){
         not_found.setVisibility(View.GONE);

@@ -138,12 +138,12 @@ public class Tambah_Penjualan extends AppCompatActivity {
             }
         });
         Intent data = getIntent();
-        if(!data.hasExtra("kode")){
+        if(!data.hasExtra("kode_pembeli")){
             Log.d("pesan", "kode pembeli kosong");
         }else{
             nama_pembeli_text.setText(data.getStringExtra("nama_pembeli"));
-            Temp_Penjualan.getInstance(getBaseContext()).setKode_pembeli(data.getStringExtra("kode"));
-            loadJson(data.getStringExtra("kode"));
+            Temp_Penjualan.getInstance(getBaseContext()).setKode_pembeli(data.getStringExtra("kode_pembeli"));
+            loadJson(data.getStringExtra("kode_pembeli"));
         }
         loadJson(Temp_Penjualan.getInstance(getBaseContext()).getKode_pembeli());
     }

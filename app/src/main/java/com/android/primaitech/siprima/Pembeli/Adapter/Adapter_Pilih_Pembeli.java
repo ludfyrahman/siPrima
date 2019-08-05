@@ -85,12 +85,12 @@ public class Adapter_Pilih_Pembeli extends RecyclerView.Adapter<Adapter_Pilih_Pe
                             if (pilih_pembeli.code.equals("1")){
                                 Intent intent = new Intent(v.getContext(), Tambah_Penjualan.class);
                                 intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
-                                intent.putExtra("kode", kode.getText().toString());
+                                intent.putExtra("kode_pembeli", kode.getText().toString());
                                 v.getContext().startActivity(intent);
                             }else{
                                 Intent intent = new Intent(v.getContext(), Tambah_Follow_Up.class);
                                 intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
-                                intent.putExtra("kode", kode.getText().toString());
+                                intent.putExtra("kode_pembeli", kode.getText().toString());
                                 intent.putExtra("code", "2");
                                 v.getContext().startActivity(intent);
                             }

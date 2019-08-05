@@ -114,6 +114,19 @@ public class Fragment_Dashboard extends Fragment {
         checkRevisiCode();
         return v;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("pesan ", "Onresume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("pesan", "on Pause");
+    }
+
     private void checkRevisiCode() {
         // you can check notesList.size() > 0
 

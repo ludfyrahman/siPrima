@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".Config.AppController"
@@ -21,7 +22,7 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Pembeli.Terima_Penjualan"></activity>
+        <activity android:name=".Kegiatan.Ubah_Kegiatan"></activity>
         <activity android:name=".Pembeli.Tambah_Pembeli" />
         <activity android:name=".Cuti.Detail_Cuti" />
         <activity android:name=".Cuti.Cuti" />

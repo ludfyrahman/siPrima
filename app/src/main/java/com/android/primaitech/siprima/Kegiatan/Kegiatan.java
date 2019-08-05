@@ -143,7 +143,6 @@ public class Kegiatan extends AppCompatActivity {
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
-        pd = new ProgressDialog(Kegiatan.this);
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         swLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

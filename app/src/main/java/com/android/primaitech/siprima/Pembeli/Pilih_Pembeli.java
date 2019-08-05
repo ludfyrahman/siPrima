@@ -136,6 +136,7 @@ public class Pilih_Pembeli extends AppCompatActivity {
                         pd.cancel();
                         adapter.notifyDataSetChanged();
                     }else{
+                        pd.cancel();
                         not_found.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {

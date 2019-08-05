@@ -76,9 +76,9 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
                 public void onClick(View v) {
                     MenuData menuData = new MenuData();
                     try {
-                        Log.d("pesan", "kode menu "+kode_menu.getText().toString());
-//                        Class<?> c = Class.forName(menuData.halaman(kode_menu.getText().toString()));
                         Intent intent = new Intent(v.getContext(), menuData.halaman(kode_menu.getText().toString()));
+                        menuData.nama_menu = judul.getText().toString();
+                        menuData.kode_menu = kode_menu.getText().toString();
                         intent.putExtra("kode_menu", kode_menu.getText().toString());
                         intent.putExtra("nama_menu",judul.getText().toString());
                         v.getContext().startActivity(intent);
