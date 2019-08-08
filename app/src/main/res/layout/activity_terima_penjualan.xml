@@ -32,11 +32,25 @@
             android:text="Pilih Akun Bank*"/>
         <LinearLayout
             android:layout_width="match_parent"
+            android:padding="16dp"
             android:layout_height="wrap_content">
-            <Spinner
+            <TextView
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:id="@+id/akun_bank"
-                android:layout_height="50dp"></Spinner>
+                android:text="Akun Bank"/>
+            <Button
+                android:layout_weight="0."
+                android:id="@+id/btn_akun_bank"
+                android:layout_width="130dp"
+                android:layout_gravity="right"
+                android:layout_height="30dp"
+                android:background="@drawable/box_shadow"
+                android:text="Pilih Akun Bank"
+                android:textSize="12sp"
+                android:layout_margin="8dp"
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

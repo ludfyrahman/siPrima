@@ -38,7 +38,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/fullscreen_dialog_close"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Daftar Kavlig"
+                android:text="Daftar Kavling"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 

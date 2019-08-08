@@ -11,6 +11,7 @@ public class Temp_Penjualan {
     private static final String SHARED_PREF_NAME = "mysharedpref12";
     private static final String kode_pembeli = "kode_pembeli";
     private static final String nama_pembeli = "nama_pembeli";
+    private static final String nama_kavling = "nama_kavling";
     private static final String nik = "nik";
     private static final String no_hp = "no_hp";
     private static final String email = "email";
@@ -73,7 +74,22 @@ public class Temp_Penjualan {
 
         return true;
     }
+    public String getNama_kavling() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
+        return sharedPreferences.getString(nama_kavling, null);
+    }
+
+    public boolean setNamaKavling(String nama_kavling) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(this.nama_kavling, metode_bayar);
+
+        editor.apply();
+
+        return true;
+    }
     public String getMetode_bayar() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 

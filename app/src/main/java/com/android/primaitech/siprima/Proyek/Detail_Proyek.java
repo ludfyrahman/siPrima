@@ -68,7 +68,7 @@ public class Detail_Proyek extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                startActivity(new Intent(getApplicationContext(), Proyek.class));
             }
         });
 //        datanya = new ArrayList<String>();
@@ -192,6 +192,6 @@ public class Detail_Proyek extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 //        spv_dev_list_komplain.this.finish();
-        startActivity(new Intent(getBaseContext(), Dashboard.class));
+        startActivity(new Intent(getBaseContext(), Proyek.class));
     }
 }

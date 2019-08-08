@@ -22,6 +22,7 @@ import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Fragment_Calon_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Fragment_Pembeli;
@@ -36,9 +37,10 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Pembeli(Activity activity, ArrayList<Pembeli_Model> listdata) {
+    public Adapter_Pembeli(Activity activity, ArrayList<Pembeli_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -74,6 +76,7 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
             holder.edit.setVisibility(View.GONE);
         if (!hapus.equals("1"))
             holder.hapus.setVisibility(View.GONE);
+        holder.mContext = context;
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
     }
@@ -85,7 +88,7 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
         private CardView cv;
         private TextView kode, nama_pembeli, no_ktp, status, no_hp, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
+        Context mContext;
         String jumlah;
         public ViewHolder(View v) {
             super(v);
@@ -99,6 +102,7 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     new AlertDialog.Builder(view.getContext())
                             .setIcon(R.drawable.logo_app)
                             .setTitle("Hapus "+status.getText().toString()+" "+nama_pembeli.getText().toString())
@@ -108,8 +112,9 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 //                                    ActivityCompat.finishAffinity(dashboard_manager_dev.this);
-                                    Pembeli pembeli = new Pembeli();
-                                    pembeli.delete(kode.getText().toString());
+                                    if (mContext instanceof Pembeli) {
+                                        ((Pembeli)mContext).delete(kode.getText().toString());
+                                    }
 //                                    finish();
                                 }
 

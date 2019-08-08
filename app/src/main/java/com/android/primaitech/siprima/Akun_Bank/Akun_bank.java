@@ -26,6 +26,7 @@ import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
+import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Unit_Bisnis;
 import com.android.volley.AuthFailureError;
@@ -84,6 +85,32 @@ public class Akun_bank extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Akun_bank.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Akun_bank.this, Akun_bank.class));
+                    } else {
+                        Toast.makeText(
+                                Akun_bank.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
+
+                    Toast.makeText(
+                            Akun_bank.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

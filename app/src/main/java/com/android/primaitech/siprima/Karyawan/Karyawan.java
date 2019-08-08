@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
@@ -17,6 +18,8 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -67,11 +70,38 @@ public class Karyawan extends AppCompatActivity {
         setupViewPager(mViewPager);
 
     }
+
     public  void delete(final String kode){
 
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Karyawan.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Karyawan.this, Karyawan.class));
+                    } else {
+                        Toast.makeText(
+                                Karyawan.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
+
+                    Toast.makeText(
+                            Karyawan.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

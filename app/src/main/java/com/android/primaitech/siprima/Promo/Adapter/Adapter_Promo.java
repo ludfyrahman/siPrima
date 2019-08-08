@@ -20,6 +20,7 @@ import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Penjualan.Penjualan;
 import com.android.primaitech.siprima.Promo.Detail_Promo;
 import com.android.primaitech.siprima.Promo.Model.Promo_Model;
 import com.android.primaitech.siprima.Promo.Promo;
@@ -33,9 +34,10 @@ public class Adapter_Promo extends RecyclerView.Adapter<Adapter_Promo.ViewHolder
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Promo(Activity activity, ArrayList<Promo_Model> listdata) {
+    public Adapter_Promo(Activity activity, ArrayList<Promo_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -68,6 +70,7 @@ public class Adapter_Promo extends RecyclerView.Adapter<Adapter_Promo.ViewHolder
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -77,9 +80,8 @@ public class Adapter_Promo extends RecyclerView.Adapter<Adapter_Promo.ViewHolder
         private CardView cv;
         private TextView kode, nama_promo, tanggal_mulai, tanggal_selesai, nama_usaha, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
         ImageView gambar;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -101,9 +103,9 @@ public class Adapter_Promo extends RecyclerView.Adapter<Adapter_Promo.ViewHolder
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Promo promo = new Promo();
-                                    promo.delete(kode.getText().toString());
-//                                    proyek.reload();
+                                    if (mContext instanceof Promo) {
+                                        ((Promo)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

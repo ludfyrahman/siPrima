@@ -60,7 +60,7 @@ public class Fragment_Pembeli extends Fragment {
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Pembeli(getActivity(),(ArrayList<Pembeli_Model>) list);
+        adapter = new Adapter_Pembeli(getActivity(),(ArrayList<Pembeli_Model>) list, getContext());
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);

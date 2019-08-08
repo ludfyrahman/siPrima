@@ -43,12 +43,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/tanggal"
                         android:fontFamily="@font/josefinsans_regular"
                         android:text="6 Juli"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/josefinsans_regular"
+                        android:id="@+id/tahun"
                         android:textColor="@color/colorPrimary"
                         android:text="2019"/>
                 </LinearLayout>
@@ -88,12 +90,6 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-    <!--<com.daimajia.slider.library.SliderLayout-->
-        <!--android:id="@+id/slider"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginTop="50dp"-->
-        <!--android:background="@drawable/dpb"-->
-        <!--android:layout_height="200dp" />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -220,11 +216,41 @@
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/loading"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/loading"
+            android:id="@+id/img_loading"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/josefinsans_semibold"
+            android:text="Loading...."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/josefinsans_semibold"
+            android:text="Bersabar yah. masih mengambil data"/>
+    </LinearLayout>
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:id="@+id/swlayout"
         android:layout_marginTop="300dp"
         android:paddingBottom="50dp"
+
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

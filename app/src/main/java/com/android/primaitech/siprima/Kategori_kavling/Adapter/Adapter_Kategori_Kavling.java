@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Karyawan.Karyawan;
 import com.android.primaitech.siprima.Kategori_kavling.Detail_Kategori_Kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
@@ -33,9 +34,10 @@ public class Adapter_Kategori_Kavling extends RecyclerView.Adapter<Adapter_Kateg
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Kategori_Kavling(Activity activity, ArrayList<Kategori_Kavling_Model> listdata) {
+    public Adapter_Kategori_Kavling(Activity activity, ArrayList<Kategori_Kavling_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -63,6 +65,7 @@ public class Adapter_Kategori_Kavling extends RecyclerView.Adapter<Adapter_Kateg
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -72,9 +75,8 @@ public class Adapter_Kategori_Kavling extends RecyclerView.Adapter<Adapter_Kateg
         private CardView cv;
         private TextView kode, nama_proyek, nama_kategori, nama_karyawan, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
         ImageView gambar;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -95,9 +97,9 @@ public class Adapter_Kategori_Kavling extends RecyclerView.Adapter<Adapter_Kateg
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Kategori_kavling kategori_kavling = new Kategori_kavling();
-                                    kategori_kavling.delete(kode.getText().toString());
-//                                    proyek.reload();
+                                    if (mContext instanceof Kategori_kavling) {
+                                        ((Kategori_kavling)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

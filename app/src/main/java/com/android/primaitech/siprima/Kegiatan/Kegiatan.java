@@ -20,12 +20,15 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kegiatan.Adapter.Adapter_Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
 import com.android.primaitech.siprima.Kehadiran.Adapter.Adapter_Kehadiran;
 import com.android.primaitech.siprima.Kehadiran.Kehadiran;
 import com.android.primaitech.siprima.Kehadiran.Model.Kehadiran_Model;
 import com.android.primaitech.siprima.Kehadiran.Tambah_Absensi;
+import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -136,7 +139,7 @@ public class Kegiatan extends AppCompatActivity {
         listdata.setHasFixedSize(true);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kegiatan(Kegiatan.this,(ArrayList<Kegiatan_Model>) list);
+        adapter = new Adapter_Kegiatan(Kegiatan.this,(ArrayList<Kegiatan_Model>) list, this);
         mManager = new LinearLayoutManager(Kegiatan.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -164,12 +167,42 @@ public class Kegiatan extends AppCompatActivity {
         });
         validate();
     }
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
+    }
     public  void delete(final String kode){
 
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KEGIATAN+"deletekegiatan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Kegiatan.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Kegiatan.this, Kegiatan.class));
+                    } else {
+                        Toast.makeText(
+                                Kegiatan.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Kegiatan.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

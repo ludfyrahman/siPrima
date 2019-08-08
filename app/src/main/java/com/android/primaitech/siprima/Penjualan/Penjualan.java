@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Akun.Login;
 import com.android.primaitech.siprima.Config.AppController;
@@ -28,6 +29,7 @@ import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Kehadiran.Kehadiran;
 import com.android.primaitech.siprima.Penjualan.Adapter.Adapter_Penjualan;
 import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
 import com.android.primaitech.siprima.R;
@@ -85,7 +87,7 @@ public class Penjualan extends AppCompatActivity {
         });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Penjualan(Penjualan.this,(ArrayList<Penjualan_Model>) list);
+        adapter = new Adapter_Penjualan(Penjualan.this,(ArrayList<Penjualan_Model>) list, this);
         mManager = new LinearLayoutManager(Penjualan.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -175,7 +177,32 @@ public class Penjualan extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Penjualan.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Penjualan.this, Penjualan.class));
+                    } else {
+                        Toast.makeText(
+                                Penjualan.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Penjualan.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {
@@ -217,7 +244,7 @@ public class Penjualan extends AppCompatActivity {
                                 md.setNama_penjual(data.getString("nama_karyawan"));
                                 md.setNama_penjualan(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
                                 md.setKode(data.getString("kode_penjualan"));
-                                md.setHarga_jual_bersih(ServerAccess.numberFormat(data.getInt("harga_jual_bersih")));
+                                md.setHarga_jual_bersih(ServerAccess.numberConvert(data.getString("harga_jual_bersih")));
                                 md.setTanggal_penjualan(ServerAccess.parseDate(data.getString("create_at")));
                                 list.add(md);
                             } catch (Exception ea) {

@@ -22,6 +22,7 @@ import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Proyek;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Unit_Bisnis;
 import com.android.primaitech.siprima.Karyawan.Karyawan;
@@ -35,9 +36,10 @@ public class Adapter_Karyawan extends RecyclerView.Adapter<Adapter_Karyawan.View
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Karyawan(Activity activity, ArrayList<Karyawan_Model> listdata) {
+    public Adapter_Karyawan(Activity activity, ArrayList<Karyawan_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -75,6 +77,7 @@ public class Adapter_Karyawan extends RecyclerView.Adapter<Adapter_Karyawan.View
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -84,8 +87,7 @@ public class Adapter_Karyawan extends RecyclerView.Adapter<Adapter_Karyawan.View
         private CardView cv;
         private TextView kode, nama_unit, nama_proyek, nama_karyawan, nama_divisi, tanggal_gabung, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -107,10 +109,9 @@ public class Adapter_Karyawan extends RecyclerView.Adapter<Adapter_Karyawan.View
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-//                                    ActivityCompat.finishAffinity(dashboard_manager_dev.this);
-                                    Karyawan karyawan = new Karyawan();
-                                    karyawan.delete(kode.getText().toString());
-//                                    finish();
+                                    if (mContext instanceof Karyawan) {
+                                        ((Karyawan)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
@@ -21,6 +22,8 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
+import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.Proyek.Proyek;
@@ -72,7 +75,7 @@ public class Kategori_kavling extends AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kategori_Kavling(Kategori_kavling.this,(ArrayList<Kategori_Kavling_Model>) list);
+        adapter = new Adapter_Kategori_Kavling(Kategori_kavling.this,(ArrayList<Kategori_Kavling_Model>) list, this);
         mManager = new LinearLayoutManager(Kategori_kavling.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -88,6 +91,11 @@ public class Kategori_kavling extends AppCompatActivity {
             }
         });
         validate();
+    }
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
     }
     @Override
     public void onResume() {
@@ -171,7 +179,32 @@ public class Kategori_kavling extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Kategori_kavling.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Kategori_kavling.this, Kategori_kavling.class));
+                    } else {
+                        Toast.makeText(
+                                Kategori_kavling.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Kategori_kavling.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

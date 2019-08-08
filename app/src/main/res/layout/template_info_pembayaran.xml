@@ -15,7 +15,7 @@
         android:layout_marginTop="8dp"
         android:textSize="20sp"
         android:textColor="@color/colorPrimary"
-        android:id="@+id/jenis_"
+        android:id="@+id/jenis"
         android:fontFamily="@font/josefinsans_regular"
         android:layout_height="wrap_content" />
     <TextView

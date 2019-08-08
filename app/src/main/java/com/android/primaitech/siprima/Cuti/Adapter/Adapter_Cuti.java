@@ -19,6 +19,7 @@ import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Cuti.Detail_Cuti;
 import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -28,9 +29,10 @@ public class Adapter_Cuti extends RecyclerView.Adapter<Adapter_Cuti.ViewHolder> 
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Cuti(Activity activity, ArrayList<Cuti_Model> listdata) {
+    public Adapter_Cuti(Activity activity, ArrayList<Cuti_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -60,6 +62,7 @@ public class Adapter_Cuti extends RecyclerView.Adapter<Adapter_Cuti.ViewHolder> 
         if (!hapus.equals("1"))
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
+        holder.mContext = context;
         holder.detailStatus = detail;
     }
     @Override
@@ -70,8 +73,7 @@ public class Adapter_Cuti extends RecyclerView.Adapter<Adapter_Cuti.ViewHolder> 
         private CardView cv;
         private TextView kode, nama_karyawan, nama_proyek, nama_unit,tanggal, status, keterangan, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -94,8 +96,9 @@ public class Adapter_Cuti extends RecyclerView.Adapter<Adapter_Cuti.ViewHolder> 
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Cuti cuti = new Cuti();
-                                    cuti.delete(kode.getText().toString());
+                                    if (mContext instanceof Cuti) {
+                                        ((Cuti)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })
@@ -111,6 +114,7 @@ public class Adapter_Cuti extends RecyclerView.Adapter<Adapter_Cuti.ViewHolder> 
                         if(detailStatus.equals("1")){
                             Intent intent = new Intent(v.getContext(), Detail_Cuti.class);
                             intent.putExtra("kode", kode.getText().toString());
+                            intent.putExtra("nama_menu", nama_karyawan.getText().toString());
                             v.getContext().startActivity(intent);
                         }
                     } catch (Exception e) {

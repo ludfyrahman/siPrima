@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AlertReceiver;
 import com.android.primaitech.siprima.Config.AppController;
@@ -96,7 +97,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kunjungan_Pembeli(Kunjungan_Pembeli.this,(ArrayList<Kunjungan_Pembeli_Model>) list);
+        adapter = new Adapter_Kunjungan_Pembeli(Kunjungan_Pembeli.this,(ArrayList<Kunjungan_Pembeli_Model>) list, this);
         mManager = new LinearLayoutManager(Kunjungan_Pembeli.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -126,7 +127,32 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KUNJUNGAN+"deletekunjungan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Kunjungan_Pembeli.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Kunjungan_Pembeli.this, Pembeli.class));
+                    } else {
+                        Toast.makeText(
+                                Kunjungan_Pembeli.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Kunjungan_Pembeli.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

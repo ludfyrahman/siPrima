@@ -33,6 +33,7 @@ public class Fragment_Akun extends Fragment {
         nama_pengguna = (TextView)v.findViewById(R.id.nama_pengguna);
         email_pengguna = (TextView)v.findViewById(R.id.email_pengguna);
         nama_pengguna.setText(AuthData.getInstance(getActivity()).getUsername());
+        email_pengguna.setText(AuthData.getInstance(getActivity()).getEmail());
         keluar = (TextView)v.findViewById(R.id.keluar);
         keluar.setOnClickListener(new View.OnClickListener() {
             @Override

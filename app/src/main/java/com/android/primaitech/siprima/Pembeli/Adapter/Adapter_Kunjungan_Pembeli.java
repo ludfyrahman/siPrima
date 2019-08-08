@@ -34,9 +34,10 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Kunjungan_Pembeli(Activity activity, ArrayList<Kunjungan_Pembeli_Model> listdata) {
+    public Adapter_Kunjungan_Pembeli(Activity activity, ArrayList<Kunjungan_Pembeli_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -66,6 +67,7 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
             holder.edit.setVisibility(View.GONE);
 //        if (!hapus.equals("1"))
 //            holder.hapus.setVisibility(View.GONE);
+        holder.mContext = context;
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
     }
@@ -77,8 +79,7 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
         private CardView cv;
         private TextView kode, nama_karyawan, alamat_temu, tanggal_pertemuan, prospek, status, nama_pembeli, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -101,8 +102,9 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Kunjungan_Pembeli kunjungan_pembeli = new Kunjungan_Pembeli();
-                                    kunjungan_pembeli.delete(kode.getText().toString());
+                                    if (mContext instanceof Kunjungan_Pembeli) {
+                                        ((Kunjungan_Pembeli)mContext).delete(kode.getText().toString());
+                                    }
 
                                 }
 

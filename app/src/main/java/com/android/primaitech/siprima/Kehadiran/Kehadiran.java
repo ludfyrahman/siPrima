@@ -20,13 +20,16 @@ import android.widget.Toast;
 import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
+import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
 import com.android.primaitech.siprima.Kehadiran.Adapter.Adapter_Kehadiran;
 import com.android.primaitech.siprima.Kehadiran.Model.Kehadiran_Model;
 import com.android.primaitech.siprima.MainActivity;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -144,7 +147,7 @@ public class Kehadiran extends AppCompatActivity {
         listdata.setHasFixedSize(true);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kehadiran(Kehadiran.this,(ArrayList<Kehadiran_Model>) list);
+        adapter = new Adapter_Kehadiran(Kehadiran.this,(ArrayList<Kehadiran_Model>) list, this);
         mManager = new LinearLayoutManager(Kehadiran.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -175,6 +178,11 @@ public class Kehadiran extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
     }
     public void reload(String tanggal){
         not_found.setVisibility(View.GONE);
@@ -238,5 +246,57 @@ public class Kehadiran extends AppCompatActivity {
         };
 
         AppController.getInstance().addToRequestQueue(senddata);
+    }
+    public  void delete(final String kode){
+
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Kehadiran.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Kehadiran.this, Kehadiran.class));
+                    } else {
+                        Toast.makeText(
+                                Kehadiran.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
+
+                    Toast.makeText(
+                            Kehadiran.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", kode);
+                params.put("tipedata", "kavling");
+                params.put("tipe_akun", "1");
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
+//        startActivity(new Intent(getBaseContext(), Akun_bank.class));
     }
 }

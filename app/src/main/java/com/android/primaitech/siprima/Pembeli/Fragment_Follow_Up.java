@@ -77,7 +77,7 @@ public class Fragment_Follow_Up extends Fragment {
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Kunjungan_Pembeli(getActivity(),(ArrayList<Kunjungan_Pembeli_Model>) list);
+        adapter = new Adapter_Kunjungan_Pembeli(getActivity(),(ArrayList<Kunjungan_Pembeli_Model>) list, getContext());
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);

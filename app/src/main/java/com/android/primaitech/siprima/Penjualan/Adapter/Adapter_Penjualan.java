@@ -20,6 +20,7 @@ import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Kegiatan.Kegiatan;
 import com.android.primaitech.siprima.Penjualan.Detail_Penjualan;
 import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
 import com.android.primaitech.siprima.Penjualan.Penjualan;
@@ -33,9 +34,10 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Penjualan(Activity activity, ArrayList<Penjualan_Model> listdata) {
+    public Adapter_Penjualan(Activity activity, ArrayList<Penjualan_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -56,9 +58,9 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
         holder.nama_penjual.setText(listdata.get(position).getNama_penjual());
         holder.tanggal_penjualan.setText(listdata.get(position).getTanggal_penjualan());
         holder.harga_deal.setText(listdata.get(position).getHarga_jual_bersih());
-        Glide.with(activity)
-                .load(listdata.get(position).getCover())
-                .into(holder.gambar);
+//        Glide.with(activity)
+//                .load(listdata.get(position).getCover())
+//                .into(holder.gambar);
         Penjualan penjualan = new Penjualan();
         edit = penjualan.edit;
         hapus = penjualan.hapus;
@@ -69,6 +71,7 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -78,9 +81,8 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
         private CardView cv;
         private TextView kode, nama_penjualan, nama_pembeli, nama_penjual, tanggal_penjualan, harga_deal, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
         ImageView gambar;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -103,9 +105,9 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Kavling kavling = new Kavling();
-                                    kavling.delete(kode.getText().toString());
-//                                    proyek.reload();
+                                    if (mContext instanceof Penjualan) {
+                                        ((Penjualan)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

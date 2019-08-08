@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
@@ -34,9 +35,10 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Kavling(Activity activity, ArrayList<Kavling_Model> listdata) {
+    public Adapter_Kavling(Activity activity, ArrayList<Kavling_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -71,6 +73,7 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -80,9 +83,8 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
         private CardView cv;
         private TextView kode, nama_kavling, harga_jual, tipe_rumah, create_at, status, nama_proyek, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
+        Context mContext;
         ImageView gambar;
-        String jumlah;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -106,9 +108,9 @@ public class Adapter_Kavling extends RecyclerView.Adapter<Adapter_Kavling.ViewHo
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Kavling kavling = new Kavling();
-                                    kavling.delete(kode.getText().toString());
-//                                    proyek.reload();
+                                    if (mContext instanceof Kavling) {
+                                        ((Kavling)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

@@ -128,11 +128,12 @@ public class Form_Data_Kavling extends AppCompatActivity {
                     pd.cancel();
                     res = new JSONObject(response);
                     JSONObject data = res.getJSONObject("data");
-                    nama_kavling.setText(data.getString("nama_kavling"));
+                    nama_kavling.setText(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
+                    Temp_Penjualan.getInstance(Form_Data_Kavling.this).setNamaKavling(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
                     tipe_rumah.setText(data.getString("tipe_rumah"));
                     harga_jual.setText(ServerAccess.numberConvert(data.getString("harga_jual")));
-                    luas_bangunan.setText(data.getString("panjang")+" x "+data.getString("lebar"));
-                    luas_tanah.setText(data.getString("panjang_tanah")+" x "+data.getString("lebar_tanah"));
+                    luas_bangunan.setText(data.getString("luas_rumah"));
+                    luas_tanah.setText(data.getString("luas_tanah"));
                     Temp_Penjualan.getInstance(getBaseContext()).setHarga_jual(data.getString("harga_jual"));
                     Glide.with(Form_Data_Kavling.this)
                             .load(ServerAccess.BASE_URL+"/"+data.getString("desain_rumah"))

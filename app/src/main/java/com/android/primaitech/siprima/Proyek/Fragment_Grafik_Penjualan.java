@@ -67,7 +67,7 @@ public class Fragment_Grafik_Penjualan extends Fragment {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                pieData.add(new SliceValue(data.getInt("jmljual"), Color.parseColor(warna[i])).setLabel("bulan "+ServerAccess.bulan[data.getInt("bulan")]+" tahun "+data.getString("tahun")+" ("+data.getString("jmljual")+" Unit )"));
+                                pieData.add(new SliceValue(data.getInt("jmljual"), Color.parseColor(warna[i])).setLabel(""+ServerAccess.bulan[data.getInt("bulan")]+" "+data.getString("tahun")+" ("+data.getString("jmljual")+" Unit )"));
                                 PieChartData pieChartData = new PieChartData(pieData);
                                 pieChartData.setHasLabels(true).setValueLabelTextSize(15);
                                 pieChartView.setPieChartData(pieChartData);

@@ -21,91 +21,120 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="Ubah Profil" />
     </android.support.design.widget.AppBarLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/input"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
             android:padding="16dp">
-
-            <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_email_ced0d2" />-->
-            <EditText
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/profil"/>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:background="@color/colorWhite"
-                android:hint="Nama"
-                android:inputType="text"
-                android:textColorHint="@color/colorAbuMuda" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/input"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
-            android:padding="16dp">
-            <EditText
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Nama Pembeli"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:background="@mipmap/input"
+                    android:hint="Nama"
+                    android:inputType="text"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="18dp"
+                    android:textColorHint="@color/colorAbuMuda" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/colorWhite"
-                android:hint="Email"
-                android:fontFamily="@font/josefinsans_regular"
-                android:inputType="textEmailAddress"
-                android:textColorHint="@color/colorAbuMuda" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/input"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
-            android:padding="16dp">
-            <EditText
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Email"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@mipmap/input"
+                    android:hint="Email"
+                    android:paddingLeft="18dp"
+                    android:paddingBottom="8dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/colorAbuMuda" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:fontFamily="@font/josefinsans_regular"
-                android:background="@color/colorWhite"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textColorHint="@color/colorAbuMuda" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/input"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
-            android:padding="16dp">
-            <EditText
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Password"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:background="@mipmap/input"
+                    android:hint="Password"
+                    android:paddingLeft="18dp"
+                    android:paddingBottom="8dp"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/colorAbuMuda" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/colorWhite"
-                android:hint="Password Konfirmasi"
-                android:fontFamily="@font/josefinsans_regular"
-                android:inputType="textPassword"
-                android:textColorHint="@color/colorAbuMuda" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Password Konfirmasi"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@mipmap/input"
+                    android:hint="Password Konfirmasi"
+                    android:paddingLeft="18dp"
+                    android:paddingBottom="8dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/colorAbuMuda" />
+            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/button"
+                android:paddingBottom="20dp"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite"
+                android:text="Ubah"/>
         </LinearLayout>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/button"
-            android:paddingBottom="20dp"
-            android:layout_gravity="center"
-            android:textColor="@color/colorWhite"
-            android:text="Ubah"/>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -31,9 +31,10 @@ public class Adapter_Kehadiran  extends RecyclerView.Adapter<Adapter_Kehadiran.V
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Kehadiran(Activity activity, ArrayList<Kehadiran_Model> listdata) {
+    public Adapter_Kehadiran(Activity activity, ArrayList<Kehadiran_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -56,6 +57,7 @@ public class Adapter_Kehadiran  extends RecyclerView.Adapter<Adapter_Kehadiran.V
         holder.status.setText(listdata.get(position).getStatus());
         holder.keterangan.setText(listdata.get(position).getKeterangan());
         holder.kode.setVisibility(View.GONE);
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -63,6 +65,7 @@ public class Adapter_Kehadiran  extends RecyclerView.Adapter<Adapter_Kehadiran.V
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cv;
+        Context mContext;
         private TextView kode, nama_karyawan,nama_proyek, nama_unit, status, keterangan, create_at;
         public ViewHolder(View v) {
             super(v);

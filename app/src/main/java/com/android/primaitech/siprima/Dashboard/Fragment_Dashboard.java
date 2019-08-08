@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -41,6 +43,8 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Adapter.AdapterMenu;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
 import com.android.primaitech.siprima.Database.Database_Helper;
+import com.android.primaitech.siprima.Database.Model.Master_SQlite;
+import com.android.primaitech.siprima.Database.Model.Menu_Table;
 import com.android.primaitech.siprima.Database.Model.Role_User;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -61,7 +65,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,11 +79,20 @@ public class Fragment_Dashboard extends Fragment {
     private ArrayList<MenuModel> listdata;
     private GridLayoutManager layoutManager;
     private RecyclerView dashboard_menu;
-    ImageView reload;
+    ImageView reload, img_loading;
+    TextView tanggal, tahun;
     FrameLayout refresh;
     SwipeRefreshLayout swLayout;
-    LinearLayout banner;
-    private Database_Helper db;
+    LinearLayout banner, loading;
+    //Sqlite
+    Database_Helper db;
+    protected Cursor cursor;
+    String[] daftar;
+    Date c = Calendar.getInstance().getTime();
+    SimpleDateFormat tgl = new SimpleDateFormat("dd MMMM");
+    SimpleDateFormat th = new SimpleDateFormat("yyyy");
+    String tglnow = tgl.format(c);
+    String tahunnow = th.format(c);
     TextView nama_pengguna, nama_usaha, level_akun;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,12 +104,18 @@ public class Fragment_Dashboard extends Fragment {
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         dashboard_menu.setLayoutManager(layoutManager);
         listdata = new ArrayList<>();
-        loadJson();
         db = new Database_Helper(getContext());
 //        Toast.makeText(getActivity(), getActivity().getPackageName(), Toast.LENGTH_SHORT).show();
         nama_usaha = (TextView)v.findViewById(R.id.nama_usaha);
         level_akun = (TextView)v.findViewById(R.id.level_akun);
+        tanggal = (TextView)v.findViewById(R.id.tanggal);
+        tahun = (TextView)v.findViewById(R.id.tahun);
         banner = (LinearLayout)v.findViewById(R.id.banner);
+        loading = (LinearLayout)v.findViewById(R.id.loading);
+        img_loading = (ImageView)v.findViewById(R.id.img_loading);
+        Glide.with(getActivity())
+                .load(R.drawable.loading)
+                .into(img_loading);
         nama_pengguna = (TextView)v.findViewById(R.id.nama_pengguna);
         adapter = new AdapterMenu(getActivity(),listdata);
         dashboard_menu.setAdapter(adapter);
@@ -102,25 +124,54 @@ public class Fragment_Dashboard extends Fragment {
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         reload = (ImageView)v.findViewById(R.id.reload);
+        tanggal.setText(tglnow);
+        tahun.setText(tahunnow);
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listdata.clear();
-                loadJson(); // your code
+//                loadJson(); // your code
+                loadDataFromSQlite();
             }
         });
         swLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 listdata.clear();
-                loadJson(); // your code
+//                loadJson(); // your code
+                loadDataFromSQlite();
                 swLayout.setRefreshing(false);
             }
         });
 
-        checkRevisiCode();
         checkConnection();
         return v;
+    }
+    private void loadDataFromSQlite(){
+        SQLiteDatabase d = db.getReadableDatabase();
+        cursor = d.rawQuery("SELECT kode_menu, nama_menu, link, gambar FROM menu",null);
+        daftar = new String[cursor.getCount()];
+        cursor.moveToFirst();
+        loading.setVisibility(View.VISIBLE);
+        if (cursor.getCount() > 0){
+
+            for (int cc=0; cc < cursor.getCount(); cc++){
+                cursor.moveToPosition(cc);
+                daftar[cc] = cursor.getString(1).toString();
+                MenuModel md = new MenuModel();
+                md.setKode_menu(cursor.getString(0).toLowerCase());
+                md.setJudul(cursor.getString(1));
+                md.setLink(cursor.getString(2));
+                int id = getResources().getIdentifier(cursor.getString(0).toLowerCase(), "drawable", getActivity().getPackageName());
+                md.setGambar(id);
+                listdata.add(md);
+            }
+            adapter.notifyDataSetChanged();
+            loading.setVisibility(View.GONE);
+        }else{
+            Toast.makeText(getContext(), "Data anda kosong", Toast.LENGTH_SHORT).show();
+            Log.d("pesan", "Data Anda Kosong");
+        }
     }
 
     @Override
@@ -153,18 +204,47 @@ public class Fragment_Dashboard extends Fragment {
         Log.i("pesan", "onDestroy() called");
     }
 
-    private void checkRevisiCode() {
+    private void checkData() {
         // you can check notesList.size() > 0
 
-        if (db.getRoleUserCount() > 0) {
-//            noNotesView.setVisibility(View.GONE);
-            dataDashboard(2);
+        if (db.getMenuCount() > 0) {
             Log.d("pesan", "Sqlite Ada Data");
-
+            //jika online mengambil data dari api terlebih dahulu
+            loadDataFromSQlite();
         } else {
-            dataDashboard(1);
             Log.d("pesan", "Sqlite Tidak Ada Data");
-//            noNotesView.setVisibility(View.VISIBLE);
+            dataDashboard(1);
+            db.truncateMenu();
+            loadJson();
+            loadDataFromSQlite();
+        }
+    }
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private void validasi(){
+        if (AuthData.getInstance(getContext()).getAuthKey().equals(db.getMasterDetail(AuthData.getInstance(getContext()).getAuthKey()).getKey())){
+            Log.d("pesan", " Auth sama");
+            loadDataFromSQlite();
+        }else{
+            db.truncateMenu();
+            Log.d("pesan", " Auth tidak sama");
+            loadJson();
+        }
+    }
+    public void checkConnection(){
+        if(isOnline()){
+            checkData();
+            Toast.makeText(getContext(), "You are connected to Internet", Toast.LENGTH_SHORT).show();
+        }else{
+            loadDataFromSQlite();
+            Toast.makeText(getContext(), "You are not connected to Internet", Toast.LENGTH_SHORT).show();
         }
     }
     private void dataDashboard(final int status){
@@ -183,20 +263,13 @@ public class Fragment_Dashboard extends Fragment {
                             nama_usaha.setText((data.getString("nama_usaha").equals("null") ? "PrimaGroup" : data.getString("nama_usaha")));
                             level_akun.setText(data.getString("nama_role"));
                             ServerAccess serverAccess = new ServerAccess();
-                            if(status == 1){
-                                db.insertRole_User(dataRole.getString("kode_role"), dataRole.getString("nama_role"), dataRole.getString("revisi_code"));
-                            }else if(status == 2){
-                                db.getRole_UserDetail(dataRole.getString("kode_role"));
-                                Role_User role_user = new Role_User();
-                                Log.d("pesan", "data dari online "+dataRole.getString("revisi_code"));
-                                if(dataRole.getString("revisi_code").equals(db.getRole_UserDetail(dataRole.getString("kode_role")).getRevisi_code())){
-                                    Log.d("pesan", "revisi code sama");
-                                }else{
-                                    db.truncateRole_User();
-                                    db.insertRole_User(dataRole.getString("kode_role"), dataRole.getString("nama_role"), dataRole.getString("revisi_code"));
-                                    Log.d("pesan", "revisi code tidak sama");
-                                }
-                            }
+//                            if(status == 1){
+//                                db.insertRole_User(dataRole.getString("kode_role"), dataRole.getString("nama_role"), dataRole.getString("revisi_code"));
+//                            }else if(status == 2){
+//                                db.getRole_UserDetail(dataRole.getString("kode_role"));
+
+
+//                            }
                             String dir = serverAccess.bannerProyek;
                             Glide.with(getActivity())
                                     .load(ServerAccess.BASE_URL+"/"+data.getString("banner"))
@@ -239,22 +312,7 @@ public class Fragment_Dashboard extends Fragment {
 
         RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
     }
-    protected boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public void checkConnection(){
-        if(isOnline()){
-            Toast.makeText(getContext(), "You are connected to Internet", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getContext(), "You are not connected to Internet", Toast.LENGTH_SHORT).show();
-        }
-    }
+
     public void onBackPressed() {
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.logo_app)
@@ -288,20 +346,19 @@ public class Fragment_Dashboard extends Fragment {
                         try {
                             JSONObject data = arr.getJSONObject(i);
                             MenuModel md = new MenuModel();
-                            md.setJudul(data.getString("nama_menu"));
-                            md.setLink(data.getString("link"));
+//                            md.setJudul(data.getString("nama_menu"));
+//                            md.setLink(data.getString("link"));
                             int id = getResources().getIdentifier(data.getString("kode_menu").toLowerCase(), "drawable", getActivity().getPackageName());
-//                            int id = R.drawable.class.getField(data.getString("kode_menu")).getInt(null);
-                            md.setGambar(id);
-                            md.setKode_menu(data.getString("kode_menu").toLowerCase());
-//                            Log.e("responnya ",""+"@drawable/"+data.getString("kode_menu").toLowerCase());
-                            listdata.add(md);
+//                            md.setGambar(id);
+//                            md.setKode_menu(data.getString("kode_menu").toLowerCase());
+                            db.insertMenu(data.getString("kode_menu").toLowerCase(), data.getString("nama_menu"), data.getString("link"), id);
+//                            listdata.add(md);
                         } catch (Exception ea) {
                             ea.printStackTrace();
 
                         }
                     }
-
+                    loadDataFromSQlite();
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -318,7 +375,7 @@ public class Fragment_Dashboard extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
+                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
                 params.put("kode_role", AuthData.getInstance(getContext()).getKode_role());
                 params.put("show", "user");
                 return params;
@@ -327,4 +384,5 @@ public class Fragment_Dashboard extends Fragment {
 
         RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
     }
+
 }

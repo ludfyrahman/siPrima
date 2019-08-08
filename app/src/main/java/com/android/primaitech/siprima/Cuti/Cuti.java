@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
@@ -25,6 +26,7 @@ import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_
 import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
 import com.android.primaitech.siprima.Kegiatan.Tambah_Kegiatan;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,6 +62,8 @@ public class Cuti extends  AppCompatActivity {
     Date c = Calendar.getInstance().getTime();
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String now = df.format(c);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +93,7 @@ public class Cuti extends  AppCompatActivity {
         });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Cuti(Cuti.this,(ArrayList<Cuti_Model>) list);
+        adapter = new Adapter_Cuti(Cuti.this,(ArrayList<Cuti_Model>) list, this);
         mManager = new LinearLayoutManager(Cuti.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -105,7 +110,11 @@ public class Cuti extends  AppCompatActivity {
         });
         validate();
     }
-
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
+    }
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -117,7 +126,6 @@ public class Cuti extends  AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        Intent data = getIntent();
 
         final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
@@ -176,7 +184,32 @@ public class Cuti extends  AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Cuti.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Cuti.this, Cuti.class));
+                    } else {
+                        Toast.makeText(
+                                Cuti.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Cuti.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {
@@ -203,6 +236,12 @@ public class Cuti extends  AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
+        Calendar cal = Calendar.getInstance();
+        System.out.println("Before "+cal.getTime());
+        int month = cal.get(Calendar.MONTH) - 1;
+        cal.set(Calendar.MONTH, month);
+        System.out.println("After "+cal.getTime());
+        final String before  = df.format(cal.getTime());
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_CUTI+"datacuti", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -252,7 +291,7 @@ public class Cuti extends  AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("tglmulai", now);
+                params.put("tglmulai", before);
                 params.put("tglakhir", now);
                 return params;
             }

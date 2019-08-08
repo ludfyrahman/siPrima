@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
@@ -22,6 +23,8 @@ import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Promo.Adapter.Adapter_Promo;
 import com.android.primaitech.siprima.Promo.Model.Promo_Model;
 import com.android.primaitech.siprima.R;
@@ -72,7 +75,7 @@ public class Promo extends AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Promo(Promo.this,(ArrayList<Promo_Model>) list);
+        adapter = new Adapter_Promo(Promo.this,(ArrayList<Promo_Model>) list, this);
         mManager = new LinearLayoutManager(Promo.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -88,6 +91,11 @@ public class Promo extends AppCompatActivity {
             }
         });
         validate();
+    }
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
     }
     public void reload(){
         not_found.setVisibility(View.GONE);
@@ -159,7 +167,32 @@ public class Promo extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Promo.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Promo.this, Promo.class));
+                    } else {
+                        Toast.makeText(
+                                Promo.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Promo.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

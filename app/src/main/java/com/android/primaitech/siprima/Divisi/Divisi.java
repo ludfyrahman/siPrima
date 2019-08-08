@@ -13,11 +13,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Divisi.Adapter.Adapter_Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
@@ -72,7 +74,7 @@ public class Divisi extends AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Divisi(Divisi.this,(ArrayList<Divisi_Model>) list);
+        adapter = new Adapter_Divisi(Divisi.this,(ArrayList<Divisi_Model>) list, this);
         mManager = new LinearLayoutManager(Divisi.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -89,7 +91,11 @@ public class Divisi extends AppCompatActivity {
         });
         validate();
     }
-
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
+    }
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -160,7 +166,32 @@ public class Divisi extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Divisi.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Divisi.this, Divisi.class));
+                    } else {
+                        Toast.makeText(
+                                Divisi.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Divisi.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {

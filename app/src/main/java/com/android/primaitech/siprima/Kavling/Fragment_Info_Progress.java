@@ -51,7 +51,7 @@ public class Fragment_Info_Progress extends Fragment {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
-    Detail_Proyek detail_proyek = new Detail_Proyek();
+    Detail_Kavling detail_kavling = new Detail_Kavling();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class Fragment_Info_Progress extends Fragment {
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
-        if (detail_proyek.addjual){
+        if (detail_kavling.addprogres){
             tambah.show();
         }else{
             tambah.hide();
@@ -98,7 +98,6 @@ public class Fragment_Info_Progress extends Fragment {
         pd.show();
         Detail_Kavling detail_kavling = new Detail_Kavling();
         final String kode = detail_kavling.kode;
-        final ArrayList<String> datapenjualan= detail_proyek.datapenjualan;
 
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KAVLING + "detailkavling", new Response.Listener<String>() {
             @Override
@@ -117,7 +116,7 @@ public class Fragment_Info_Progress extends Fragment {
                                 md.setKode_progres(data.getString("kode_progres"));
                                 md.setJudul(data.getString("judul"));
                                 md.setDeskripsi(data.getString("deskripsi"));
-                                md.setFoto_kecil(data.getString("foto_kecil"));
+                                md.setFoto_kecil(ServerAccess.BASE_URL+""+data.getString("foto_kecil"));
                                 md.setCreate_at(data.getString("create_at"));
                                 list.add(md);
                             } catch (Exception ea) {

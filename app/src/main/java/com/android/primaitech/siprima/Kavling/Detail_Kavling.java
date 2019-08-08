@@ -52,7 +52,6 @@ public class Detail_Kavling extends AppCompatActivity {
     LinearLayout not_found;
     TabLayout tabLayout;
     public static String kode = "";
-    public static ArrayList<String> datanya, datakaryawan, datapenjualan, datakavling, datalegalitas, datastruktur, datagrafikjual;
     public static boolean listprogres= false,listdok= false,addprogres= false,adddok = false,editprogres= false,editdok= false,hapusdok= false,hapusprogres= false,edit= false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +90,7 @@ public class Detail_Kavling extends AppCompatActivity {
                 JSONObject res = null;
                 try {
                     res = new JSONObject(response);
+
                     JSONObject data = res.getJSONObject("aksi");
                     try {
                         listprogres = data.getBoolean("listprogres");
@@ -234,6 +234,6 @@ public class Detail_Kavling extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 //        spv_dev_list_komplain.this.finish();
-        startActivity(new Intent(getBaseContext(), Dashboard.class));
+        startActivity(new Intent(getBaseContext(), Kavling.class));
     }
 }

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
@@ -21,6 +22,8 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.Proyek.Proyek;
@@ -30,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.maps.model.Dash;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +76,7 @@ public class Kavling extends AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kavling(Kavling.this,(ArrayList<Kavling_Model>) list);
+        adapter = new Adapter_Kavling(Kavling.this,(ArrayList<Kavling_Model>) list, this);
         mManager = new LinearLayoutManager(Kavling.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
@@ -88,6 +92,11 @@ public class Kavling extends AppCompatActivity {
             }
         });
         validate();
+    }
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Dashboard.class));
     }
     public void reload(){
         not_found.setVisibility(View.GONE);
@@ -159,7 +168,32 @@ public class Kavling extends AppCompatActivity {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                Kavling.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(Kavling.this, Kavling.class));
+                    } else {
+                        Toast.makeText(
+                                Kavling.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
 
+                    Toast.makeText(
+                            Kavling.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {
@@ -199,15 +233,15 @@ public class Kavling extends AppCompatActivity {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
                                 Kavling_Model md = new Kavling_Model();
-                                md.setDesain_rumah(ServerAccess.upload+"/"+ServerAccess.kavling+"/"+data.getString("desain_rumah"));
+                                md.setDesain_rumah(ServerAccess.BASE_URL+"/"+data.getString("desain_rumah"));
                                 md.setKode_kavling(data.getString("kode_kavling"));
                                 md.setNama_kavling(data.getString("nama_kavling"));
                                 md.setNama_proyek(data.getString("nama_proyek"));
                                 md.setNama_kategori(data.getString("nama_kategori"));
                                 md.setHarga_jual(ServerAccess.numberConvert(data.getString("harga_jual")));
                                 md.setTipe_rumah(data.getString("tipe_rumah"));
-                                md.setCreate_at(data.getString("create_at"));
-                                md.setStatus(data.getString("status"));
+                                md.setCreate_at(ServerAccess.parseDate(data.getString("create_at")));
+                                md.setStatus(ServerAccess.status_kavling[data.getInt("status")]);
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();

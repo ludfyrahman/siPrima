@@ -25,6 +25,7 @@ import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -34,9 +35,10 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Akun_Bank(Activity activity, ArrayList<Akun_Bank_Model> listdata) {
+    public Adapter_Akun_Bank(Activity activity, ArrayList<Akun_Bank_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -74,6 +76,7 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -83,8 +86,7 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
         private CardView cv;
         private TextView kode, nama_rekening, nama_unit, nama_bank, no_rekening, saldo, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -107,9 +109,9 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 //                                    ActivityCompat.finishAffinity(dashboard_manager_dev.this);
-                                    Akun_bank akun_bank = new Akun_bank();
-                                    akun_bank.delete(kode.getText().toString());
-//                                    finish();
+                                    if (mContext instanceof Akun_bank) {
+                                        ((Akun_bank)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

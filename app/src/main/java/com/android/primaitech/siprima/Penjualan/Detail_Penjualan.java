@@ -86,68 +86,6 @@ public class Detail_Penjualan extends AppCompatActivity {
         setupViewPager(mViewPager);
 //        loadData();
     }
-    private void loadData(){
-        Intent data = getIntent();
-        datapenjualan = new ArrayList<>();
-        final String kode = data.getStringExtra("kode");
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN + "detailpenjualan", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                JSONObject res = null;
-                try {
-                    res = new JSONObject(response);
-                    JSONObject data = res.getJSONObject("aksi");
-//                        for (int i = 0; i < arr.length(); i++) {
-                    try {
-                        listkyw = data.getBoolean("listkyw");
-                        listkavling = data.getBoolean("listkavling");
-                        listdok = data.getBoolean("listdok");
-                        listjual = data.getBoolean("listjual");
-                        adddok = data.getBoolean("adddok");
-                        editdok = data.getBoolean("editdok");
-                        hapusdok = data.getBoolean("hapusdok");
-                        addkavling = data.getBoolean("addkavling");
-                        editkavling = data.getBoolean("editkavling");
-                        hapuskavling = data.getBoolean("hapuskavling");
-                        detailkavling = data.getBoolean("detailkavling");
-                        addkaryawan = data.getBoolean("addkaryawan");
-                        editkaryawan = data.getBoolean("editkaryawan");
-                        hapuskaryawan = data.getBoolean("hapuskaryawan");
-                        detailkaryawan = data.getBoolean("detailkaryawan");
-                        detailjual = data.getBoolean("detailjual");
-                        addjual = data.getBoolean("addjual");
-                        editstruktur = data.getBoolean("editstruktur");
-                        liststruktur = data.getBoolean("liststruktur");
-                        edit = data.getBoolean("edit");
-                    } catch (Exception ea) {
-                        ea.printStackTrace();
-
-                    }
-//                        }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("volley", "errornya : " + error.getMessage());
-                    }
-                }) {
-
-            @Override
-            public Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("kodepenjualan", kode);
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(senddata);
-    }
     public  void delete(final String kode){
 
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"deletepembeli", new Response.Listener<String>() {

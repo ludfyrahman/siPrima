@@ -24,6 +24,7 @@ import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Penjualan.Penjualan;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.Proyek.Proyek;
@@ -37,9 +38,10 @@ public class Adapter_Proyek extends RecyclerView.Adapter<Adapter_Proyek.ViewHold
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Proyek(Activity activity, ArrayList<Proyek_Model> listdata) {
+    public Adapter_Proyek(Activity activity, ArrayList<Proyek_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -73,6 +75,7 @@ public class Adapter_Proyek extends RecyclerView.Adapter<Adapter_Proyek.ViewHold
         Log.d("pesan", "editnya adalah "+edit +" hapusnya adalah "+hapus);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -82,9 +85,8 @@ public class Adapter_Proyek extends RecyclerView.Adapter<Adapter_Proyek.ViewHold
         private CardView cv;
         private TextView kode, nama_unit, nama_proyek, link_web, luas_proyek, tanggal_mulai, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
         ImageView gambar;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -107,9 +109,9 @@ public class Adapter_Proyek extends RecyclerView.Adapter<Adapter_Proyek.ViewHold
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Proyek proyek = new Proyek();
-                                    proyek.delete(kode.getText().toString());
-//                                    proyek.reload();
+                                    if (mContext instanceof Proyek) {
+                                        ((Proyek)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })

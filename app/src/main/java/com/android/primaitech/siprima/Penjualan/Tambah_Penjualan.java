@@ -145,7 +145,6 @@ public class Tambah_Penjualan extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), Pilih_Pembeli.class);
                 intent.putExtra("code", "1");
                 startActivity(intent);
-//                startActivity(new Intent(Tambah_Penjualan.this, Pilih_Pembeli.class));
             }
         });
         Intent data = getIntent();
@@ -159,7 +158,6 @@ public class Tambah_Penjualan extends AppCompatActivity {
         loadJson(Temp_Penjualan.getInstance(getBaseContext()).getKode_pembeli());
     }
     private void simpan(){
-        Intent data = getIntent();
         if(instansi_kerja.getText().toString().equals("")){
             Toast.makeText(this, "Instansi Kerja Harus Diisi", Toast.LENGTH_SHORT).show();
         }else if(Temp_Penjualan.getInstance(getBaseContext()).getKode_pembeli().equals("")){

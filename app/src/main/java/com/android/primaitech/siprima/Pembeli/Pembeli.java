@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
@@ -65,13 +66,39 @@ public class Pembeli extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         setupViewPager(mViewPager);
     }
-    public  void delete(final String kode){
 
+    public  void delete(final String kode){
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"deletepembeli", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-            }
-        },
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            JSONObject data = obj.getJSONObject("respon");
+                            if (data.getBoolean("status")) {
+                                Toast.makeText(
+                                        Pembeli.this,
+                                        data.getString("pesan"),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                                startActivity(new Intent(Pembeli.this, Pembeli.class));
+                            } else {
+                                Toast.makeText(
+                                        Pembeli.this,
+                                        data.getString("pesan"),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        } catch (JSONException e) {
+
+                            Toast.makeText(
+                                    Pembeli.this,
+                                    e.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                            e.printStackTrace();
+                        }
+                    }
+                },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -97,7 +124,7 @@ public class Pembeli extends AppCompatActivity {
         if(data.hasExtra("kode_menu")){
             kd_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         }else{
-            kd_menu = menuData.kode_menu;
+            kd_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         }
         final String kode_menu = kd_menu;
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {

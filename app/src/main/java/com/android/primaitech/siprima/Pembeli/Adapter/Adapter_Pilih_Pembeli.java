@@ -25,6 +25,7 @@ import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pilih_Pembeli;
 import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
+import com.android.primaitech.siprima.Penjualan.Temp.Temp_Penjualan;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -86,6 +87,11 @@ public class Adapter_Pilih_Pembeli extends RecyclerView.Adapter<Adapter_Pilih_Pe
                                 Intent intent = new Intent(v.getContext(), Tambah_Penjualan.class);
                                 intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
                                 intent.putExtra("kode_pembeli", kode.getText().toString());
+                                Temp_Penjualan.getInstance(v.getContext()).setNik(no_ktp.getText().toString());
+                                Temp_Penjualan.getInstance(v.getContext()).setInstansi_kerja(no_ktp.getText().toString());
+                                Temp_Penjualan.getInstance(v.getContext()).setNik(no_ktp.getText().toString());
+                                Temp_Penjualan.getInstance(v.getContext()).setNik(no_ktp.getText().toString());
+                                Temp_Penjualan.getInstance(v.getContext()).setNik(no_ktp.getText().toString());
                                 v.getContext().startActivity(intent);
                             }else{
                                 Intent intent = new Intent(v.getContext(), Tambah_Follow_Up.class);

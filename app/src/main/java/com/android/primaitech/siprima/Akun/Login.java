@@ -26,6 +26,7 @@ import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Database.Database_Helper;
 import com.android.primaitech.siprima.MainActivity;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -158,8 +159,11 @@ public class Login extends AppCompatActivity {
                         if(respon.getBoolean("status")){
                             Intent intent = new Intent(getBaseContext(), Dashboard.class);
                             startActivity(intent);
+                            Database_Helper db = new Database_Helper(Login.this);
+                            db.truncateMenu();
                             JSONObject datalogin = res.getJSONObject("datauser");
                             JSONObject datauth = res.getJSONObject("dataauth");
+                            db.insertKey(datauth.getString("kode_auth"));
                             AuthData.getInstance(getApplicationContext()).setdataauth(
                                     datauth.getString("kode_auth"),
                                     datauth.getString("kode_user"),

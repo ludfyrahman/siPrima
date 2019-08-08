@@ -39,7 +39,7 @@ public class Adapter_Info_Pembayaran extends RecyclerView.Adapter<Adapter_Info_P
     @Override
     public Adapter_Info_Pembayaran.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_fragment_info_pembayaran, parent, false);
+                .inflate(R.layout.template_info_pembayaran, parent, false);
         Adapter_Info_Pembayaran.ViewHolder vh = new Adapter_Info_Pembayaran.ViewHolder(v);
         return vh;
     }
@@ -79,6 +79,8 @@ public class Adapter_Info_Pembayaran extends RecyclerView.Adapter<Adapter_Info_P
             jumlah_bayar = (TextView)v.findViewById(R.id.jumlah_bayar);
             tanggal_bayar = (TextView)v.findViewById(R.id.tanggal_bayar);
             angsuran_ke = (TextView)v.findViewById(R.id.angsuran_ke);
+            edit = (TextView)v.findViewById(R.id.edit);
+            hapus = (TextView)v.findViewById(R.id.hapus);
             status = (TextView)v.findViewById(R.id.status);
             gambar = (ImageView)v.findViewById(R.id.gambar);
         }

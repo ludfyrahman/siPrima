@@ -6,6 +6,47 @@ public class Pembeli_Model {
     String no_ktp;
     int status;
     String no_hp;
+    String instansi_kerja, alamat_instansi, no_instansi, alamat_pembeli, email;
+
+    public String getInstansi_kerja() {
+        return instansi_kerja;
+    }
+
+    public void setInstansi_kerja(String instansi_kerja) {
+        this.instansi_kerja = instansi_kerja;
+    }
+
+    public String getAlamat_instansi() {
+        return alamat_instansi;
+    }
+
+    public void setAlamat_instansi(String alamat_instansi) {
+        this.alamat_instansi = alamat_instansi;
+    }
+
+    public String getNo_instansi() {
+        return no_instansi;
+    }
+
+    public void setNo_instansi(String no_instansi) {
+        this.no_instansi = no_instansi;
+    }
+
+    public String getAlamat_pembeli() {
+        return alamat_pembeli;
+    }
+
+    public void setAlamat_pembeli(String alamat_pembeli) {
+        this.alamat_pembeli = alamat_pembeli;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getNo_hp() {
         return no_hp;

@@ -99,9 +99,7 @@ public class Tambah_Pembeli extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    Tambah_Pembeli.this.onBackPressed();
-//                                    startActivity(new Intent(Tambah_Follow_Up.this, Dashboard.class));
-
+                                    startActivity(new Intent(Tambah_Pembeli.this, Pembeli.class));
                                 } else {
                                     Toast.makeText(
                                             Tambah_Pembeli.this,

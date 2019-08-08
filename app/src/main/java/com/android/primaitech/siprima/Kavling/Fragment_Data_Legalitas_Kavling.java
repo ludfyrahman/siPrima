@@ -96,7 +96,7 @@ public class Fragment_Data_Legalitas_Kavling extends Fragment {
         pd.setCancelable(false);
         pd.show();
         final String kode = detail_kavling.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, "http://192.168.43.234/siprima/api/kavling/detailkavling", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KAVLING+"detailkavling", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -104,9 +104,14 @@ public class Fragment_Data_Legalitas_Kavling extends Fragment {
                     pd.cancel();
                     res = new JSONObject(response);
                     if(res.getString("datalegalitas") != "null") {
-                        JSONArray arr = res.getJSONArray("datalegalitas");
+                    JSONArray arr = res.getJSONArray("datalegalitas");
+                        Log.d("pesan", "linknya "+ServerAccess.URL_KAVLING+"detailkavling");
                         Log.d("pesan", "kode "+AuthData.getInstance(getContext()).getAuthKey());
                         Log.d("pesan", "kodekavling "+kode);
+                        Log.d("pesan", "jumlah res "+ res.length());
+                        Log.d("pesan", "array "+ arr.toString());
+                        Log.d("pesan", "jumlah array  "+ arr.length());
+                        Log.d("pesan", "res array  "+ response);
                         if (arr.length() > 0) {
                             for (int i = 0; i < arr.length(); i++) {
                                 try {
@@ -128,6 +133,7 @@ public class Fragment_Data_Legalitas_Kavling extends Fragment {
                             pd.cancel();
                             adapter.notifyDataSetChanged();
                         } else {
+                            Log.d("pesan", "Data Legalitas Kosong");
                             pd.cancel();
                             not_found.setVisibility(View.VISIBLE);
                         }

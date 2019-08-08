@@ -69,7 +69,7 @@ public class Fragment_Info_Pembayaran extends Fragment {
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
-//        loadJson();
+        loadJson();
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
@@ -116,7 +116,7 @@ public class Fragment_Info_Pembayaran extends Fragment {
                                     md.setKode_jadwal(data.getString("kode_jadwal"));
                                     md.setKode_penjualan(data.getString("kode_penjualan"));
                                     md.setNama_pembayaran(ServerAccess.jenis_pembayaran[data.getInt("nama_pembayaran")]);
-                                    md.setJumlah_bayar(data.getString("jumlah_bayar"));
+                                    md.setJumlah_bayar(ServerAccess.numberConvert(data.getString("jumlah_bayar")));
                                     md.setTanggal_bayar(ServerAccess.parseDate(data.getString("tanggal_bayar")));
                                     md.setAngsuran_ke(data.getString("angsuran_ke"));
                                     md.setStatus_bayar(ServerAccess.status_pembayaran[data.getInt("status_bayar")]);

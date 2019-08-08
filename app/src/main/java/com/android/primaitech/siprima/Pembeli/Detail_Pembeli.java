@@ -16,6 +16,7 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
+import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -73,7 +74,11 @@ public class Detail_Pembeli extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onBackPressed() {
+//        spv_dev_list_komplain.this.finish();
+        startActivity(new Intent(getBaseContext(), Pembeli.class));
+    }
     private void loadJson()
     {
         pd.setMessage("Menampilkan Data");

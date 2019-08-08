@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
                 <Button
                     android:layout_weight="0."
@@ -71,6 +72,17 @@
                     android:textSize="12sp"
                     android:layout_margin="8dp"
                     android:textColor="@color/colorWhite" />
+                <Button
+                    android:layout_weight="0."
+                    android:id="@+id/ulang"
+                    android:layout_width="150dp"
+                    android:layout_gravity="right"
+                    android:layout_height="30dp"
+                    android:background="@drawable/box_shadow"
+                    android:text="Pengajuan Ulang"
+                    android:textSize="12sp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

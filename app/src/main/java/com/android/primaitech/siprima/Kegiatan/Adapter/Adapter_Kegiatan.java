@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
@@ -27,9 +28,10 @@ public class Adapter_Kegiatan extends RecyclerView.Adapter<Adapter_Kegiatan.View
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Kegiatan(Activity activity, ArrayList<Kegiatan_Model> listdata) {
+    public Adapter_Kegiatan(Activity activity, ArrayList<Kegiatan_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class Adapter_Kegiatan extends RecyclerView.Adapter<Adapter_Kegiatan.View
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
         holder.detailStatus = detail;
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -69,6 +72,7 @@ public class Adapter_Kegiatan extends RecyclerView.Adapter<Adapter_Kegiatan.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cv;
         String detailStatus;
+        Context mContext;
         private TextView kode, nama_karyawan,nama_proyek, nama_unit, status, kegiatan, create_at, edit, hapus;
         public ViewHolder(View v) {
             super(v);
@@ -85,8 +89,9 @@ public class Adapter_Kegiatan extends RecyclerView.Adapter<Adapter_Kegiatan.View
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Kegiatan kegiatan = new Kegiatan();
-                    kegiatan.delete(kode.getText().toString());
+                    if (mContext instanceof Kegiatan) {
+                        ((Kegiatan)mContext).delete(kode.getText().toString());
+                    }
                 }
             });
             v.setOnClickListener(new View.OnClickListener() {

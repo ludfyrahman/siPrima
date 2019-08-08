@@ -57,7 +57,7 @@ public class Fragment_Ab_Proyek extends Fragment {
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Akun_Bank(getActivity(),(ArrayList<Akun_Bank_Model>) list);
+        adapter = new Adapter_Akun_Bank(getActivity(),(ArrayList<Akun_Bank_Model>) list, getContext());
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);

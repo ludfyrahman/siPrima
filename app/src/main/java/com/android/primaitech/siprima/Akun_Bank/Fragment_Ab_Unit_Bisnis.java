@@ -61,7 +61,7 @@ public class Fragment_Ab_Unit_Bisnis extends Fragment {
         tambah = (FloatingActionButton)v.findViewById(R.id.tambah);
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Akun_Bank(getActivity(),(ArrayList<Akun_Bank_Model>) list);
+        adapter = new Adapter_Akun_Bank(getActivity(),(ArrayList<Akun_Bank_Model>) list, getContext());
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);

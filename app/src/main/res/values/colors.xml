@@ -5,7 +5,9 @@
     <color name="colorRed">#BB130D</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#73B650</color>
     <color name="colorAbuabu">#777777</color>
     <color name="colorAbuMuda">#cccccc</color>
+    <color name="colorTitle">#b2b0b2</color>
+    <color name="colorDesc">#727072</color>
 </resources>

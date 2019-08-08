@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
@@ -56,12 +58,26 @@ public class Fragment_Calon_Pembeli extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_fragment_calon_pembeli, container, false);
         listdata = (RecyclerView)v.findViewById(R.id.listdata);
+
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)v.findViewById(R.id.tambah);
+        listdata.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (listdata != null) {
+                    if (listdata.getScrollY()==0) {
+//                        Toast.makeText(getContext(),"top",Toast.LENGTH_SHORT).show();
+//                        tambah.setVerticalScrollbarPosition(12);
+                    } else {
+
+                    }
+                }
+            }
+        });
         not_found = (LinearLayout)v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Pembeli(getActivity(),(ArrayList<Pembeli_Model>) list);
+        adapter = new Adapter_Pembeli(getActivity(),(ArrayList<Pembeli_Model>) list, getContext());
         mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);

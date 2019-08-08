@@ -67,6 +67,7 @@ public class RAB extends AppCompatActivity {
         setupViewPager(mViewPager);
 
     }
+
     private void setupViewPager(final ViewPager viewPager) {
         Intent data = getIntent();
 

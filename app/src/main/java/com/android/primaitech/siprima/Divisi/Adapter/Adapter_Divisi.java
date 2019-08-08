@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
@@ -32,9 +33,10 @@ public class Adapter_Divisi extends RecyclerView.Adapter<Adapter_Divisi.ViewHold
     private Activity activity;
     private Context context;
     String edit,hapus, detail;
-    public Adapter_Divisi(Activity activity, ArrayList<Divisi_Model> listdata) {
+    public Adapter_Divisi(Activity activity, ArrayList<Divisi_Model> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -60,6 +62,7 @@ public class Adapter_Divisi extends RecyclerView.Adapter<Adapter_Divisi.ViewHold
         if (!hapus.equals("1"))
             holder.hapus.setVisibility(View.GONE);
         holder.kode.setVisibility(View.GONE);
+        holder.mContext = context;
         holder.detailStatus = detail;
     }
     @Override
@@ -70,9 +73,8 @@ public class Adapter_Divisi extends RecyclerView.Adapter<Adapter_Divisi.ViewHold
         private CardView cv;
         private TextView kode, nama_unit, nama_divisi, edit, hapus;
         String detailStatus;
-        ProgressBar progress;
         ImageView gambar;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -92,9 +94,9 @@ public class Adapter_Divisi extends RecyclerView.Adapter<Adapter_Divisi.ViewHold
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Divisi divisi = new Divisi();
-                                    divisi.delete(kode.getText().toString());
-//                                    proyek.reload();
+                                    if (mContext instanceof Divisi) {
+                                        ((Divisi)mContext).delete(kode.getText().toString());
+                                    }
                                 }
 
                             })
