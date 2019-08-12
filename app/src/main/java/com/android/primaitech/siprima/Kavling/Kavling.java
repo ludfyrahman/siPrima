@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -34,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.model.Dash;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +59,8 @@ public class Kavling extends AppCompatActivity {
     LinearLayout not_found;
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
+    MaterialSearchView materialSearchView;
+    String[] ls;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,12 +96,41 @@ public class Kavling extends AppCompatActivity {
                 reload();
             }
         });
+
+
+        ls = new String[]{"Clipcodes", "Android Tutorials", "Youtube Clipcodes Tutorials", "SearchView Clicodes", "Android Clipcodes", "Tutorials Clipcodes"};
+        materialSearchView = (MaterialSearchView)findViewById(R.id.mysearch);
+        materialSearchView.clearFocus();
+        materialSearchView.setSuggestions(ls);
+        materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Here Create your filtering
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //You can make change realtime if you typing here
+                //See my tutorials for filtering with ListView
+                return false;
+            }
+        });
         validate();
     }
     @Override
     public void onBackPressed() {
 //        spv_dev_list_komplain.this.finish();
         startActivity(new Intent(getBaseContext(), Dashboard.class));
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        materialSearchView.setMenuItem(item);
+
+        return true;
     }
     public void reload(){
         not_found.setVisibility(View.GONE);

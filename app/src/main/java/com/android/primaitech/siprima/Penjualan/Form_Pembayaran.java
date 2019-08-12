@@ -31,6 +31,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import ru.kolotnev.formattedittext.DecimalEditText;
+
 public class Form_Pembayaran extends AppCompatActivity {
     StepView mStepView;
     Button next, prev, tunai, tunai_bertahap;
@@ -44,9 +46,9 @@ public class Form_Pembayaran extends AppCompatActivity {
     LinearLayout linear_diskon, linear_uang_muka,linear_uang_booking, linear_jumlah_angsuran_dp, linear_jumlah_dp_perbulan, linear_sisa_uang_set_dp, linear_lama_angsuran, linear_jumlah_angsuran_perbulan, linear_lain_lain,
     linear_harga_jual_bersih, linear_sisa_dp, linear_tanggal_bayar_angsuran, linear_tanggal_bayar_booking, linear_tanggal_bayar_dp, linear_tanggal_sisa_pembayaran;
     Date c = Calendar.getInstance().getTime();
-
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     String now = df.format(c);
+    DecimalEditText harga;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,8 @@ public class Form_Pembayaran extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Form_Data_Kavling.class));
             }
         });
+        harga = (DecimalEditText)findViewById(R.id.harga);
+        Log.d("pesan", "harganya "+harga.getText().toString().replace(".", "").replace(",",     ""));
         mStepView = (StepView) findViewById(R.id.step_view);
         List<String> steps = Arrays.asList(new String[]{"Data Pembeli", "Data Kavling", "Pembayaran", "Konfirmasi"});
         mStepView.setSteps(steps);
@@ -142,7 +146,6 @@ public class Form_Pembayaran extends AppCompatActivity {
                 int sisa_uang_muka = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getUang_muka()) - value;
                 sisa_dp.setText(String.valueOf(sisa_uang_muka));
                 Temp_Penjualan.getInstance(getBaseContext()).setSisa_dp(String.valueOf(sisa_uang_muka));
-//                Log.d("pesan", "uang muka "+Temp_Penjualan.getInstance(getBaseContext()).getUang_muka()+" uang booking "+uang_booking.getText().toString());
             }
         });
         sisa_dp = (TextView) findViewById(R.id.sisa_dp);

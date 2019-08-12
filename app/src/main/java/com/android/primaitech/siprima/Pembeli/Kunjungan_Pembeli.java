@@ -64,7 +64,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
     LinearLayout not_found;
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
-    TextView textnya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                 Kunjungan_Pembeli.this.onBackPressed();
             }
         });
-//        textnya = (TextView)findViewById(R.id.textnya);
         listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
@@ -91,7 +89,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), Tambah_Follow_Up.class);
                 intent.putExtra("nama_pembeli", data.getStringExtra("nama_pembeli"));
                 intent.putExtra("kode_pembeli", data.getStringExtra("kode_pembeli"));
-                intent.putExtra("code", "1");
                 startActivity(intent);
             }
         });
@@ -171,7 +168,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
             }
         };
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
-//        startActivity(new Intent(getBaseContext(), Akun_bank.class));
     }
     public void timeSet(int hourOfDay, int minute, int day, int month, int year, String kode) {
         Calendar c = Calendar.getInstance();
@@ -182,17 +178,8 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         c.set(Calendar.YEAR, year);
         c.set(Calendar.SECOND, 0);
         Log.d("pesan", "datanya adalah "+year+"-"+month+"-"+day+" "+hourOfDay+":"+minute);
-        updateTimeText(c);
         startAlarm(c, kode);
     }
-
-    private void updateTimeText(Calendar c) {
-        String timeText = "Alarm set for: ";
-        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTimeInMillis());
-
-//        textnya.setText(timeText);
-    }
-
     private void startAlarm(Calendar c, String kode) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);

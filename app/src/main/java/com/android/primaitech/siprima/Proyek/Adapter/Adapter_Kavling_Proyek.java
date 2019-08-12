@@ -57,7 +57,7 @@ public class Adapter_Kavling_Proyek extends RecyclerView.Adapter<Adapter_Kavling
         holder.status.setText(listdata.get(position).getStatus());
         holder.nama_proyek.setText(listdata.get(position).getNama_proyek());
         Glide.with(activity)
-                .load(listdata.get(position).getDesain_rumah())
+                .load(R.drawable.menu8)
                 .into(holder.gambar);
 
         holder.kode.setVisibility(View.GONE);

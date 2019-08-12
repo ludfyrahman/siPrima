@@ -112,7 +112,7 @@ public class Fragment_Data_Kavling extends Fragment {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
                                 Kavling_Model md = new Kavling_Model();
-                                md.setDesain_rumah(ServerAccess.upload+"/"+data.getString("desain_rumah"));
+//                                md.setDesain_rumah(R.drawable.menu8);
                                 md.setKode_kavling(data.getString("kode_kavling"));
                                 md.setNama_kavling(data.getString("nama_kavling"));
                                 md.setNama_proyek(d.getString("nama_proyek"));
@@ -124,7 +124,6 @@ public class Fragment_Data_Kavling extends Fragment {
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
-
                             }
                         }
                         pd.cancel();

@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.21/siprima/";
+    public static final String BASE_URL = "http://192.168.1.18/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
 //    public static final String BASE_URL = "http://10.78.164.194/siprima/";
 //    public static final String BASE_URL = "http://siprima.primaitech.com/";
@@ -22,6 +22,7 @@ public class ServerAccess {
     public static final String URL_LOGIN=ROOT_API+"auth/authlogin";
     public static final String URL_PEMBELI=ROOT_API+"pembeli/";
     public static final String URL_KAVLING=ROOT_API+"kavling/";
+    public static final String URL_LAHAN=ROOT_API+"lahan/";
     public static final String URL_UNIT_BISNIS=ROOT_API+"unitBisnis/";
     public static final String URL_PROYEK=ROOT_API+"proyek/";
     public static final String URL_PENJUALAN=ROOT_API+"penjualan/";
@@ -41,6 +42,7 @@ public class ServerAccess {
     public static String jenis_pembayaran[] = {"","Uang Booking","Bayar DP","Angsuran Bulanan","Pembayaran Cash"};
     public static String status_pembayaran[] = {"Belum Lunas","Lunas", "Menunggu Konfirmasi"};
     public static String metode[] = {"","Cash","Transfer Bank"};
+    public static String statusLahan[] = {"","Tersedia","Terpakai", "Menunggu Konfirmasi"};
     public static String numberFormat(int val){
         NumberFormat nf =NumberFormat.getInstance();
         return nf.format(val);

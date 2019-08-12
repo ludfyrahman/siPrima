@@ -155,13 +155,14 @@ public class Detail_Kegiatan extends AppCompatActivity {
                                 try {
                                     JSONObject data = arr.getJSONObject(i);
                                     Galeri_Kegiatan_Model md = new Galeri_Kegiatan_Model();
-                                    md.setKode_galery(data.getString("kode_galeri"));
+                                    md.setKode_galery(data.getString("kode_master"));
                                     md.setFoto_kecil(ServerAccess.BASE_URL+""+data.getString("foto_kecil"));
                                     md.setFoto(ServerAccess.BASE_URL+""+data.getString("foto"));
                                     uriString.add(ServerAccess.BASE_URL+""+data.getString("foto"));
                                     md.setIndex(i);
                                     md.setTanggal(ServerAccess.parseDate(data.getString("create_at")));
                                     md.setKeterangan(data.getString("keterangan"));
+
                                     list.add(md);
                                 } catch (Exception ea) {
                                     ea.printStackTrace();
@@ -269,6 +270,8 @@ public class Detail_Kegiatan extends AppCompatActivity {
                     solusi.setText(data.getString("solusi"));
                     kegiatan.setText(data.getString("kegiatan"));
                     tanggal.setText(ServerAccess.parseDate(data.getString("create_at")));
+                    if (data.getString("status").equals("Selesai"))
+                        selesai.setVisibility(View.GONE);
                     Glide.with(getBaseContext())
                             .load(data.getString("foto"))
                             .into(gambar);

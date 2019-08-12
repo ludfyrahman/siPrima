@@ -169,6 +169,7 @@ public class Fragment_Dashboard extends Fragment {
             adapter.notifyDataSetChanged();
             loading.setVisibility(View.GONE);
         }else{
+            loading.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Data anda kosong", Toast.LENGTH_SHORT).show();
             Log.d("pesan", "Data Anda Kosong");
         }
@@ -334,7 +335,7 @@ public class Fragment_Dashboard extends Fragment {
     }
     private void loadJson()
     {
-
+        db.truncateMenu();
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.Menu, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -346,13 +347,8 @@ public class Fragment_Dashboard extends Fragment {
                         try {
                             JSONObject data = arr.getJSONObject(i);
                             MenuModel md = new MenuModel();
-//                            md.setJudul(data.getString("nama_menu"));
-//                            md.setLink(data.getString("link"));
                             int id = getResources().getIdentifier(data.getString("kode_menu").toLowerCase(), "drawable", getActivity().getPackageName());
-//                            md.setGambar(id);
-//                            md.setKode_menu(data.getString("kode_menu").toLowerCase());
                             db.insertMenu(data.getString("kode_menu").toLowerCase(), data.getString("nama_menu"), data.getString("link"), id);
-//                            listdata.add(md);
                         } catch (Exception ea) {
                             ea.printStackTrace();
 

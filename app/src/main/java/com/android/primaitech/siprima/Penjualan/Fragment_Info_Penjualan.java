@@ -195,9 +195,9 @@ public class Fragment_Info_Penjualan extends Fragment {
                     pd.cancel();
                     res = new JSONObject(response);
                     JSONObject data = res.getJSONObject("data");
+                    JSONObject aksiData = res.getJSONObject("aksi");
                     nama_kavling.setText(nama_kav);
                     nama_proyek.setText(data.getString("nama_proyek"));
-
                     nama_karyawan.setText(data.getString("nama_karyawan"));
                     cara_beli.setText(ServerAccess.metode[data.getInt("cara_beli")]);
                     tanggal_penjualan.setText(ServerAccess.parseDate(data.getString("create_at")));
@@ -226,20 +226,20 @@ public class Fragment_Info_Penjualan extends Fragment {
                                     }
                                 }
                             });
-//                    kode_kavling = data.getString("kode_kavling");
-//                    diskonValue = data.getString("diskon");
-//                    metode_bayar = data.getString("cara_beli");
-//                    cash_uang_booking = data.getString("uang_booking");
-//                    tgl_bayarbooking_cash = data.getString("tanggal_bayar_booking");
-//                    tgl_bayar_cash = data.getString("tanggal_bayar_cash");
-//                    lainlaincash = data.getString("lainlaincash");
-//                    kredit_uang_muka = data.getString("kredit_uang_muka");
-//                    kredit_tgl_bayar_dp = data.getString("kredit_tgl_bayar_dp");
-//                    kredit_uang_booking = data.getString("kredit_uang_booking");
-//                    tgl_bayarbooking_kredit = data.getString("tgl_bayarbooking_kredit");
-//                    kredit_jml_angsur_bulanan = data.getString("kredit_jml_angsur_bulanan");
-//                    kredit_tgl_bayar_angsuran = data.getString("kredit_tgl_bayar_angsuran");
-//                    lainlainkredit = data.getString("lainlainkredit");
+                    kode_kavling = data.getString("kode_kavling");
+                    diskonValue = data.getString("diskon");
+                    metode_bayar = data.getString("cara_beli");
+                    cash_uang_booking = data.getString("uang_booking");
+                    tgl_bayarbooking_cash = data.getString("tanggal_bayar_booking");
+                    tgl_bayar_cash = data.getString("tanggal_bayar_cash");
+                    lainlaincash = data.getString("lain_lain");
+                    kredit_uang_muka = data.getString("uang_dp");
+                    kredit_tgl_bayar_dp = data.getString("tanggal_bayar_dp");
+                    kredit_uang_booking = data.getString("uang_booking");
+                    tgl_bayarbooking_kredit = data.getString("tanggal_bayar_booking");
+                    kredit_jml_angsur_bulanan = data.getString("angsuran_bulanan");
+                    kredit_tgl_bayar_angsuran = data.getString("tanggal_bayar_angsuran");
+                    lainlainkredit = data.getString("lainlainkredit");
                     switch (data.getInt("status_penjualan")){
                         case 0:
                             batalkan.setVisibility(View.VISIBLE);
@@ -257,8 +257,11 @@ public class Fragment_Info_Penjualan extends Fragment {
                             ulang.setVisibility(View.GONE);
                             break;
                         case 2:
-                            tolak.setVisibility(View.VISIBLE);
-                            terima.setVisibility(View.VISIBLE);
+                            if (aksiData.getBoolean("konfirmasi"))
+                                terima.setVisibility(View.VISIBLE);
+                            if (aksiData.getBoolean("tolak"))
+                                tolak.setVisibility(View.VISIBLE);
+
                             selesai.setVisibility(View.GONE);
                             batalkan.setVisibility(View.GONE);
                             ulang.setVisibility(View.GONE);

@@ -157,8 +157,9 @@ public class Ubah_Kegiatan extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    ((Detail_Kegiatan)getBaseContext()).reload();
-                                    Ubah_Kegiatan.this.onBackPressed();
+//                                    ((Detail_Kegiatan)getBaseContext()).reload();
+//                                    Ubah_Kegiatan.this.onBackPressed();
+                                    startActivity(new Intent(getBaseContext(), Kegiatan.class));
 
                                 } else {
                                     Toast.makeText(

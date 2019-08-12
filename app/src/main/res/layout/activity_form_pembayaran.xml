@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
-            android:fontFamily="@font/josefinsans_regular"
+            android:theme="@style/ToolbarTheme"
             app:titleTextColor="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="Penjualan">
@@ -65,6 +65,7 @@
                 android:padding="8dp"
                 android:fontFamily="@font/josefinsans_regular"
                 android:text="Metode Pembayawan"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,6 +90,24 @@
                     android:layout_margin="16dp"
                     android:textColor="@color/colorPrimary" />
             </LinearLayout>
+            <ru.kolotnev.formattedittext.DecimalEditText
+                android:id="@+id/harga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@mipmap/input"
+                android:ems="0"
+                android:text="20000000"
+                android:fontFamily="@font/josefinsans_regular"
+                android:textSize="15sp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingBottom="12dp"
+                app:rounding="3"/>
             <LinearLayout
             android:layout_width="match_parent"
                 android:orientation="vertical"

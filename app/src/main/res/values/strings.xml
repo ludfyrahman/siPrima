@@ -5,4 +5,7 @@
     <string name="empty_data">DATA KOSONG!</string>
     <string name="empty_data_desc">Data yang anda perlukan tidak tersedia untuk saat ini</string>
     <string name="title_activity_pembeli">Pembeli</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

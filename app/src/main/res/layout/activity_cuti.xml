@@ -18,9 +18,9 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/josefinsans_regular"
                 app:titleTextColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
+                android:theme="@style/ToolbarTheme"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:title="Cuti" />
         </android.support.design.widget.AppBarLayout>

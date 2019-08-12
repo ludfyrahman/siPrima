@@ -68,9 +68,7 @@ public class Detail_Cuti extends AppCompatActivity {
             }
         });
         tgl_awal = (TextView)findViewById(R.id.tgl_awal);
-        terima = (Button) findViewById(R.id.terima);
-        batalkan = (Button) findViewById(R.id.batalkan);
-        tolak = (Button) findViewById(R.id.tolak);
+
         tgl_akhir = (TextView)findViewById(R.id.tgl_akhir);
         keterangan = (TextView)findViewById(R.id.keterangan);
         status = (TextView)findViewById(R.id.status);
@@ -81,6 +79,12 @@ public class Detail_Cuti extends AppCompatActivity {
         namaacc = (TextView)findViewById(R.id.namaacc);
         lama_cuti = (TextView)findViewById(R.id.lama_cuti);
         pd = new ProgressDialog(this);
+        terima = (Button) findViewById(R.id.terima);
+        batalkan = (Button) findViewById(R.id.batalkan);
+        tolak = (Button) findViewById(R.id.tolak);
+        terima.setVisibility(View.GONE);
+        batalkan.setVisibility(View.GONE);
+        tolak.setVisibility(View.GONE);
         loadJson(data.getStringExtra("kode"));
         terima.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +163,7 @@ public class Detail_Cuti extends AppCompatActivity {
                     pd.cancel();
                     res = new JSONObject(response);
                     JSONObject data = res.getJSONObject("data");
+                    JSONObject dataAksi = res.getJSONObject("aksi");
                     tgl_awal.setText(ServerAccess.parseDate(data.getString("tgl_awal")));
                     tgl_akhir.setText(ServerAccess.parseDate(data.getString("tgl_akhir")));
                     keterangan.setText(data.getString("keterangan"));
@@ -169,7 +174,8 @@ public class Detail_Cuti extends AppCompatActivity {
                     nama_unit.setText(data.getString("nama_unit"));
                     namaacc.setText(data.getString("namaacc"));
                     lama_cuti.setText(data.getString("lama_cuti")+" Hari");
-
+                    if (dataAksi.getBoolean("konfirmasi"))
+                        terima.setVisibility(View.VISIBLE);
                     switch (data.getString("status")){
                         case "Di Tolak":
                             batalkan.setVisibility(View.GONE);

@@ -250,7 +250,6 @@
         android:id="@+id/swlayout"
         android:layout_marginTop="300dp"
         android:paddingBottom="50dp"
-
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

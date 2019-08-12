@@ -140,8 +140,8 @@ public class Form_Konfirmasi extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-//                                    Form_Konfirmasi.this.onBackPressed();
-                                    startActivity(new Intent(Form_Konfirmasi.this, Dashboard.class));
+                                    Temp_Penjualan.getInstance(getBaseContext()).clear();
+                                    startActivity(new Intent(Form_Konfirmasi.this, Penjualan.class));
                                 } else {
                                     Toast.makeText(
                                             Form_Konfirmasi.this,
@@ -150,7 +150,6 @@ public class Form_Konfirmasi extends AppCompatActivity {
                                     ).show();
                                 }
                             } catch (JSONException e) {
-
                                 Toast.makeText(
                                         Form_Konfirmasi.this,
                                         e.getMessage(),
