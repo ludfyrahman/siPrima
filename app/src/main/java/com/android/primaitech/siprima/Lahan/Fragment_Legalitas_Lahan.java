@@ -20,6 +20,10 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Lahan.Adapter.Adapter_Pembayaran_Lahan;
+import com.android.primaitech.siprima.Lahan.Model.Pembayaran_Lahan_Model;
+import com.android.primaitech.siprima.Legalitas.Adapter.Adapter_Legalitas;
+import com.android.primaitech.siprima.Legalitas.Model.Legalitas_Model;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Kavling_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.R;
@@ -42,8 +46,8 @@ import java.util.Map;
 public class Fragment_Legalitas_Lahan extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Kavling_Proyek adapter;
-    private List<Kavling_Model> list;
+    private Adapter_Legalitas adapter;
+    private List<Legalitas_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -64,16 +68,12 @@ public class Fragment_Legalitas_Lahan extends Fragment {
         not_found = (LinearLayout) v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Kavling_Proyek(getActivity(),(ArrayList<Kavling_Model>) list);
+        adapter = new Adapter_Legalitas(getActivity(),(ArrayList<Legalitas_Model>) list);
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        if (detail_proyek.addkavling){
-            tambah.show();
-        }else{
-            tambah.hide();
-        }
+        validate();
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
@@ -85,7 +85,17 @@ public class Fragment_Legalitas_Lahan extends Fragment {
         });
         return v;
     }
+    private void validate(){
+        Bundle bundle = getArguments();
+        if(bundle.getString("buat").equals("1"))
+            tambah.show();
+        buat = bundle.getString("buat");
+        edit = bundle.getString("edit");
+        hapus = bundle.getString("hapus");
+        detail = bundle.getString("detail");
+        kode_menu = bundle.getString("kode_menu");
 
+    }
     public void reload() {
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -100,29 +110,24 @@ public class Fragment_Legalitas_Lahan extends Fragment {
         pd.show();
         final Detail_Lahan detail_lahan = new Detail_Lahan();
         final String kode = detail_lahan.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK + "detailproyek", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_LAHAN + "detaillahanlengkap", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
                 try {
                     pd.cancel();
                     res = new JSONObject(response);
-                    JSONArray arr = res.getJSONArray("datakavling");
-                    JSONObject d = res.getJSONObject("data");
+                    JSONArray arr = res.getJSONArray("datalegalitas");
                     if(arr.length() > 0) {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Kavling_Model md = new Kavling_Model();
+                                Legalitas_Model md = new Legalitas_Model();
 //                                md.setDesain_rumah(R.drawable.menu8);
-                                md.setKode_kavling(data.getString("kode_kavling"));
-                                md.setNama_kavling(data.getString("nama_kavling"));
-                                md.setNama_proyek(d.getString("nama_proyek"));
-                                md.setNama_kategori(data.getString("nama_kategori"));
-                                md.setHarga_jual(ServerAccess.numberConvert(data.getString("harga_jual")));
-                                md.setTipe_rumah(data.getString("tipe_rumah"));
-                                md.setCreate_at(data.getString("create_at"));
-                                md.setStatus(data.getString("status"));
+                                md.setKode_legalitas(data.getString("kode_legalitas"));
+                                md.setNama_legalitas(data.getString("nama_legalitas"));
+                                md.setNo_surat(data.getString("no_surat"));
+                                md.setTgl_terbit(data.getString("tgl_terbit"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -152,7 +157,7 @@ public class Fragment_Legalitas_Lahan extends Fragment {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
-                params.put("kode_proyek", kode);
+                params.put("kode_lahan", kode);
                 return params;
             }
         };

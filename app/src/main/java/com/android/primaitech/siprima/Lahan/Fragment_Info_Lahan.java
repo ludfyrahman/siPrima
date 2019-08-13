@@ -90,19 +90,18 @@ public class Fragment_Info_Lahan extends Fragment {
                     res = new JSONObject(response);
                     JSONObject data = res.getJSONObject("data");
                     nama_lahan.setText(data.getString("nama_lahan"));
-                    harga_lahan.setText(ServerAccess.numberConvert(data.getString("harga_lahan")));
+                    harga_lahan.setText("harga_lahan");
                     luas_lahan.setText(data.getString("luas_lahan"));
                     tgl_mulai_bayar.setText(ServerAccess.parseDate(data.getString("tgl_mulai_bayar")));
                     tgl_akhir_bayar.setText(ServerAccess.parseDate(data.getString("tgl_akhir_bayar")));
-                    telah_terbayar.setText(ServerAccess.numberConvert(data.getString("telah_terbayar")));
+                    telah_terbayar.setText(data.getString("telah_terbayar"));
                     luas_proyek.setText(data.getString("luas_proyek"));
                     status.setText(data.getString("status"));
                     nama_proyek.setText(data.getString("nama_proyek"));
                     luas_proyek.setText(data.getString("luas_proyek"));
                     lahan_terbangun.setText(data.getString("lahan_terbangun")+" %");
                     lahan_fasilitas.setText(data.getString("lahan_fasilitas")+" %");
-                    hpp_lahan.setText(ServerAccess.numberConvert(data.getString("hpp_lahan")));
-
+                    hpp_lahan.setText(data.getString("hpp_lahan"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     pd.cancel();

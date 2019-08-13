@@ -65,9 +65,9 @@ public class ServerAccess {
         return str;
     }
     public static String numberConvert(String val){
-//        int v = Integer.
-        DecimalFormat formatter = new DecimalFormat("#,###,###");
-        String format = formatter.format(Integer.parseInt(val));
+        double v = Double.parseDouble(val);
+        DecimalFormat formatter = new DecimalFormat("###.###.###");
+        String format = formatter.format(v);
         return "Rp "+format;
     }
 }
