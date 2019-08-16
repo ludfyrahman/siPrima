@@ -17,6 +17,7 @@ import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Model.Galeri_Kegiatan_Model;
 import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
+import com.android.primaitech.siprima.Lahan.Detail_Lahan;
 import com.android.primaitech.siprima.MainActivity;
 import com.android.primaitech.siprima.R;
 import com.bumptech.glide.Glide;

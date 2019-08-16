@@ -39,7 +39,7 @@ public class Form_Pembayaran extends AppCompatActivity {
     int metode = 1;
     Calendar myCalendar;
     boolean status = false;
-    EditText diskon, uang_muka, uang_booking, jumlah_angsuran_dp, lama_angsuran, lain_lain,
+    EditText jumlah_angsuran_dp, lama_angsuran, lain_lain,
             tanggal_bayar_dp, tanggal_bayar_angsuran;
     TextView harga_jual_bersih, sisa_dp, tanggal_bayar_booking, jumlah_dp_perbulan, tanggal_sisa_pembayaran, jumlah_angsuran_perbulan, sisa_uang_set_dp;
     ImageView calendar_bayar_booking, calendar_pembayaran;
@@ -48,7 +48,7 @@ public class Form_Pembayaran extends AppCompatActivity {
     Date c = Calendar.getInstance().getTime();
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     String now = df.format(c);
-    DecimalEditText harga;
+    DecimalEditText harga, diskon, uang_muka, uang_booking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +62,8 @@ public class Form_Pembayaran extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Form_Data_Kavling.class));
             }
         });
-        harga = (DecimalEditText)findViewById(R.id.harga);
-        Log.d("pesan", "harganya "+harga.getText().toString().replace(".", "").replace(",",     ""));
+//        harga = (DecimalEditText)findViewById(R.id.harga);
+//        Log.d("pesan", "harganya "+harga.getText().toString().replace(".", "").replace(",",     ""));
         mStepView = (StepView) findViewById(R.id.step_view);
         List<String> steps = Arrays.asList(new String[]{"Data Pembeli", "Data Kavling", "Pembayaran", "Konfirmasi"});
         mStepView.setSteps(steps);
@@ -95,7 +95,7 @@ public class Form_Pembayaran extends AppCompatActivity {
         linear_lain_lain = (LinearLayout)findViewById(R.id.linear_lain_lain);
         calendar_pembayaran = (ImageView)findViewById(R.id.calendar_sisa_pembayaran);
         calendar_bayar_booking = (ImageView)findViewById(R.id.calendar_bayar_booking);
-        diskon = (EditText)findViewById(R.id.diskon);
+        diskon = (DecimalEditText)findViewById(R.id.diskon);
         harga_jual_bersih = (TextView) findViewById(R.id.harga_jual_bersih);
         diskon.setText("0");
         diskon.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -106,14 +106,14 @@ public class Form_Pembayaran extends AppCompatActivity {
                 if (diskon.getText().toString().equals("")){
                     value = 0;
                 }else{
-                    value = Integer.parseInt(diskon.getText().toString());
+                    value = Integer.parseInt(diskon.getText().toString().replace(".", "").replace(",",""));
                 }
                 int harga_bersih = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getHarga_jual()) -  value;
                 harga_jual_bersih.setText(String.valueOf(harga_bersih));
                 Temp_Penjualan.getInstance(getBaseContext()).setHarga_bersih(String.valueOf(harga_bersih));
             }
         });
-        uang_muka = (EditText)findViewById(R.id.uang_muka);
+        uang_muka = (DecimalEditText)findViewById(R.id.uang_muka);
         uang_muka.setText("0");
         uang_muka.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -123,7 +123,7 @@ public class Form_Pembayaran extends AppCompatActivity {
                 if (uang_muka.getText().toString().equals("") || uang_muka.getText().toString().equals("0")){
                     sisa = 0;
                 }else{
-                    sisa = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getHarga_bersih()) - Integer.parseInt(uang_muka.getText().toString());
+                    sisa = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getHarga_bersih()) - Integer.parseInt(uang_muka.getText().toString().replace(".", "").replace(",",""));
                 }
                 sisa_uang_set_dp.setText(String.valueOf(sisa));
                 Temp_Penjualan.getInstance(getBaseContext()).setSisa_pembayaran_setelah_dp(String.valueOf(sisa));
@@ -131,7 +131,7 @@ public class Form_Pembayaran extends AppCompatActivity {
         });
         tanggal_sisa_pembayaran = (TextView)findViewById(R.id.tanggal_sisa_pembayaran);
         tanggal_sisa_pembayaran.setText(now);
-        uang_booking = (EditText)findViewById(R.id.uang_booking);
+        uang_booking = (DecimalEditText)findViewById(R.id.uang_booking);
         uang_booking.setText("0");
         uang_booking.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -141,7 +141,7 @@ public class Form_Pembayaran extends AppCompatActivity {
                 if (uang_booking.getText().toString().equals("")){
                     value = 0;
                 }else{
-                    value = Integer.parseInt(uang_booking.getText().toString());
+                    value = Integer.parseInt(uang_booking.getText().toString().replace(".", "").replace(",",""));
                 }
                 int sisa_uang_muka = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getUang_muka()) - value;
                 sisa_dp.setText(String.valueOf(sisa_uang_muka));

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Kehadiran.Tambah_Absensi;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Kavling_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.R;
@@ -50,7 +52,8 @@ public class Fragment_Info_Lahan extends Fragment {
     ProgressDialog pd;
     LinearLayout bg;
     TextView nama_lahan, harga_lahan, luas_lahan, tgl_mulai_bayar, tgl_akhir_bayar, telah_terbayar, kurang_pembayaran, status, nama_proyek, luas_proyek, lahan_terbangun, lahan_fasilitas, hpp_lahan;
-
+    Button terima;
+    final Detail_Lahan detail_lahan = new Detail_Lahan();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +74,17 @@ public class Fragment_Info_Lahan extends Fragment {
         lahan_terbangun = (TextView)v.findViewById(R.id.lahan_terbangun);
         lahan_fasilitas = (TextView)v.findViewById(R.id.lahan_fasilitas);
         hpp_lahan = (TextView)v.findViewById(R.id.hpp_lahan);
+        terima = (Button) v.findViewById(R.id.terima);
+        terima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Terima_Lahan bt = new Terima_Lahan();
+                Bundle bundle = new Bundle();
+                bundle.putString("kode", detail_lahan.kode);
+                bt.setArguments(bundle);
+                bt.show(getFragmentManager(), "Tanggal");
+            }
+        });
         loadJson();
         return v;
     }
@@ -79,7 +93,6 @@ public class Fragment_Info_Lahan extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        Detail_Lahan detail_lahan = new Detail_Lahan();
         final String kode =detail_lahan.kode;
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_LAHAN+"detaillahanlengkap", new Response.Listener<String>() {
             @Override
@@ -102,6 +115,10 @@ public class Fragment_Info_Lahan extends Fragment {
                     lahan_terbangun.setText(data.getString("lahan_terbangun")+" %");
                     lahan_fasilitas.setText(data.getString("lahan_fasilitas")+" %");
                     hpp_lahan.setText(data.getString("hpp_lahan"));
+                    if (data.getString("status").equals("3")){
+                        if (detail_lahan.konfirmasi)
+                            terima.setVisibility(View.VISIBLE);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     pd.cancel();

@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Kategori_kavling;
+package com.android.primaitech.siprima.Unit_Bisnis;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,15 +19,14 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Cuti.Adapter.Adapter_Cuti;
+import com.android.primaitech.siprima.Cuti.Cuti;
+import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
+import com.android.primaitech.siprima.Cuti.Tambah_Cuti;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
-import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
-import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Pembeli;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
-import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
-import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
+import com.android.primaitech.siprima.Unit_Bisnis.Adapter.Adapter_Unit_Bisnis;
+import com.android.primaitech.siprima.Unit_Bisnis.Model.Unit_Bisnis_Model;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -38,16 +37,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Kategori_kavling extends AppCompatActivity {
+public class Unit_Bisnis extends AppCompatActivity {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Kategori_Kavling adapter;
-    private List<Kategori_Kavling_Model> list;
+    private Adapter_Unit_Bisnis adapter;
+    private List<Unit_Bisnis_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -58,7 +60,7 @@ public class Kategori_kavling extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kategori_kavling);
+        setContentView(R.layout.activity_unit_bisnis);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
@@ -73,13 +75,22 @@ public class Kategori_kavling extends AppCompatActivity {
         listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tambah_Cuti bt = new Tambah_Cuti();
+                Bundle bundle = new Bundle();
+                bt.setArguments(bundle);
+                bt.show(getSupportFragmentManager(), "Cuti");
+            }
+        });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        adapter = new Adapter_Kategori_Kavling(Kategori_kavling.this,(ArrayList<Kategori_Kavling_Model>) list, this);
-        mManager = new LinearLayoutManager(Kategori_kavling.this,LinearLayoutManager.VERTICAL,false);
+        adapter = new Adapter_Unit_Bisnis(Unit_Bisnis.this,(ArrayList<Unit_Bisnis_Model>) list, this);
+        mManager = new LinearLayoutManager(Unit_Bisnis.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
-        pd = new ProgressDialog(Kategori_kavling.this);
+        pd = new ProgressDialog(Unit_Bisnis.this);
         loadJson();
         refresh = (FrameLayout) findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
@@ -97,18 +108,6 @@ public class Kategori_kavling extends AppCompatActivity {
 //        spv_dev_list_komplain.this.finish();
         startActivity(new Intent(getBaseContext(), Dashboard.class));
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("pesan ", "Onresume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("pesan", "on Pause");
-    }
-
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -120,7 +119,6 @@ public class Kategori_kavling extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        Intent data = getIntent();
 
         final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
@@ -172,7 +170,7 @@ public class Kategori_kavling extends AppCompatActivity {
             }
         };
 
-        RequestHandler.getInstance(Kategori_kavling.this).addToRequestQueue(senddata);
+        RequestHandler.getInstance(Unit_Bisnis.this).addToRequestQueue(senddata);
     }
     public  void delete(final String kode){
 
@@ -184,14 +182,14 @@ public class Kategori_kavling extends AppCompatActivity {
                     JSONObject data = obj.getJSONObject("respon");
                     if (data.getBoolean("status")) {
                         Toast.makeText(
-                                Kategori_kavling.this,
+                                Unit_Bisnis.this,
                                 data.getString("pesan"),
                                 Toast.LENGTH_LONG
                         ).show();
-                        startActivity(new Intent(Kategori_kavling.this, Kategori_kavling.class));
+                        startActivity(new Intent(Unit_Bisnis.this, Cuti.class));
                     } else {
                         Toast.makeText(
-                                Kategori_kavling.this,
+                                Unit_Bisnis.this,
                                 data.getString("pesan"),
                                 Toast.LENGTH_LONG
                         ).show();
@@ -199,7 +197,7 @@ public class Kategori_kavling extends AppCompatActivity {
                 } catch (JSONException e) {
 
                     Toast.makeText(
-                            Kategori_kavling.this,
+                            Unit_Bisnis.this,
                             e.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
@@ -231,7 +229,7 @@ public class Kategori_kavling extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KATEGORI_KAVLING+"data", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_UNIT_BISNIS+"dataunit", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -242,11 +240,14 @@ public class Kategori_kavling extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Kategori_Kavling_Model md = new Kategori_Kavling_Model();
-                                md.setKode_kategori(data.getString("kode_kategori"));
-                                md.setNama_karyawan(data.getString("nama_karyawan"));
-                                md.setNama_kategori(data.getString("nama_kategori"));
-                                md.setNama_proyek(data.getString("nama_proyek"));
+                                Unit_Bisnis_Model md = new Unit_Bisnis_Model();
+                                md.setKode_unit(data.getString("kode_unit"));
+                                md.setNama_unit(data.getString("nama_unit"));
+                                md.setTipe(data.getString("tipe"));
+                                md.setLogo(ServerAccess.BASE_URL+"/"+ data.getString("logo"));
+                                md.setUrl_web(data.getString("url_web"));
+                                md.setTgl_mulai(data.getString("tgl_mulai"));
+                                md.setStatus(data.getString("status"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();

@@ -22,7 +22,9 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Lahan.Detail_Lahan"></activity>
+        <activity android:name=".Lahan.Terima_Lahan"></activity>
+        <activity android:name=".Unit_Bisnis.Unit_Bisnis" />
+        <activity android:name=".Lahan.Detail_Lahan" />
         <activity android:name=".Lahan.Lahan" />
         <activity android:name=".RAB.Detail_RAB" />
         <activity android:name=".Artikel.Detail_Artikel" />

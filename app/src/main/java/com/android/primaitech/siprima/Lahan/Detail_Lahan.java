@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.RequestHandler;
@@ -45,8 +46,7 @@ public class Detail_Lahan extends AppCompatActivity {
     LinearLayout not_found;
     TabLayout tabLayout;
     public static String kode = "", nama_proyek = "";
-    public static boolean listkyw= false,listkavling= false,listdok= false,listjual = false,adddok= false,editdok= false,hapusdok= false,addkavling= false,editkavling= false,hapuskavling= false,
-            detailkavling= false,addkaryawan= false,editkaryawan= false,hapuskaryawan= false,detailkaryawan= false,detailjual= false,addjual= false,editstruktur= false,liststruktur= false,edit= false;
+    public static boolean edit= false, konfirmasi=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,7 @@ public class Detail_Lahan extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Proyek.class));
+                startActivity(new Intent(getApplicationContext(), Lahan.class));
             }
         });
         not_found = (LinearLayout)findViewById(R.id.not_found);
@@ -75,7 +75,7 @@ public class Detail_Lahan extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         setupViewPager(mViewPager);
-
+        loadAksi();
     }
     private void setupViewPager(final ViewPager viewPager) {
         Intent data = getIntent();
@@ -154,8 +154,38 @@ public class Detail_Lahan extends AppCompatActivity {
 
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
+    private void loadAksi(){
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_LAHAN+"detaillahanlengkap", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(response);
+                    JSONObject data = res.getJSONObject("aksi");
+                    konfirmasi = data.getBoolean("konfirmasi");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
 
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode_lahan", kode);
+                return params;
+            }
+        };
 
+        AppController.getInstance().addToRequestQueue(senddata);
+    }
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

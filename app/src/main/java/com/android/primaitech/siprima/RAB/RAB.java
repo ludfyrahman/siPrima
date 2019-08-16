@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
@@ -17,6 +18,7 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -144,5 +146,55 @@ public class RAB extends AppCompatActivity {
     public void onBackPressed() {
 //        spv_dev_list_komplain.this.finish();
         startActivity(new Intent(getBaseContext(), Dashboard.class));
+    }
+    public  void delete(final String kode){
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PEMBELI+"deletepembeli", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.getJSONObject("respon");
+                    if (data.getBoolean("status")) {
+                        Toast.makeText(
+                                RAB.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        startActivity(new Intent(RAB.this, RAB.class));
+                    } else {
+                        Toast.makeText(
+                                RAB.this,
+                                data.getString("pesan"),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException e) {
+
+                    Toast.makeText(
+                            RAB.this,
+                            e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kodepembeli", kode);
+                params.put("kode", AuthData.getInstance(RAB.this).getAuthKey());
+
+                return params;
+            }
+        };
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
 }

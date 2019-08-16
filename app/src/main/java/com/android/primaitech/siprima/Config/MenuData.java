@@ -46,6 +46,7 @@ import com.android.primaitech.siprima.RAB.Detail_RAB;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Proyek;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Unit_Bisnis;
 import com.android.primaitech.siprima.RAB.RAB;
+import com.android.primaitech.siprima.Unit_Bisnis.Unit_Bisnis;
 
 import java.util.Arrays;
 
@@ -57,7 +58,7 @@ public class MenuData {
                         "menu5", "menu7", "menu42"
                     };
     Class halaman[] = {
-            Proyek.class, Proyek.class, Kategori_kavling.class, Proyek.class, Promo.class, Akun_bank.class, Proyek.class, Karyawan.class, Pembeli.class, RAB.class,
+            Proyek.class, Unit_Bisnis.class, Kategori_kavling.class, Proyek.class, Promo.class, Akun_bank.class, Proyek.class, Karyawan.class, Pembeli.class, RAB.class,
             Proyek.class, Proyek.class, Proyek.class, Proyek.class, Artikel.class, Akun_bank.class, Proyek.class, Proyek.class, Proyek.class, Proyek.class,
             Proyek.class, Proyek.class, Proyek.class, Proyek.class, Divisi.class, Kegiatan.class, Cuti.class, Proyek.class, Kavling.class, Proyek.class,
             Penjualan.class, Lahan.class, Kehadiran.class

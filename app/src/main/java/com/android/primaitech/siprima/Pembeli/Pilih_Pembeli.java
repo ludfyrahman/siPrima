@@ -60,13 +60,7 @@ public class Pilih_Pembeli extends AppCompatActivity {
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
         close = (ImageView)findViewById(R.id.fullscreen_dialog_close);
-//        close.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                startActivity(new Intent(getBaseContext(), Tambah_Penjualan.class));
-//                Pilih_Pembeli.this.onBackPressed();
-//            }
-//        });
+        Log.d("pesan", "pilih pembeli");
         Intent data = getIntent();
         if(data.hasExtra("code")) {
             code = data.getStringExtra("code");
@@ -87,7 +81,6 @@ public class Pilih_Pembeli extends AppCompatActivity {
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         pd = new ProgressDialog(Pilih_Pembeli.this);
-        loadJson();
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         swLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -96,6 +89,7 @@ public class Pilih_Pembeli extends AppCompatActivity {
                 reload();
             }
         });
+        loadJson();
     }
 
     public void reload(){
@@ -156,7 +150,7 @@ public class Pilih_Pembeli extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode", AuthData.getInstance(Pilih_Pembeli.this).getAuthKey());
                 return params;
             }
         };

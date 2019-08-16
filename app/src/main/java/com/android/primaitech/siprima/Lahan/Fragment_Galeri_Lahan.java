@@ -2,6 +2,7 @@ package com.android.primaitech.siprima.Lahan;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,9 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Kegiatan.Adapter.Adapter_Galeri_Kegiatan;
+import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
+import com.android.primaitech.siprima.Kegiatan.Model.Galeri_Kegiatan_Model;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Kavling_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.R;
@@ -28,6 +32,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.github.tntkhang.fullscreenimageview.library.FullScreenImageViewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +46,8 @@ import java.util.Map;
 public class Fragment_Galeri_Lahan extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Kavling_Proyek adapter;
-    private List<Kavling_Model> list;
+    private Adapter_Galeri_Kegiatan adapter;
+    private List<Galeri_Kegiatan_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
     RecyclerView.LayoutManager mManager;
@@ -50,8 +55,8 @@ public class Fragment_Galeri_Lahan extends Fragment {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
-    Detail_Proyek detail_proyek = new Detail_Proyek();
-
+    Detail_Lahan detail_lahan = new Detail_Lahan();
+    final ArrayList<String> uriString = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,16 +68,12 @@ public class Fragment_Galeri_Lahan extends Fragment {
         not_found = (LinearLayout) v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Kavling_Proyek(getActivity(),(ArrayList<Kavling_Model>) list);
+        adapter = new Adapter_Galeri_Kegiatan(getActivity(),(ArrayList<Galeri_Kegiatan_Model>) list, getContext());
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        if (detail_proyek.addkavling){
-            tambah.show();
-        }else{
-            tambah.hide();
-        }
+        validate();
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
@@ -84,7 +85,24 @@ public class Fragment_Galeri_Lahan extends Fragment {
         });
         return v;
     }
+    private void validate(){
+        Bundle bundle = getArguments();
+        if(bundle.getString("buat").equals("1"))
+            tambah.show();
+        buat = bundle.getString("buat");
+        edit = bundle.getString("edit");
+        hapus = bundle.getString("hapus");
+        detail = bundle.getString("detail");
+        kode_menu = bundle.getString("kode_menu");
 
+    }
+    public void onImageClickAction(int pos) {
+        Intent fullImageIntent = new Intent(getContext(), FullScreenImageViewActivity.class);
+        fullImageIntent.putExtra(FullScreenImageViewActivity.URI_LIST_DATA, uriString);
+        fullImageIntent.putExtra(FullScreenImageViewActivity.IMAGE_FULL_SCREEN_CURRENT_POS, pos);
+        startActivity(fullImageIntent);
+
+    }
     public void reload() {
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -99,29 +117,26 @@ public class Fragment_Galeri_Lahan extends Fragment {
         pd.show();
         final Detail_Lahan detail_lahan = new Detail_Lahan();
         final String kode = detail_lahan.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK + "detailproyek", new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_LAHAN + "detaillahanlengkap", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
                 try {
                     pd.cancel();
                     res = new JSONObject(response);
-                    JSONArray arr = res.getJSONArray("datakavling");
-                    JSONObject d = res.getJSONObject("data");
+                    JSONArray arr = res.getJSONArray("datagaleri");
                     if(arr.length() > 0) {
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
-                                Kavling_Model md = new Kavling_Model();
-//                                md.setDesain_rumah(R.drawable.menu8);
-                                md.setKode_kavling(data.getString("kode_kavling"));
-                                md.setNama_kavling(data.getString("nama_kavling"));
-                                md.setNama_proyek(d.getString("nama_proyek"));
-                                md.setNama_kategori(data.getString("nama_kategori"));
-                                md.setHarga_jual(ServerAccess.numberConvert(data.getString("harga_jual")));
-                                md.setTipe_rumah(data.getString("tipe_rumah"));
-                                md.setCreate_at(data.getString("create_at"));
-                                md.setStatus(data.getString("status"));
+                                Galeri_Kegiatan_Model md = new Galeri_Kegiatan_Model();
+                                md.setKode_galery(data.getString("kode_master"));
+                                md.setFoto_kecil(ServerAccess.BASE_URL+""+data.getString("foto_kecil"));
+                                md.setFoto(ServerAccess.BASE_URL+""+data.getString("foto"));
+                                uriString.add(ServerAccess.BASE_URL+""+data.getString("foto"));
+                                md.setIndex(i);
+                                md.setTanggal(ServerAccess.parseDate(data.getString("create_at")));
+                                md.setKeterangan(data.getString("keterangan"));
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();
@@ -151,7 +166,7 @@ public class Fragment_Galeri_Lahan extends Fragment {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
-                params.put("kode_proyek", kode);
+                params.put("kode_lahan", kode);
                 return params;
             }
         };

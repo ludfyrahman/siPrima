@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Karyawan.Adapter.Adapter_Karyawan;
@@ -97,7 +98,7 @@ public class Fragment_K_Proyek extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KARYAWAN+"proyek", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -146,9 +147,7 @@ public class Fragment_K_Proyek extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
-                params.put("tipedata", "karyawan");
-                params.put("tipe_karyawan", "2");
+                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
                 return params;
             }
         };
