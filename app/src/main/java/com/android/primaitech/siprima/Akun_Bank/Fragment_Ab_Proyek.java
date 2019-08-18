@@ -1,10 +1,10 @@
 package com.android.primaitech.siprima.Akun_Bank;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.R;
@@ -71,6 +72,17 @@ public class Fragment_Ab_Proyek extends Fragment {
                 reload();
             }
         });
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Akun_bank m = new Akun_bank();
+                m.tipe_akun="2";
+                Intent intent = new Intent(getContext(), Form_Akun_Bank.class);
+//                intent.putExtra("tipe_akun", "2");
+
+                startActivity(intent);
+            }
+        });
         validate();
         return v;
     }
@@ -97,7 +109,7 @@ public class Fragment_Ab_Proyek extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_AKUN_BANK+"data", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -114,7 +126,7 @@ public class Fragment_Ab_Proyek extends Fragment {
                                 md.setNama_unit(data.getString("nama_unit"));
                                 md.setNama_bank(data.getString("nama_bank"));
                                 md.setNo_rekening(data.getString("no_rekening"));
-                                md.setSaldo("Rp "+ServerAccess.numberFormat(data.getInt("saldo")));
+                                md.setSaldo(ServerAccess.numberConvert(data.getString("saldo")));
                                 md.setTipe_akun(data.getString("tipe_akun"));
                                 list.add(md);
                             } catch (Exception ea) {
@@ -122,11 +134,12 @@ public class Fragment_Ab_Proyek extends Fragment {
 
                             }
                         }
-                        pd.cancel();
+
                         adapter.notifyDataSetChanged();
-                    }else{
                         pd.cancel();
+                    }else{
                         not_found.setVisibility(View.VISIBLE);
+                        pd.cancel();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -137,17 +150,17 @@ public class Fragment_Ab_Proyek extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        pd.cancel();
                         Log.d("volley", "errornya : " + error.getMessage());
+                        pd.cancel();
                     }
                 }) {
 
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
-                params.put("tipedata", "akunbank");
-                params.put("tipe_akun", "2");
+                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
+                params.put("tipe", "2");
+                params.put("kode_usaha", AuthData.getInstance(getContext()).getKode_unit());
                 return params;
             }
         };

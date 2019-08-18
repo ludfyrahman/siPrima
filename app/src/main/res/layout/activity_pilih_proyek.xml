@@ -30,7 +30,6 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/close" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,7 +37,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/fullscreen_dialog_close"
                 android:fontFamily="@font/josefinsans_regular"
-                android:text="Daftar Pembeli"
+                android:text="Daftar Proyek"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 

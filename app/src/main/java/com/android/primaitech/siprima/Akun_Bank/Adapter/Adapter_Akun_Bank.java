@@ -5,8 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
-import com.android.primaitech.siprima.Akun_Bank.Detail_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -58,6 +53,7 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
         holder.nama_bank.setText(listdata.get(position).getNama_bank());
         holder.no_rekening.setText(listdata.get(position).getNo_rekening());
         holder.saldo.setText(listdata.get(position).getSaldo());
+        holder.tipe_akun = listdata.get(position).getTipe_akun();
         Fragment fragment;
         if(listdata.get(position).getTipe_akun().equals("1")) {
             fragment = new Fragment_Ab_Unit_Bisnis();
@@ -87,6 +83,7 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
         private TextView kode, nama_rekening, nama_unit, nama_bank, no_rekening, saldo, edit, hapus;
         String detailStatus;
         Context mContext;
+        String tipe_akun;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -96,6 +93,18 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
             saldo = (TextView)v.findViewById(R.id.saldo);
             no_rekening = (TextView)v.findViewById(R.id.no_rekening);
             edit = (TextView)v.findViewById(R.id.edit);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Akun_bank m = new Akun_bank();
+                    m.tipe_akun = tipe_akun;
+                    Temp_Akun_Bank.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Akun_Bank.getInstance(v.getContext()).setKodeAkun(kode.getText().toString());
+                    Intent intent = new Intent(v.getContext(), Form_Akun_Bank.class);
+                    intent.putExtra("kode", kode.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
             hapus = (TextView)v.findViewById(R.id.hapus);
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,11 +133,12 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
                 public void onClick(View v) {
                     MenuData menuData = new MenuData();
                     try {
-                        if(detailStatus.equals("1")){
-                            Intent intent = new Intent(v.getContext(), Detail_Akun_Bank.class);
-                            intent.putExtra("nama_menu", nama_unit.getText().toString());
-                            v.getContext().startActivity(intent);
-                        }
+//                        if(detailStatus.equals("1")){
+//                            Intent intent = new Intent(v.getContext(), Detail_Akun_Bank.class);
+//                            intent.putExtra("nama_menu", nama_unit.getText().toString());
+//                            intent.putExtra("kode", kode.getText().toString());
+//                            v.getContext().startActivity(intent);
+//                        }
                     } catch (Exception e) {
                         Log.d("pesan", "error");
                     }

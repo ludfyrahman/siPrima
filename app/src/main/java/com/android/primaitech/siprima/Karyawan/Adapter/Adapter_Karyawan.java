@@ -23,6 +23,7 @@ import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Divisi.Divisi;
+import com.android.primaitech.siprima.Karyawan.Detail_Karyawan;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Proyek;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Unit_Bisnis;
 import com.android.primaitech.siprima.Karyawan.Karyawan;
@@ -125,8 +126,9 @@ public class Adapter_Karyawan extends RecyclerView.Adapter<Adapter_Karyawan.View
                     MenuData menuData = new MenuData();
                     try {
                         if(detailStatus.equals("1")){
-                            Intent intent = new Intent(v.getContext(), Detail_Akun_Bank.class);
+                            Intent intent = new Intent(v.getContext(), Detail_Karyawan.class);
                             intent.putExtra("nama_menu", nama_karyawan.getText().toString());
+                            intent.putExtra("kode", kode.getText().toString());
                             v.getContext().startActivity(intent);
                         }
                     } catch (Exception e) {

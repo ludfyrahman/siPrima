@@ -94,6 +94,9 @@ public class Fragment_Dashboard extends Fragment {
     String tglnow = tgl.format(c);
     String tahunnow = th.format(c);
     TextView nama_pengguna, nama_usaha, level_akun;
+
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    String now = df.format(c);
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,7 +172,6 @@ public class Fragment_Dashboard extends Fragment {
             adapter.notifyDataSetChanged();
             loading.setVisibility(View.GONE);
         }else{
-            loading.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Data anda kosong", Toast.LENGTH_SHORT).show();
             Log.d("pesan", "Data Anda Kosong");
         }
@@ -207,11 +209,16 @@ public class Fragment_Dashboard extends Fragment {
 
     private void checkData() {
         // you can check notesList.size() > 0
-
-        if (db.getMenuCount() > 0) {
+        SQLiteDatabase d = db.getReadableDatabase();
+        cursor = d.rawQuery("SELECT * FROM menu",null);
+        daftar = new String[cursor.getCount()];
+        cursor.moveToFirst();
+        Log.d("pesan", "jumlah menu data "+cursor.getCount());
+        if (cursor.getCount() > 0){
             Log.d("pesan", "Sqlite Ada Data");
             //jika online mengambil data dari api terlebih dahulu
-            loadDataFromSQlite();
+//            loadDataFromSQlite();
+            validasi();
         } else {
             Log.d("pesan", "Sqlite Tidak Ada Data");
             dataDashboard(1);
@@ -230,21 +237,100 @@ public class Fragment_Dashboard extends Fragment {
         }
     }
     private void validasi(){
-        if (AuthData.getInstance(getContext()).getAuthKey().equals(db.getMasterDetail(AuthData.getInstance(getContext()).getAuthKey()).getKey())){
-            Log.d("pesan", " Auth sama");
-            loadDataFromSQlite();
+        SQLiteDatabase d = db.getReadableDatabase();
+        cursor = d.rawQuery("SELECT `key` from master",null);
+        daftar = new String[cursor.getCount()];
+        cursor.moveToFirst();
+        Log.d("pesan", "berada di fungsi validasi");
+        Log.d("pesan", "jumlah data master "+db.getMasterCount());
+        if (db.getMasterCount() > 0) {
+            cursor.moveToPosition(0);
+            final String kode_revisi = cursor.getString(0).toString();
+            StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.Menu + "/cekdata", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    JSONObject res = null;
+                    try {
+                        res = new JSONObject(response);
+                        JSONObject data = res.getJSONObject("hasil");
+                        Log.d("pesan", "berada di fungsi validasi dan statusnya "+data.getString("status"));
+                        Log.d("pesan", "linknya ini"+ServerAccess.Menu + "/cekdata");
+                        if (data.getBoolean("status") == false){
+                            loadJson();
+                            Log.d("pesan", "ada di percabangan line 253");
+                        }else {
+                            loadDataFromSQlite();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("volley", "errornya : " + error.getMessage());
+                        }
+                    }) {
+
+                @Override
+                public Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("kuncinya", ServerAccess.menu_key);
+                    params.put("usernamenya", now);
+                    params.put("tipe", "1");
+                    params.put("tabel", "menu");
+                    return params;
+                }
+            };
+
+            RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
         }else{
-            db.truncateMenu();
-            Log.d("pesan", " Auth tidak sama");
-            loadJson();
+            db.truncateKey();
+            StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.Menu + "/cekdata", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    JSONObject res = null;
+                    try {
+                        res = new JSONObject(response);
+                        JSONObject data = res.getJSONObject("hasil");
+                        db.insertKey(data.getString("last_kode_server"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("volley", "errornya : " + error.getMessage());
+                        }
+                    }) {
+
+                @Override
+                public Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("kuncinya", ServerAccess.menu_key);
+                    params.put("usernamenya", now);
+                    params.put("tipe", "1");
+                    params.put("tabel", "menu");
+                    return params;
+                }
+            };
+
+            RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
+            loadDataFromSQlite();
         }
+
     }
     public void checkConnection(){
         if(isOnline()){
             checkData();
+            Log.d("pesan", "anda sedang online");
             Toast.makeText(getContext(), "You are connected to Internet", Toast.LENGTH_SHORT).show();
         }else{
             loadDataFromSQlite();
+            Log.d("pesan", "anda sedang offline");
             Toast.makeText(getContext(), "You are not connected to Internet", Toast.LENGTH_SHORT).show();
         }
     }
@@ -349,6 +435,7 @@ public class Fragment_Dashboard extends Fragment {
                             MenuModel md = new MenuModel();
                             int id = getResources().getIdentifier(data.getString("kode_menu").toLowerCase(), "drawable", getActivity().getPackageName());
                             db.insertMenu(data.getString("kode_menu").toLowerCase(), data.getString("nama_menu"), data.getString("link"), id);
+                            Log.d("pesan", "nama menu "+data.getString("nama_menu"));
                         } catch (Exception ea) {
                             ea.printStackTrace();
 

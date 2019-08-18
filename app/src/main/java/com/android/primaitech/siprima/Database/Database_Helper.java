@@ -161,5 +161,17 @@ public class Database_Helper extends SQLiteOpenHelper {
         // return newly inserted row id
         return id;
     }
+    public int getMasterCount(){
+        String countQuery = "SELECT  * FROM " + Master_SQlite.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    public void truncateMaster(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+Master_SQlite.TABLE_NAME);
+    }
 
 }

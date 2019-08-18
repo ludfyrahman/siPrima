@@ -8,7 +8,7 @@ import com.android.primaitech.siprima.Config.AuthData;
 public class Temp_Penjualan {
     private static Temp_Penjualan mInstance;
     private static Context mCtx;
-    private static final String SHARED_PREF_NAME = "mysharedpref12";
+    private static final String SHARED_PREF_NAME = "prefpenjualan";
     private static final String kode_pembeli = "kode_pembeli";
     private static final String nama_pembeli = "nama_pembeli";
     private static final String nama_kavling = "nama_kavling";

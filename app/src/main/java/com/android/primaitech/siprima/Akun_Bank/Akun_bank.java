@@ -54,6 +54,7 @@ public class Akun_bank extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     LinearLayout not_found;
+    public static String tipe_akun="";
     TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class Akun_bank extends AppCompatActivity {
     }
     public  void delete(final String kode){
 
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_AKUN_BANK+"deleteakunbank", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -123,9 +124,8 @@ public class Akun_bank extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", kode);
-                params.put("tipedata", "akunBank");
-//                params.put("tipe_akun", "1");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode_akun", kode);
                 return params;
             }
         };

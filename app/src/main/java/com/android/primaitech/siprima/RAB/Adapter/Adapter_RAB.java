@@ -18,6 +18,7 @@ import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
+import com.android.primaitech.siprima.RAB.Detail_RAB;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Proyek;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Unit_Bisnis;
 import com.android.primaitech.siprima.RAB.Model.RAB_Model;
@@ -128,7 +129,7 @@ public class Adapter_RAB extends RecyclerView.Adapter<Adapter_RAB.ViewHolder>  {
                     MenuData menuData = new MenuData();
                     try {
                         if(detailStatus.equals("1")){
-                            Intent intent = new Intent(v.getContext(), Detail_Pembeli.class);
+                            Intent intent = new Intent(v.getContext(), Detail_RAB.class);
                             intent.putExtra("nama_menu", nama_rab.getText().toString());
                             intent.putExtra("kode", kode.getText().toString());
                             v.getContext().startActivity(intent);

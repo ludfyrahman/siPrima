@@ -2,12 +2,11 @@ package com.android.primaitech.siprima.Akun_Bank;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,15 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
+import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Dashboard.Adapter.AdapterMenu;
-import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -77,7 +75,16 @@ public class Fragment_Ab_Unit_Bisnis extends Fragment {
             }
         });
         validate();
-        Log.d("pesan", "fragment edit "+edit+" hapus "+hapus+" detail "+detail);
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Akun_bank m = new Akun_bank();
+                m.tipe_akun="1";
+                Intent intent = new Intent(getContext(), Form_Akun_Bank.class);
+                Temp_Akun_Bank.getInstance(getContext()).setTipeForm("add");
+                startActivity(intent);
+            }
+        });
         return v;
     }
     public void reload(){
@@ -108,7 +115,7 @@ public class Fragment_Ab_Unit_Bisnis extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_AKUN_BANK+"data", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject res = null;
@@ -125,7 +132,7 @@ public class Fragment_Ab_Unit_Bisnis extends Fragment {
                                         md.setNama_unit(data.getString("nama_unit"));
                                         md.setNama_bank(data.getString("nama_bank"));
                                         md.setNo_rekening(data.getString("no_rekening"));
-                                        md.setSaldo("Rp "+ServerAccess.numberFormat(data.getInt("saldo")));
+                                        md.setSaldo(ServerAccess.numberConvert(data.getString("saldo")));
                                         md.setTipe_akun(data.getString("tipe_akun"));
                                         list.add(md);
                                     } catch (Exception ea) {
@@ -157,9 +164,9 @@ public class Fragment_Ab_Unit_Bisnis extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", "2");
-                params.put("tipedata", "akunbank");
-                params.put("tipe_akun", "1");
+                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
+                params.put("tipe", "1");
+                params.put("kode_usaha", AuthData.getInstance(getContext()).getKode_unit());
                 return params;
             }
         };

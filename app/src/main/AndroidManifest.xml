@@ -22,7 +22,12 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Lahan.Terima_Lahan"></activity>
+        <activity android:name=".Unit_Bisnis.Detail_Unit_Bisnis"></activity>
+        <activity android:name=".Unit_Bisnis.Pilih_Unit_Bisnis" />
+        <activity android:name=".Proyek.Pilih_Proyek" />
+        <activity android:name=".RAB.Pilih_RAB" />
+        <activity android:name=".Akun_Bank.Form_Akun_Bank" />
+        <activity android:name=".Lahan.Terima_Lahan" />
         <activity android:name=".Unit_Bisnis.Unit_Bisnis" />
         <activity android:name=".Lahan.Detail_Lahan" />
         <activity android:name=".Lahan.Lahan" />

@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.38/siprima/";
+    public static final String BASE_URL = "http://192.168.1.3/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
 //    public static final String BASE_URL = "http://10.78.164.194/siprima/";
 //    public static final String BASE_URL = "http://siprima.primaitech.com/";
@@ -27,6 +27,7 @@ public class ServerAccess {
     public static final String URL_LAHAN=ROOT_API+"lahan/";
     public static final String URL_UNIT_BISNIS=ROOT_API+"unitbisnis/";
     public static final String URL_PROYEK=ROOT_API+"proyek/";
+    public static final String URL_AKUN_BANK=ROOT_API+"akunbank/";
     public static final String URL_KATEGORI_KAVLING=ROOT_API+"kategorikavling/";
     public static final String URL_PENJUALAN=ROOT_API+"penjualan/";
     public static final String URL_KUNJUNGAN=ROOT_API+"kunjungan/";
@@ -46,6 +47,12 @@ public class ServerAccess {
     public static String status_pembayaran[] = {"Belum Lunas","Lunas", "Menunggu Konfirmasi"};
     public static String metode[] = {"","Cash","Transfer Bank"};
     public static String statusLahan[] = {"","Tersedia","Terpakai", "Menunggu Konfirmasi"};
+    public static String menu_key = "$2y$10xZ42EBgUzmd12bS/ZQIh5D4dDNd/3IESRCEi9xpzgMwOzrFzexcS";
+    public static String tipe_karyawan[] = {"-","Karyawan Unit Bisnis", "Karyawan Proyek"};
+    public static String status_karyawan[] = {"-","Aktif", "Menunggu Konfirmasi", "Ditolak"};
+    public static String gender[] = {"-","Laki Laki", "Perempuan"};
+    public static String status_pernikahan[] = {"Belum Menikah","Sudah Menikah"};
+
     public static String numberFormat(int val){
         NumberFormat nf =NumberFormat.getInstance();
         return nf.format(val);
