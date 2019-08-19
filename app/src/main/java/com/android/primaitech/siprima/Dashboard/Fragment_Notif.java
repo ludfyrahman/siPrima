@@ -1,37 +1,26 @@
 package com.android.primaitech.siprima.Dashboard;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Dashboard.Adapter.AdapterMenu;
 import com.android.primaitech.siprima.Dashboard.Adapter.Adapter_Notif;
-import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
 import com.android.primaitech.siprima.Dashboard.Model.Notif_Model;
-import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
-import com.android.primaitech.siprima.Pembeli.Tambah_Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;

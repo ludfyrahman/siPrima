@@ -11,11 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
+import com.android.primaitech.siprima.Kegiatan.Form_Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
+import com.android.primaitech.siprima.Kegiatan.Temp.Temp_Kegiatan;
 import com.android.primaitech.siprima.Kehadiran.Adapter.Adapter_Kehadiran;
 import com.android.primaitech.siprima.Kehadiran.Model.Kehadiran_Model;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
@@ -86,6 +91,16 @@ public class Adapter_Kegiatan extends RecyclerView.Adapter<Adapter_Kegiatan.View
             create_at = (TextView)v.findViewById(R.id.create_at);
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Temp_Kegiatan.getInstance(v.getContext()).setTipeForm("edit");
+//                    Temp_Kegiatan.getInstance(v.getContext()).setKodeKegiatan(kode.getText().toString());
+//                    Intent intent = new Intent(v.getContext(), Form_Kegiatan.class);
+//                    intent.putExtra("kode", kode.getText().toString());
+//                    v.getContext().startActivity(intent);
+                }
+            });
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

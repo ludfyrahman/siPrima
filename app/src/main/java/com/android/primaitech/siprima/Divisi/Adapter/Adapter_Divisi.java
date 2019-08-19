@@ -15,9 +15,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Divisi.Divisi;
+import com.android.primaitech.siprima.Divisi.Form_Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
+import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
@@ -83,6 +88,16 @@ public class Adapter_Divisi extends RecyclerView.Adapter<Adapter_Divisi.ViewHold
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
             gambar = (ImageView)v.findViewById(R.id.gambar);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Temp_Divisi.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Divisi.getInstance(v.getContext()).setKodeDivisi(kode.getText().toString());
+                    Intent intent = new Intent(v.getContext(), Form_Divisi.class);
+                    intent.putExtra("kode", kode.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -20,8 +20,11 @@ import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Divisi.Form_Divisi;
+import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
 import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
+import com.android.primaitech.siprima.Kategori_kavling.Temp.Temp_Kategori_Kavling;
 import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
@@ -88,6 +91,14 @@ public class Kategori_kavling extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 reload();
+            }
+        });
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Form_Kategori_Kavling.class);
+                Temp_Kategori_Kavling.getInstance(v.getContext()).setTipeForm("add");
+                startActivity(intent);
             }
         });
         validate();
@@ -176,7 +187,7 @@ public class Kategori_kavling extends AppCompatActivity {
     }
     public  void delete(final String kode){
 
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KATEGORI_KAVLING+"deletekategori", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -217,9 +228,8 @@ public class Kategori_kavling extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", kode);
-                params.put("tipedata", "kategori_kavling");
-                params.put("tipe_akun", "1");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode_kategori", kode);
                 return params;
             }
         };

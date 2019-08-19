@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,16 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
-import com.android.primaitech.siprima.Pembeli.Tambah_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Form_Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.RAB.Adapter.Adapter_RAB;
 import com.android.primaitech.siprima.RAB.Model.RAB_Model;
@@ -81,7 +77,7 @@ public class Fragment_Rab_Proyek extends Fragment {
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), Tambah_Pembeli.class));
+                startActivity(new Intent(getContext(), Form_Pembeli.class));
             }
         });
         validate();

@@ -22,6 +22,7 @@ public class ServerAccess {
     public static final String URL_LOGIN=ROOT_API+"auth/authlogin";
     public static final String URL_PEMBELI=ROOT_API+"pembeli/";
     public static final String URL_KAVLING=ROOT_API+"kavling/";
+    public static final String URL_DIVISI=ROOT_API+"divisi/";
     public static final String URL_KARYAWAN=ROOT_API+"karyawan/";
     public static final String URL_RAB=ROOT_API+"rab/";
     public static final String URL_LAHAN=ROOT_API+"lahan/";
@@ -80,4 +81,33 @@ public class ServerAccess {
         String format = formatter.format(v);
         return "Rp "+format;
     }
+    public static String dateFormat(String date){
+//        String date ="29/07/13";
+        SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd");
+        String str = null;
+        try {
+            Date oneWayTripDate = input.parse(date);                 // parse input
+            str = output.format(oneWayTripDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+    public static String Inddate(String date){
+//        String date ="29/07/13";
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy");
+        String str = null;
+        try {
+            Date oneWayTripDate = input.parse(date);                 // parse input
+            str = output.format(oneWayTripDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
 }

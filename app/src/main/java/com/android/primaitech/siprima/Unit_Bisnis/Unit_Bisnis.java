@@ -19,10 +19,8 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Cuti.Adapter.Adapter_Cuti;
 import com.android.primaitech.siprima.Cuti.Cuti;
-import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
-import com.android.primaitech.siprima.Cuti.Tambah_Cuti;
+import com.android.primaitech.siprima.Cuti.Form_Cuti;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.Unit_Bisnis.Adapter.Adapter_Unit_Bisnis;
@@ -37,10 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +73,7 @@ public class Unit_Bisnis extends AppCompatActivity {
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Tambah_Cuti bt = new Tambah_Cuti();
+                Form_Cuti bt = new Form_Cuti();
                 Bundle bundle = new Bundle();
                 bt.setArguments(bundle);
                 bt.show(getSupportFragmentManager(), "Cuti");

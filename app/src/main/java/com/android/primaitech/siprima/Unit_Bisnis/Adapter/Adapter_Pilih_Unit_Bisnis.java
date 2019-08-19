@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.Unit_Bisnis.Model.Unit_Bisnis_Model;
+import com.android.primaitech.siprima.Unit_Bisnis.Temp.Temp_Unit_Bisnis;
 import com.android.primaitech.siprima.Unit_Bisnis.Unit_Bisnis;
 import com.bumptech.glide.Glide;
 
@@ -86,12 +88,17 @@ public class Adapter_Pilih_Unit_Bisnis extends RecyclerView.Adapter<Adapter_Pili
                 public void onClick(View v) {
                     MenuData menuData = new MenuData();
                     try {
-                            Intent intent = new Intent(v.getContext(), Form_Akun_Bank.class);
+//                            Intent intent = new Intent(v.getContext(), Form_Akun_Bank.class);
+//                            intent.putExtra("nama_usaha", nama_unit.getText().toString());
+//                            intent.putExtra("kode_usaha", kode.getText().toString());
+//                            v.getContext().startActivity(intent);
+
+                            Intent intent = new Intent(v.getContext(), menuData.halaman_navigasi(Temp_Unit_Bisnis.getInstance(v.getContext()).getNama_menu()));
                             intent.putExtra("nama_usaha", nama_unit.getText().toString());
                             intent.putExtra("kode_usaha", kode.getText().toString());
                             v.getContext().startActivity(intent);
                     } catch (Exception e) {
-                        Log.d("pesan", "error");
+                        Log.d("pesan", "error "+Temp_Unit_Bisnis.getInstance(v.getContext()).getNama_menu());
                     }
                 }
             });

@@ -41,6 +41,7 @@ public class Pembeli extends AppCompatActivity {
     private ViewPager mViewPager;
     LinearLayout not_found;
     TabLayout tabLayout;
+    public static String tipe_pembeli="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

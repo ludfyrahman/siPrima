@@ -22,9 +22,12 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Divisi.Adapter.Adapter_Divisi;
 import com.android.primaitech.siprima.Divisi.Divisi;
+import com.android.primaitech.siprima.Divisi.Form_Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
+import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
 import com.android.primaitech.siprima.Lahan.Adapter.Adapter_Lahan;
 import com.android.primaitech.siprima.Lahan.Model.Lahan_Model;
+import com.android.primaitech.siprima.Lahan.Temp.Temp_Lahan;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
@@ -88,6 +91,14 @@ public class Lahan extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 reload();
+            }
+        });
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Form_Lahan.class);
+                Temp_Lahan.getInstance(v.getContext()).setTipeForm("add");
+                startActivity(intent);
             }
         });
         validate();

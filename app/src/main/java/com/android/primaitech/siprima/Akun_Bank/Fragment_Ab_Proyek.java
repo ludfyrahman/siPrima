@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
@@ -78,8 +79,7 @@ public class Fragment_Ab_Proyek extends Fragment {
                 Akun_bank m = new Akun_bank();
                 m.tipe_akun="2";
                 Intent intent = new Intent(getContext(), Form_Akun_Bank.class);
-//                intent.putExtra("tipe_akun", "2");
-
+                Temp_Akun_Bank.getInstance(getContext()).setTipeForm("add");
                 startActivity(intent);
             }
         });

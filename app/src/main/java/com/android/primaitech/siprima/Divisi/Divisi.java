@@ -15,6 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
@@ -23,6 +26,7 @@ import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Divisi.Adapter.Adapter_Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
+import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.Proyek.Proyek;
@@ -87,6 +91,14 @@ public class Divisi extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 reload();
+            }
+        });
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Form_Divisi.class);
+                Temp_Divisi.getInstance(v.getContext()).setTipeForm("add");
+                startActivity(intent);
             }
         });
         validate();
@@ -163,7 +175,7 @@ public class Divisi extends AppCompatActivity {
     }
     public  void delete(final String kode){
 
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.delete, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_DIVISI+"deletedivisi", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -204,9 +216,8 @@ public class Divisi extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", kode);
-                params.put("tipedata", "divisi");
-                params.put("tipe_akun", "1");
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode_divisi", kode);
                 return params;
             }
         };
@@ -218,7 +229,7 @@ public class Divisi extends AppCompatActivity {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_DIVISI+"data", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -263,7 +274,7 @@ public class Divisi extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode",AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("tipedata", "divisi");
+                params.put("kode_unit", AuthData.getInstance(getBaseContext()).getKode_unit());
                 return params;
             }
         };

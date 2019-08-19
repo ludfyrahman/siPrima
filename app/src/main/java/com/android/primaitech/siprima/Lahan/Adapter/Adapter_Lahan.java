@@ -12,13 +12,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Kategori_kavling.Form_Kategori_Kavling;
+import com.android.primaitech.siprima.Kategori_kavling.Temp.Temp_Kategori_Kavling;
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Kegiatan;
 import com.android.primaitech.siprima.Kehadiran.Adapter.Adapter_Kehadiran;
 import com.android.primaitech.siprima.Kehadiran.Model.Kehadiran_Model;
 import com.android.primaitech.siprima.Lahan.Detail_Lahan;
+import com.android.primaitech.siprima.Lahan.Form_Lahan;
 import com.android.primaitech.siprima.Lahan.Lahan;
 import com.android.primaitech.siprima.Lahan.Model.Lahan_Model;
+import com.android.primaitech.siprima.Lahan.Temp.Temp_Lahan;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -82,12 +86,22 @@ public class Adapter_Lahan extends RecyclerView.Adapter<Adapter_Lahan.ViewHolder
             tanggal = (TextView)v.findViewById(R.id.tanggal);
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Temp_Lahan.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Lahan.getInstance(v.getContext()).setKodeLahan(kode.getText().toString());
+                    Intent intent = new Intent(v.getContext(), Form_Lahan.class);
+                    intent.putExtra("kode", kode.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mContext instanceof Lahan) {
-                        ((Lahan)mContext).delete(kode.getText().toString());
-                    }
+//                    if (mContext instanceof Lahan) {
+//                        ((Lahan)mContext).delete(kode.getText().toString());
+//                    }
                 }
             });
             v.setOnClickListener(new View.OnClickListener() {

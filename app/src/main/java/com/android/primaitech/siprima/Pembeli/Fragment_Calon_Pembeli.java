@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +15,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
-import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
@@ -94,7 +93,11 @@ public class Fragment_Calon_Pembeli extends Fragment {
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), Tambah_Pembeli.class));
+                Pembeli m = new Pembeli();
+                m.tipe_pembeli="2";
+                Intent intent = new Intent(getContext(), Form_Pembeli.class);
+                Temp_Akun_Bank.getInstance(getContext()).setTipeForm("add");
+                startActivity(intent);
             }
         });
         validate();

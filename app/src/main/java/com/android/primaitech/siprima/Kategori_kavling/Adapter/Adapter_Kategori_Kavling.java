@@ -16,10 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Divisi.Form_Divisi;
+import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
 import com.android.primaitech.siprima.Karyawan.Karyawan;
 import com.android.primaitech.siprima.Kategori_kavling.Detail_Kategori_Kavling;
+import com.android.primaitech.siprima.Kategori_kavling.Form_Kategori_Kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
+import com.android.primaitech.siprima.Kategori_kavling.Temp.Temp_Kategori_Kavling;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
@@ -86,6 +90,16 @@ public class Adapter_Kategori_Kavling extends RecyclerView.Adapter<Adapter_Kateg
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
             gambar = (ImageView)v.findViewById(R.id.gambar);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Temp_Kategori_Kavling.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Kategori_Kavling.getInstance(v.getContext()).setKodeKategori(kode.getText().toString());
+                    Intent intent = new Intent(v.getContext(), Form_Kategori_Kavling.class);
+                    intent.putExtra("kode", kode.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

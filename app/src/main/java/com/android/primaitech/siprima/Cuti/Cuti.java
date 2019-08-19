@@ -15,18 +15,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Cuti.Adapter.Adapter_Cuti;
 import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
+import com.android.primaitech.siprima.Cuti.Temp.Temp_Cuti;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
-import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
-import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
-import com.android.primaitech.siprima.Kegiatan.Tambah_Kegiatan;
-import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,7 +35,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,7 +59,6 @@ public class Cuti extends  AppCompatActivity {
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String now = df.format(c);
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +79,11 @@ public class Cuti extends  AppCompatActivity {
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Tambah_Cuti bt = new Tambah_Cuti();
+            public void onClick(View v) {
+                Form_Cuti bt = new Form_Cuti();
                 Bundle bundle = new Bundle();
                 bt.setArguments(bundle);
+                Temp_Cuti.getInstance(v.getContext()).setTipeForm("add");
                 bt.show(getSupportFragmentManager(), "Cuti");
             }
         });

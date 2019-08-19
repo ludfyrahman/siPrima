@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
 import com.android.primaitech.siprima.Akun_Bank.Detail_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Artikel.Artikel;
@@ -12,6 +13,7 @@ import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Cuti.Detail_Cuti;
 import com.android.primaitech.siprima.Divisi.Detail_Divisi;
 import com.android.primaitech.siprima.Divisi.Divisi;
+import com.android.primaitech.siprima.Divisi.Form_Divisi;
 import com.android.primaitech.siprima.Karyawan.Detail_Karyawan;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Proyek;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Unit_Bisnis;
@@ -73,7 +75,15 @@ public class MenuData {
                             "submenu23", "menu43", "submenu19", "submenu20", "submenu52"};
     Fragment fragment[] = {new Fragment_Ab_Unit_Bisnis(), new Fragment_Ab_Proyek(), new Fragment_K_Unit_Bisnis(), new Fragment_K_Proyek(), new Fragment_Rab_Unit_Bisnis(), new Fragment_Rab_Proyek(), new Fragment_Pembeli(), new Fragment_Calon_Pembeli(), new Fragment_Follow_Up(), new Fragment_Info_Progress(),
                             new Fragment_Data_Legalitas_Kavling(), new Fragment_Hpp_Lahan(), new Fragment_Pembayaran_Lahan(), new Fragment_Legalitas_Lahan(), new Fragment_Galeri_Lahan()};
+    String kode_navigasi[] = {"akunbank", "divisi", "karyawan", "kategorikavling", "kavling", "pembeli", "promo"};
+    Class navigasi[] = {
+            Form_Akun_Bank.class, Form_Divisi.class
+    };
     public static String nama_menu = "", kode_menu = "";
+    public Class halaman_navigasi(String code_menu) {
+        Class ret = navigasi[Arrays.asList(kode_navigasi).indexOf(code_menu)];
+        return ret;
+    }
     public Class halaman(String code_menu) {
         Class ret = halaman[Arrays.asList(menu).indexOf(code_menu)];
         return ret;

@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,10 +17,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Cuti.Detail_Cuti;
+import com.android.primaitech.siprima.Cuti.Form_Cuti;
 import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
+import com.android.primaitech.siprima.Cuti.Temp.Temp_Cuti;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 
@@ -85,6 +92,24 @@ public class Adapter_Cuti extends RecyclerView.Adapter<Adapter_Cuti.ViewHolder> 
             keterangan=(TextView)v.findViewById(R.id.keterangan);
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Temp_Akun_Bank.getInstance(v.getContext()).setTipeForm("edit");
+//                    Temp_Akun_Bank.getInstance(v.getContext()).setKodeAkun(kode.getText().toString());
+//                    Intent intent = new Intent(v.getContext(), Form_Akun_Bank.class);
+//                    intent.putExtra("kode", kode.getText().toString());
+//                    v.getContext().startActivity(intent);
+
+                    Form_Cuti bt = new Form_Cuti();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("kode", kode.getText().toString());
+                    bt.setArguments(bundle);
+                    Temp_Cuti.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Cuti.getInstance(v.getContext()).setKodeCuti(kode.getText().toString());
+                    bt.show(((FragmentActivity)mContext).getSupportFragmentManager(), "Cuti");
+                }
+            });
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cuti"
+        android:id="@+id/title"
         android:fontFamily="@font/josefinsans_regular"
         android:textColor="@color/colorPrimary"
         android:textSize="25sp" />

@@ -253,8 +253,7 @@ public class Fragment_Dashboard extends Fragment {
                     try {
                         res = new JSONObject(response);
                         JSONObject data = res.getJSONObject("hasil");
-                        Log.d("pesan", "berada di fungsi validasi dan statusnya "+data.getString("status"));
-                        Log.d("pesan", "linknya ini"+ServerAccess.Menu + "/cekdata");
+
                         if (data.getBoolean("status") == false){
                             loadJson();
                             Log.d("pesan", "ada di percabangan line 253");

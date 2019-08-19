@@ -18,9 +18,11 @@ import android.widget.TextView;
 import com.android.primaitech.siprima.Akun_Bank.Adapter.Adapter_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
 import com.android.primaitech.siprima.Akun_Bank.Detail_Akun_Bank;
+import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
 import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
+import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
@@ -61,6 +63,7 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
         holder.no_hp.setText(listdata.get(position).getNo_hp());
         Fragment fragment;
         holder.status.setText(status[listdata.get(position).getStatus()]);
+        holder.status_pembeli = listdata.get(position).getStatus();
         if(listdata.get(position).getStatus() == 1) {
             fragment = new Fragment_Pembeli();
             edit = ((Fragment_Pembeli) fragment).edit;
@@ -89,7 +92,7 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
         private TextView kode, nama_pembeli, no_ktp, status, no_hp, edit, hapus;
         String detailStatus;
         Context mContext;
-        String jumlah;
+        int status_pembeli;
         public ViewHolder(View v) {
             super(v);
             kode=(TextView)v.findViewById(R.id.kode);
@@ -99,6 +102,18 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
             no_hp = (TextView)v.findViewById(R.id.no_hp);
             edit = (TextView)v.findViewById(R.id.edit);
             hapus = (TextView)v.findViewById(R.id.hapus);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Pembeli m = new Pembeli();
+                    m.tipe_pembeli = String.valueOf(status_pembeli);
+                    Temp_Akun_Bank.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Akun_Bank.getInstance(v.getContext()).setKodeAkun(kode.getText().toString());
+                    Intent intent = new Intent(v.getContext(), Form_Akun_Bank.class);
+                    intent.putExtra("kode", kode.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
             hapus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

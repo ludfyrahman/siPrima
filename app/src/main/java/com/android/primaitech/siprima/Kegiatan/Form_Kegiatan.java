@@ -41,7 +41,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tambah_Kegiatan extends BottomSheetDialogFragment {
+public class Form_Kegiatan extends BottomSheetDialogFragment {
     EditText kegiatan;
     ProgressDialog pd;
     Button simpan;

@@ -23,13 +23,6 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Kegiatan.Adapter.Adapter_Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
-import com.android.primaitech.siprima.Kehadiran.Adapter.Adapter_Kehadiran;
-import com.android.primaitech.siprima.Kehadiran.Kehadiran;
-import com.android.primaitech.siprima.Kehadiran.Model.Kehadiran_Model;
-import com.android.primaitech.siprima.Kehadiran.Tambah_Absensi;
-import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Pembeli;
-import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -158,7 +151,7 @@ public class Kegiatan extends AppCompatActivity {
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Tambah_Kegiatan bt = new Tambah_Kegiatan();
+                Form_Kegiatan bt = new Form_Kegiatan();
                 Bundle bundle = new Bundle();
                 bundle.putString("tanggal", strDate);
                 bt.setArguments(bundle);

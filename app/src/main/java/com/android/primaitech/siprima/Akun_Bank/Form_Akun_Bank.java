@@ -21,6 +21,7 @@ import com.android.primaitech.siprima.Proyek.Pilih_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.RAB.Pilih_RAB;
 import com.android.primaitech.siprima.Unit_Bisnis.Pilih_Unit_Bisnis;
+import com.android.primaitech.siprima.Unit_Bisnis.Temp.Temp_Unit_Bisnis;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -81,10 +82,10 @@ public class Form_Akun_Bank extends AppCompatActivity {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Temp_Akun_Bank.getInstance(getBaseContext()).getTipe_form().equals("add")){
-                    simpan();
-                }else{
+                if (Temp_Akun_Bank.getInstance(getBaseContext()).getTipe_form().equals("edit")){
                     ubah();
+                }else{
+                    simpan();
                 }
             }
         });
@@ -103,6 +104,7 @@ public class Form_Akun_Bank extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (tipe_akun.equals("1")){
+                    Temp_Unit_Bisnis.getInstance(getBaseContext()).setNamaMenu("akunbank");
                     startActivity(new Intent(Form_Akun_Bank.this, Pilih_Unit_Bisnis.class));
                 }else{
                     startActivity(new Intent(Form_Akun_Bank.this, Pilih_Proyek.class));
