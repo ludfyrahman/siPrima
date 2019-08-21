@@ -24,6 +24,7 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
+import com.android.primaitech.siprima.Pembeli.Temp.Temp_Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -95,8 +96,8 @@ public class Fragment_Calon_Pembeli extends Fragment {
             public void onClick(View view) {
                 Pembeli m = new Pembeli();
                 m.tipe_pembeli="2";
+                Temp_Pembeli.getInstance(getContext()).setTipeForm("add");
                 Intent intent = new Intent(getContext(), Form_Pembeli.class);
-                Temp_Akun_Bank.getInstance(getContext()).setTipeForm("add");
                 startActivity(intent);
             }
         });

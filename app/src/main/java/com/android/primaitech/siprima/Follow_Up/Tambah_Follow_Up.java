@@ -74,8 +74,8 @@ public class Tambah_Follow_Up extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
         Intent data = getIntent();
-        if(data.hasExtra("code")) {
-            code = data.getStringExtra("code");
+//        if(data.hasExtra("code")) {
+            code = Temp_Follow_Up.getInstance(getBaseContext()).getCode();
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,7 +92,7 @@ public class Tambah_Follow_Up extends AppCompatActivity {
                     }
                 }
             });
-        }
+//        }
         simpan = (Button)findViewById(R.id.simpan);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,9 +207,13 @@ public class Tambah_Follow_Up extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    Tambah_Follow_Up.this.onBackPressed();
-//                                    startActivity(new Intent(Tambah_Follow_Up.this, Dashboard.class));
-
+//                                    Tambah_Follow_Up.this.onBackPressed();
+                                    if(code.equals("1")){
+                                        Tambah_Follow_Up.this.onBackPressed();
+                                    }else{
+                                        Intent intent = new Intent(getBaseContext(), Pembeli.class);
+                                        startActivity(intent);
+                                    }
                                 } else {
                                     Toast.makeText(
                                             Tambah_Follow_Up.this,

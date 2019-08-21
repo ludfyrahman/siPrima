@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.primaitech.siprima.Akun.Login;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         PACKAGE_NAME = getApplicationContext().getPackageName();
         final Intent i = new Intent(this, Login.class);
         Thread timer = new Thread() {

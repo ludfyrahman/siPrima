@@ -252,13 +252,17 @@ public class Fragment_Dashboard extends Fragment {
                     JSONObject res = null;
                     try {
                         res = new JSONObject(response);
-                        JSONObject data = res.getJSONObject("hasil");
-
-                        if (data.getBoolean("status") == false){
-                            loadJson();
-                            Log.d("pesan", "ada di percabangan line 253");
-                        }else {
+                        if (res.getString("hasil").equals("null")){
                             loadDataFromSQlite();
+                        }else{
+                            JSONObject data = res.getJSONObject("hasil");
+
+                            if (data.getBoolean("status") == false){
+                                loadJson();
+                                Log.d("pesan", "ada di percabangan line 253");
+                            }else {
+                                loadDataFromSQlite();
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

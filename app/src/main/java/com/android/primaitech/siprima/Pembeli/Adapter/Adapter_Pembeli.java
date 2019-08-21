@@ -26,10 +26,12 @@ import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Form_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Fragment_Calon_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Fragment_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
+import com.android.primaitech.siprima.Pembeli.Temp.Temp_Pembeli;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -107,9 +109,9 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
                 public void onClick(View v) {
                     Pembeli m = new Pembeli();
                     m.tipe_pembeli = String.valueOf(status_pembeli);
-                    Temp_Akun_Bank.getInstance(v.getContext()).setTipeForm("edit");
-                    Temp_Akun_Bank.getInstance(v.getContext()).setKodeAkun(kode.getText().toString());
-                    Intent intent = new Intent(v.getContext(), Form_Akun_Bank.class);
+                    Temp_Pembeli.getInstance(v.getContext()).setTipeForm("edit");
+                    Temp_Pembeli.getInstance(v.getContext()).setKodePembeli(kode.getText().toString());
+                    Intent intent = new Intent(v.getContext(), Form_Pembeli.class);
                     intent.putExtra("kode", kode.getText().toString());
                     v.getContext().startActivity(intent);
                 }

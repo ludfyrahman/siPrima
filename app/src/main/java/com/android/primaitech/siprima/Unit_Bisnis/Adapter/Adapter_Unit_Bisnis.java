@@ -20,6 +20,7 @@ import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
 import com.android.primaitech.siprima.R;
+import com.android.primaitech.siprima.Unit_Bisnis.Detail_Unit_Bisnis;
 import com.android.primaitech.siprima.Unit_Bisnis.Model.Unit_Bisnis_Model;
 import com.android.primaitech.siprima.Unit_Bisnis.Unit_Bisnis;
 import com.bumptech.glide.Glide;
@@ -117,8 +118,9 @@ public class Adapter_Unit_Bisnis extends RecyclerView.Adapter<Adapter_Unit_Bisni
                     MenuData menuData = new MenuData();
                     try {
                         if(detailStatus.equals("1")){
-                            Intent intent = new Intent(v.getContext(), Detail_Proyek.class);
+                            Intent intent = new Intent(v.getContext(), Detail_Unit_Bisnis.class);
                             intent.putExtra("nama_menu", nama_unit.getText().toString());
+                            intent.putExtra("kode", kode.getText().toString());
                             v.getContext().startActivity(intent);
                         }
                     } catch (Exception e) {

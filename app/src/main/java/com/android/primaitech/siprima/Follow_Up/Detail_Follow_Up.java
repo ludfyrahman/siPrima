@@ -2,7 +2,10 @@ package com.android.primaitech.siprima.Follow_Up;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +27,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,16 +110,18 @@ public class Detail_Follow_Up extends AppCompatActivity {
                     if(data.getString("status").equals("1")){
                         follow_up.setVisibility(View.GONE);
                     }
-//                    Glide.with(Detail_Follow_Up.this)
-//                            .load(ServerAccess.BASE_URL+"/"+data.getString("desain_rumah"))
-//                            .into(new SimpleTarget<GlideDrawable>() {
-//                                @Override
-//                                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                                        bg.setBackground(resource);
-//                                    }
-//                                }
-//                            });
+                    if (!data.getString("foto").equals("")){
+                        Glide.with(Detail_Follow_Up.this)
+                                .load(ServerAccess.BASE_URL+"/"+data.getString("foto"))
+                                .into(new SimpleTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                            bg.setBackground(resource);
+                                        }
+                                    }
+                                });
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     pd.cancel();

@@ -31,6 +31,7 @@ import com.android.primaitech.siprima.Divisi.Adapter.Adapter_Divisi;
 import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
 import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
+import com.android.primaitech.siprima.Follow_Up.Temp_Follow_Up;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Kunjungan_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Kunjungan_Pembeli_Model;
 import com.android.primaitech.siprima.R;
@@ -89,6 +90,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), Tambah_Follow_Up.class);
                 intent.putExtra("nama_pembeli", data.getStringExtra("nama_pembeli"));
                 intent.putExtra("kode_pembeli", data.getStringExtra("kode_pembeli"));
+                Temp_Follow_Up.getInstance(getBaseContext()).setCode("1");
                 startActivity(intent);
             }
         });
@@ -237,24 +239,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                                 int jam = Integer.parseInt(timeList[0]);
                                 int menit = Integer.parseInt(timeList[1]);
 
-//                                Calendar c = Calendar.getInstance();
-//                                c.set(Calendar.HOUR_OF_DAY, jam);
-//                                c.set(Calendar.MINUTE, menit);
-//                                c.set(Calendar.DAY_OF_MONTH, tglhari);
-//                                c.set(Calendar.MONTH, bulan-1);
-//                                c.set(Calendar.YEAR, tahun);
-//                                c.set(Calendar.SECOND, 0);
-//                                Intent intent = new Intent(getBaseContext(), AlertReceiver.class);
-//                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
-//                                ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
-//                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-//                                        c.getTimeInMillis(),
-//                                        pendingIntent);
-//
-//                                intentArray.add(pendingIntent);
-
-                                intents[i] = new Intent(getApplicationContext(),AlertReceiver.class);
-                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intents[i], 0);
                                 Calendar c = Calendar.getInstance();
                                 c.set(Calendar.HOUR_OF_DAY, jam);
                                 c.set(Calendar.MINUTE, menit);
@@ -262,8 +246,26 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                                 c.set(Calendar.MONTH, bulan-1);
                                 c.set(Calendar.YEAR, tahun);
                                 c.set(Calendar.SECOND, 0);
-                                alarmManagers[i] = (AlarmManager)getApplicationContext().getSystemService(ALARM_SERVICE);
-                                alarmManagers[i].set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
+                                Intent intent = new Intent(getBaseContext(), AlertReceiver.class);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
+                                ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+                                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                                        c.getTimeInMillis(),
+                                        pendingIntent);
+
+                                intentArray.add(pendingIntent);
+
+//                                intents[i] = new Intent(getApplicationContext(),AlertReceiver.class);
+//                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intents[i], 0);
+//                                Calendar c = Calendar.getInstance();
+//                                c.set(Calendar.HOUR_OF_DAY, jam);
+//                                c.set(Calendar.MINUTE, menit);
+//                                c.set(Calendar.DAY_OF_MONTH, tglhari);
+//                                c.set(Calendar.MONTH, bulan-1);
+//                                c.set(Calendar.YEAR, tahun);
+//                                c.set(Calendar.SECOND, 0);
+//                                alarmManagers[i] = (AlarmManager)getApplicationContext().getSystemService(ALARM_SERVICE);
+//                                alarmManagers[i].set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();

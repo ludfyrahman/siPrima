@@ -26,6 +26,7 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Follow_Up.Detail_Follow_Up;
 import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
+import com.android.primaitech.siprima.Follow_Up.Temp_Follow_Up;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Kunjungan_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Kunjungan_Pembeli_Model;
@@ -70,6 +71,7 @@ public class Fragment_Follow_Up extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Tambah_Follow_Up.class);
+                Temp_Follow_Up.getInstance(getContext()).setCode("2");
 //                intent.putExtra("kode", kode.getText().toString());
                 getContext().startActivity(intent);
             }

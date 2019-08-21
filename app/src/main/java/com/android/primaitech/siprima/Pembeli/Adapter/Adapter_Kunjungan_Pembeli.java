@@ -105,7 +105,6 @@ public class Adapter_Kunjungan_Pembeli extends RecyclerView.Adapter<Adapter_Kunj
                                     if (mContext instanceof Kunjungan_Pembeli) {
                                         ((Kunjungan_Pembeli)mContext).delete(kode.getText().toString());
                                     }
-
                                 }
 
                             })

@@ -37,6 +37,7 @@ import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Config.VolleyMultipartRequest;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -286,7 +287,7 @@ public class Form_Follow_Up extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    startActivity(new Intent(Form_Follow_Up.this, Dashboard.class));
+                                    startActivity(new Intent(Form_Follow_Up.this, Pembeli.class));
 
                                 } else {
                                     Toast.makeText(
@@ -329,7 +330,7 @@ public class Form_Follow_Up extends AppCompatActivity {
                     Map<String, String> params = new HashMap<>();
                     params.put("kode", AuthData.getInstance(Form_Follow_Up.this).getAuthKey());
                     params.put("kode_kunjungan", kode_kunjungan_final);
-                    params.put("modified_by", "2");
+                    params.put("modified_by", AuthData.getInstance(getBaseContext()).getAksesData());
                     params.put("pembahasan", bahasan);
                     params.put("latitude", String.valueOf(latitude));
                     params.put("longitude", String.valueOf(longitude));

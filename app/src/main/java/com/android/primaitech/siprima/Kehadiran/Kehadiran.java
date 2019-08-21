@@ -73,7 +73,7 @@ public class Kehadiran extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
-        Intent data = getIntent();
+        final Intent data = getIntent();
         pd = new ProgressDialog(Kehadiran.this);
         toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -124,12 +124,18 @@ public class Kehadiran extends AppCompatActivity {
             @Override
             public void onDateSelected(Calendar date, int position) {
                 String selectedDateStr = DateFormat.format("yyyy-MM-dd", date).toString();
+
+                Calendar checkCalendar = Calendar.getInstance();
+                checkCalendar.setTime(date.getTime());
+                if(checkCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+                    tambah.hide();
                 if(selectedDateStr.equals(strDate)) {
                     Log.d("pesan", "I'm Here if");
                 }else{
                     tambah.hide();
                     Log.d("pesan", "I'm Here else");
                 }
+
                 Toast.makeText(Kehadiran.this, selectedDateStr + " selected!", Toast.LENGTH_SHORT).show();
                 reload(selectedDateStr);
             }

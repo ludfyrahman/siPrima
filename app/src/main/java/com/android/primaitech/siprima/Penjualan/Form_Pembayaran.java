@@ -101,7 +101,7 @@ public class Form_Pembayaran extends AppCompatActivity {
         diskon.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                Temp_Penjualan.getInstance(getBaseContext()).setDiskon(diskon.getText().toString());
+                Temp_Penjualan.getInstance(getBaseContext()).setDiskon(diskon.getText().toString().replace(".", "").replace(",",""));
                 int value = 0;
                 if (diskon.getText().toString().equals("")){
                     value = 0;
@@ -118,7 +118,7 @@ public class Form_Pembayaran extends AppCompatActivity {
         uang_muka.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                Temp_Penjualan.getInstance(getBaseContext()).setUang_muka(uang_muka.getText().toString());
+                Temp_Penjualan.getInstance(getBaseContext()).setUang_muka(uang_muka.getText().toString().replace(".", "").replace(",",""));
                 int sisa = 0;
                 if (uang_muka.getText().toString().equals("") || uang_muka.getText().toString().equals("0")){
                     sisa = 0;
@@ -136,7 +136,8 @@ public class Form_Pembayaran extends AppCompatActivity {
         uang_booking.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                Temp_Penjualan.getInstance(getBaseContext()).setUang_booking(uang_booking.getText().toString());
+                Log.d("pesan", "uang mukaanya adalah "+Temp_Penjualan.getInstance(getBaseContext()).getUang_muka());
+                Temp_Penjualan.getInstance(getBaseContext()).setUang_booking(uang_booking.getText().toString().replace(".", "").replace(",",""));
                 int value = 0;
                 if (uang_booking.getText().toString().equals("")){
                     value = 0;
