@@ -91,7 +91,7 @@ public class Temp_Penjualan {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString(this.nama_kavling, metode_bayar);
+        editor.putString(this.nama_kavling, nama_kavling);
 
         editor.apply();
 
@@ -100,7 +100,7 @@ public class Temp_Penjualan {
     public String getMetode_bayar() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getString(kode_pembeli, null);
+        return sharedPreferences.getString(metode_bayar, null);
     }
 
     public boolean setMetode_bayar(String metode_bayar) {

@@ -62,8 +62,7 @@ public class Form_Pembayaran extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Form_Data_Kavling.class));
             }
         });
-//        harga = (DecimalEditText)findViewById(R.id.harga);
-//        Log.d("pesan", "harganya "+harga.getText().toString().replace(".", "").replace(",",     ""));
+        Temp_Penjualan.getInstance(getBaseContext()).setMetode_bayar("1");
         mStepView = (StepView) findViewById(R.id.step_view);
         List<String> steps = Arrays.asList(new String[]{"Data Pembeli", "Data Kavling", "Pembayaran", "Konfirmasi"});
         mStepView.setSteps(steps);
@@ -101,9 +100,10 @@ public class Form_Pembayaran extends AppCompatActivity {
         diskon.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                Log.d("pesan", "diskonnya adalah "+diskon.getText().toString());
                 Temp_Penjualan.getInstance(getBaseContext()).setDiskon(diskon.getText().toString().replace(".", "").replace(",",""));
                 int value = 0;
-                if (diskon.getText().toString().equals("")){
+                if (diskon.getText().toString().equals("0,000")){
                     value = 0;
                 }else{
                     value = Integer.parseInt(diskon.getText().toString().replace(".", "").replace(",",""));
@@ -120,7 +120,7 @@ public class Form_Pembayaran extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 Temp_Penjualan.getInstance(getBaseContext()).setUang_muka(uang_muka.getText().toString().replace(".", "").replace(",",""));
                 int sisa = 0;
-                if (uang_muka.getText().toString().equals("") || uang_muka.getText().toString().equals("0")){
+                if (uang_muka.getText().toString().equals("0,000") || uang_muka.getText().toString().equals("0")){
                     sisa = 0;
                 }else{
                     sisa = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getHarga_bersih()) - Integer.parseInt(uang_muka.getText().toString().replace(".", "").replace(",",""));
@@ -136,15 +136,19 @@ public class Form_Pembayaran extends AppCompatActivity {
         uang_booking.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                Log.d("pesan", "uang mukaanya adalah "+Temp_Penjualan.getInstance(getBaseContext()).getUang_muka());
                 Temp_Penjualan.getInstance(getBaseContext()).setUang_booking(uang_booking.getText().toString().replace(".", "").replace(",",""));
-                int value = 0;
-                if (uang_booking.getText().toString().equals("")){
+                int value = 0, muka = 0;
+                if (uang_booking.getText().toString().equals("0,000")){
                     value = 0;
                 }else{
                     value = Integer.parseInt(uang_booking.getText().toString().replace(".", "").replace(",",""));
                 }
-                int sisa_uang_muka = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getUang_muka()) - value;
+                if (uang_muka.getText().toString().equals("0,000")){
+                    muka = 0;
+                }else{
+                    muka = Integer.parseInt(Temp_Penjualan.getInstance(getBaseContext()).getUang_muka());
+                }
+                int sisa_uang_muka = muka - value;
                 sisa_dp.setText(String.valueOf(sisa_uang_muka));
                 Temp_Penjualan.getInstance(getBaseContext()).setSisa_dp(String.valueOf(sisa_uang_muka));
             }

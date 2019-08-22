@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-//    public static final String BASE_URL = "http://192.168.1.3/siprima/";
+    public static final String BASE_URL = "http://192.168.1.3/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
 //    public static final String BASE_URL = "http://10.78.164.194/siprima/";
-    public static final String BASE_URL = "http://siprima.primaitech.com/";
+//    public static final String BASE_URL = "http://siprima.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";
     public static final String ROOT_API = BASE_URL+"api/";
     public static final String result = ROOT_API+"api/getdataresult/";

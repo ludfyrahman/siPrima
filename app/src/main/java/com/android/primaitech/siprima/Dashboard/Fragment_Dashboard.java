@@ -3,16 +3,11 @@ package com.android.primaitech.siprima.Dashboard;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,13 +15,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -37,15 +30,11 @@ import android.widget.Toast;
 
 import com.android.primaitech.siprima.Akun.Login;
 import com.android.primaitech.siprima.Config.AuthData;
-import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Adapter.AdapterMenu;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
 import com.android.primaitech.siprima.Database.Database_Helper;
-import com.android.primaitech.siprima.Database.Model.Master_SQlite;
-import com.android.primaitech.siprima.Database.Model.Menu_Table;
-import com.android.primaitech.siprima.Database.Model.Role_User;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -60,19 +49,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import lecho.lib.hellocharts.model.Line;
 
 public class Fragment_Dashboard extends Fragment {
     private AdapterMenu adapter;
@@ -243,9 +225,10 @@ public class Fragment_Dashboard extends Fragment {
         cursor.moveToFirst();
         Log.d("pesan", "berada di fungsi validasi");
         Log.d("pesan", "jumlah data master "+db.getMasterCount());
+        cursor.moveToPosition(0);
+
         if (db.getMasterCount() > 0) {
-            cursor.moveToPosition(0);
-            final String kode_revisi = cursor.getString(0).toString();
+            final String kode_revisi = cursor.getString(0);
             StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.Menu + "/cekdata", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -256,8 +239,9 @@ public class Fragment_Dashboard extends Fragment {
                             loadDataFromSQlite();
                         }else{
                             JSONObject data = res.getJSONObject("hasil");
-
                             if (data.getBoolean("status") == false){
+                                db.truncateKey();
+                                db.insertKey(data.getString("last_kode_server"), "menu");
                                 loadJson();
                                 Log.d("pesan", "ada di percabangan line 253");
                             }else {
@@ -283,6 +267,7 @@ public class Fragment_Dashboard extends Fragment {
                     params.put("usernamenya", now);
                     params.put("tipe", "1");
                     params.put("tabel", "menu");
+                    params.put("kode_revisi", kode_revisi);
                     return params;
                 }
             };
@@ -297,7 +282,7 @@ public class Fragment_Dashboard extends Fragment {
                     try {
                         res = new JSONObject(response);
                         JSONObject data = res.getJSONObject("hasil");
-                        db.insertKey(data.getString("last_kode_server"));
+                        db.insertKey(data.getString("last_kode_server"), "menu");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -438,12 +423,12 @@ public class Fragment_Dashboard extends Fragment {
                             MenuModel md = new MenuModel();
                             int id = getResources().getIdentifier(data.getString("kode_menu").toLowerCase(), "drawable", getActivity().getPackageName());
                             db.insertMenu(data.getString("kode_menu").toLowerCase(), data.getString("nama_menu"), data.getString("link"), id);
-                            Log.d("pesan", "nama menu "+data.getString("nama_menu"));
                         } catch (Exception ea) {
                             ea.printStackTrace();
 
                         }
                     }
+
                     loadDataFromSQlite();
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {

@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.view.Menu;
 
-import com.android.primaitech.siprima.Database.Model.Master_SQlite;
+import com.android.primaitech.siprima.Database.Model.Master_SQLite;
 import com.android.primaitech.siprima.Database.Model.Menu_Table;
 import com.android.primaitech.siprima.Database.Model.Role_User;
 
 public class Database_Helper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "siprima";
     public Database_Helper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -22,14 +21,14 @@ public class Database_Helper extends SQLiteOpenHelper {
 
         db.execSQL(Role_User.CREATE_TABLE);
         db.execSQL(Menu_Table.CREATE_TABLE);
-        db.execSQL(Master_SQlite.CREATE_TABLE);
+        db.execSQL(Master_SQLite.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + Role_User.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Menu_Table.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + Master_SQlite.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Master_SQLite.TABLE_NAME);
         // Create tables again
         onCreate(db);
     }
@@ -125,21 +124,23 @@ public class Database_Helper extends SQLiteOpenHelper {
 
 
     //master SQlite
-    public Master_SQlite getMasterDetail(String key) {
+    public Master_SQLite getMasterDetail(String table) {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(Master_SQlite.TABLE_NAME,
-                new String[]{Master_SQlite.final_key},
-                Master_SQlite.final_key + "=?",
-                new String[]{String.valueOf(key)}, null, null, null, null);
+        Cursor cursor = db.query(Master_SQLite.TABLE_NAME,
+                new String[]{Master_SQLite.final_key, Master_SQLite.final_table},
+                Master_SQLite.final_table + "=?",
+                new String[]{String.valueOf(table)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
         // prepare note object
-        Master_SQlite kunci = new Master_SQlite(
-                cursor.getString(cursor.getColumnIndex(Master_SQlite.final_key)));
+        Master_SQLite kunci = new Master_SQLite(
+                cursor.getString(cursor.getColumnIndex(Master_SQLite.final_key)),
+                cursor.getString(cursor.getColumnIndex(Master_SQLite.final_table))
+        );
 
         // close the db connection
         cursor.close();
@@ -148,21 +149,22 @@ public class Database_Helper extends SQLiteOpenHelper {
     }
     public void truncateKey(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+Master_SQlite.TABLE_NAME);
+        db.execSQL("delete from "+ Master_SQLite.TABLE_NAME);
     }
-    public long insertKey(String key) {
+    public long insertKey(String key, String table) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Master_SQlite.final_key, key);
+        values.put(Master_SQLite.final_key, key);
+        values.put(Master_SQLite.final_table, table);
         // insert row
-        long id = db.insert(Master_SQlite.TABLE_NAME, null, values);
+        long id = db.insert(Master_SQLite.TABLE_NAME, null, values);
         // close db connection
         db.close();
         // return newly inserted row id
         return id;
     }
     public int getMasterCount(){
-        String countQuery = "SELECT  * FROM " + Master_SQlite.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + Master_SQLite.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
@@ -171,7 +173,7 @@ public class Database_Helper extends SQLiteOpenHelper {
     }
     public void truncateMaster(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+Master_SQlite.TABLE_NAME);
+        db.execSQL("delete from "+ Master_SQLite.TABLE_NAME);
     }
 
 }

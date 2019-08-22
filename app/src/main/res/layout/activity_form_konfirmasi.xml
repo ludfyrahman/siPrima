@@ -64,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_nama_pembeli"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -88,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_nama_kavling"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -112,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_harga_kavling"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -136,6 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_harga_bersih"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -160,6 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_metode_bayar"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -184,6 +189,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_diskon"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -207,36 +213,68 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
+                android:orientation="vertical"
+                android:id="@+id/linear_total_dibayar">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTitle"
+                        android:fontFamily="@font/josefinsans_semibold"
+                        android:text="Total Yang Dibayar"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_weight=".8"
+                        android:id="@+id/message"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorRed"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="Sudah Termasuk Uang Booking"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorTitle"
-                    android:fontFamily="@font/josefinsans_semibold"
-                    android:text="Total Yang Dibayar"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_weight=".8"
-                    android:id="@+id/message"
-                    android:textSize="10sp"
-                    android:textColor="@color/colorRed"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="Sudah Termasuk Uang Booking"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:id="@+id/total_dibayar"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_tanggal_sisa_pembayaran"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:id="@+id/total_dibayar"
+                    android:textColor="@color/colorTitle"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Tanggal Sisa Pembayaran"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:id="@+id/tanggal_sisa_pembayaran"
                     android:textColor="@color/colorAbuabu"
                     android:textSize="18sp"
                     android:fontFamily="@font/josefinsans_regular"
@@ -246,6 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_jumlah_uang_dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -270,6 +309,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_lama_angsuran_dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -290,59 +330,72 @@
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_weight="1"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Jumlah Uang Per Angsuran DP"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
-                    android:id="@+id/jumlah_angsuran_dp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="-"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_weight="1"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Tanggal Pembayaran Uang DP"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
-                    android:id="@+id/tanggal_pembayaran_dp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="-"/>
-            </LinearLayout>
+                android:orientation="vertical"
+                android:id="@+id/linear_jumlah_angsuran_dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Jumlah Uang Per Angsuran DP"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:id="@+id/jumlah_angsuran_dp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linear_tanggal_pembayaran_dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Tanggal Pembayaran Uang DP"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:id="@+id/tanggal_pembayaran_dp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:id="@+id/linear_jumlah_uang_booking"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -363,115 +416,145 @@
                     android:fontFamily="@font/josefinsans_regular"
                     android:text="-"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Tanggal Pembayaran Uang Booking"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/linear_tanggal_uang_booking">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:id="@+id/tanggal_uang_booking"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="-"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Lama Angsuran Kavling"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:id="@+id/lama_angsuran"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="-"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Jumlah Angsuran Perbulan"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:id="@+id/jumlah_angsuran"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="-"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Tanggal Pembayaran Angsuran"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:id="@+id/tanggal_angsuran"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="-"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textColor="@color/colorTitle"
-                android:fontFamily="@font/josefinsans_semibold"
-                android:text="Status Penjualan"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:id="@+id/status"
-                    android:textColor="@color/colorAbuabu"
-                    android:textSize="18sp"
+                    android:textColor="@color/colorTitle"
                     android:fontFamily="@font/josefinsans_semibold"
-                    android:text="Menunggu Persetujuan Pimpinan"/>
+                    android:text="Tanggal Pembayaran Uang Booking"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:id="@+id/tanggal_uang_booking"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linear_lama_angsuran">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Lama Angsuran Kavling"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:id="@+id/lama_angsuran"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linear_jumlah_angsuran">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Jumlah Angsuran Perbulan"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:id="@+id/jumlah_angsuran"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linear_tanggal_angsuran">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Tanggal Pembayaran Angsuran"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:id="@+id/tanggal_angsuran"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="-"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linear_status">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:text="Status Penjualan"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:id="@+id/status"
+                        android:textColor="@color/colorAbuabu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/josefinsans_semibold"
+                        android:text="Menunggu Persetujuan Pimpinan"/>
+                </LinearLayout>
             </LinearLayout>
 
 

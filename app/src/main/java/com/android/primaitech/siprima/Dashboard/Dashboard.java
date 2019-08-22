@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.android.primaitech.siprima.Akun.Fragment_Akun;
 import com.android.primaitech.siprima.R;
@@ -17,7 +16,6 @@ public class Dashboard extends AppCompatActivity implements BottomNavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         loadFragment(new Fragment_Dashboard());

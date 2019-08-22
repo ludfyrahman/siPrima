@@ -163,7 +163,7 @@ public class Login extends AppCompatActivity {
                             db.truncateMenu();
                             JSONObject datalogin = res.getJSONObject("datauser");
                             JSONObject datauth = res.getJSONObject("dataauth");
-                            db.insertKey(datauth.getString("kode_auth"));
+//                            db.insertKey(datauth.getString("kode_auth"));
                             AuthData.getInstance(getApplicationContext()).setdataauth(
                                     datauth.getString("kode_auth"),
                                     datauth.getString("kode_user"),
