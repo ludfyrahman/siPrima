@@ -100,7 +100,7 @@
                     android:background="@mipmap/input"
                     android:hint="Ex Salahuddin Al Ayyubi"
                     android:id="@+id/nama_kategori"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:fontFamily="@font/josefinsans_regular"
                     android:textSize="15sp"
                     android:paddingBottom="8dp"

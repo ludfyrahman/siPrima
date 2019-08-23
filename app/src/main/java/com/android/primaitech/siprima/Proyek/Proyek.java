@@ -225,7 +225,11 @@ public class Proyek extends AppCompatActivity {
                 try {
                     res = new JSONObject(response);
                     JSONArray arr = res.getJSONArray("data");
+                    Log.d("pesan", "datanya proyek "+arr.toString());
+                    Log.d("pesan", "link "+ServerAccess.URL_PROYEK+"dataproyek");
+                    Log.d("pesan", "link "+ServerAccess.URL_PROYEK+"dataproyek");
                     if(arr.length() > 0) {
+                        Log.d("pesan", "ada data");
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
@@ -267,7 +271,7 @@ public class Proyek extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("kodeunit", AuthData.getInstance(getBaseContext()).getKode_unit());
+                params.put("kode_unit", AuthData.getInstance(getBaseContext()).getKode_unit());
                 return params;
             }
         };

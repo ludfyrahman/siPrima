@@ -19,7 +19,11 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Divisi.Form_Divisi;
 import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
+import com.android.primaitech.siprima.Karyawan.Pilih_Karyawan;
+import com.android.primaitech.siprima.Karyawan.Temp.Temp_Karyawan;
 import com.android.primaitech.siprima.Kategori_kavling.Temp.Temp_Kategori_Kavling;
+import com.android.primaitech.siprima.Proyek.Pilih_Proyek;
+import com.android.primaitech.siprima.Proyek.Temp.Temp_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.Unit_Bisnis.Pilih_Unit_Bisnis;
 import com.android.primaitech.siprima.Unit_Bisnis.Temp.Temp_Unit_Bisnis;
@@ -67,15 +71,15 @@ public class Form_Kategori_Kavling extends AppCompatActivity {
         pengawas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Temp_Unit_Bisnis.getInstance(getBaseContext()).setNamaMenu("divisi");
-                startActivity(new Intent(Form_Kategori_Kavling.this, Pilih_Unit_Bisnis.class));
+                Temp_Karyawan.getInstance(getBaseContext()).setNamaMenu("kategorikavling");
+                startActivity(new Intent(Form_Kategori_Kavling.this, Pilih_Karyawan.class));
             }
         });
         proyek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Temp_Unit_Bisnis.getInstance(getBaseContext()).setNamaMenu("divisi");
-                startActivity(new Intent(Form_Kategori_Kavling.this, Pilih_Unit_Bisnis.class));
+                Temp_Proyek.getInstance(getBaseContext()).setNamaMenu("kategorikavling");
+                startActivity(new Intent(Form_Kategori_Kavling.this, Pilih_Proyek.class));
             }
         });
 
@@ -100,7 +104,18 @@ public class Form_Kategori_Kavling extends AppCompatActivity {
         }else{
             toolbar.setTitle("Tambah Kategori Kavling");
         }
-
+        if(data.hasExtra("nama_usaha")) {
+            Temp_Kategori_Kavling.getInstance(getBaseContext()).setNamaProyek(data.getStringExtra("nama_usaha"));
+            Temp_Kategori_Kavling.getInstance(getBaseContext()).setKodeProyek(data.getStringExtra("kode_usaha"));
+            proyek.setText(Temp_Kategori_Kavling.getInstance(getBaseContext()).getNama_proyek());
+            kode_proyek = Temp_Kategori_Kavling.getInstance(getBaseContext()).getKode_proyek();
+        }
+        if(data.hasExtra("nama_karyawan")) {
+            Temp_Kategori_Kavling.getInstance(getBaseContext()).setNamaPengawas(data.getStringExtra("nama_karyawan"));
+            Temp_Kategori_Kavling.getInstance(getBaseContext()).setKodeMandor(data.getStringExtra("kode_karyawan"));
+            pengawas.setText(Temp_Kategori_Kavling.getInstance(getBaseContext()).getNama_pengawas());
+            kode_pengawas = Temp_Kategori_Kavling.getInstance(getBaseContext()).getKode_mandor();
+        }
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,6 +148,8 @@ public class Form_Kategori_Kavling extends AppCompatActivity {
                     nama_kategori.setText(data.getString("nama_kategori"));
                     Temp_Kategori_Kavling.getInstance(getBaseContext()).setNamaKategori(data.getString("nama_kategori"));
                     kode_kategori_kavling = data.getString("kode_kategori");
+                    kode_proyek = data.getString("kode_proyek");
+                    kode_pengawas = data.getString("kode_mandor");
                     Temp_Kategori_Kavling.getInstance(getBaseContext()).setKodeKategori(data.getString("kode_kategori"));
                     Temp_Kategori_Kavling.getInstance(getBaseContext()).setKodeProyek(data.getString("kode_proyek"));
                     Temp_Kategori_Kavling.getInstance(getBaseContext()).setKodeMandor(data.getString("kode_mandor"));
@@ -199,7 +216,7 @@ public class Form_Kategori_Kavling extends AppCompatActivity {
 
         RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
 
-        StringRequest send = new StringRequest(Request.Method.POST, ServerAccess.URL_KARYAWAN+"detailproyek", new Response.Listener<String>() {
+        StringRequest send = new StringRequest(Request.Method.POST, ServerAccess.URL_KARYAWAN+"detailkaryawan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
@@ -228,12 +245,14 @@ public class Form_Kategori_Kavling extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
-                params.put("kode_karyawan", Temp_Kategori_Kavling.getInstance(getBaseContext()).getKode_mandor());
+                Log.d("pesan", "kode karyawan "+kode_pengawas);
+                Log.d("pesan", "kode karyawan1 "+Temp_Kategori_Kavling.getInstance(getBaseContext()).getKode_mandor());
+                params.put("kode_karyawan", kode_pengawas);
                 return params;
             }
         };
 
-        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(send);
     }
 
     public void onBackPressed() {

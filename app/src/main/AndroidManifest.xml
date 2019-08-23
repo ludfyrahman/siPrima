@@ -22,7 +22,8 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Unit_Bisnis.Fragment_Karyawan_Unit_Bisnis"></activity>
+        <activity android:name=".Karyawan.Pilih_Karyawan"></activity>
+        <activity android:name=".Unit_Bisnis.Fragment_Karyawan_Unit_Bisnis" />
         <activity android:name=".Unit_Bisnis.Fragment_Akun_Keuangan" />
         <activity android:name=".Unit_Bisnis.Fragment_Data_Proyek" />
         <activity android:name=".Unit_Bisnis.Fragment_Data_RAB" />

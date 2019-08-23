@@ -19,6 +19,7 @@ import com.android.primaitech.siprima.Karyawan.Fragment_K_Proyek;
 import com.android.primaitech.siprima.Karyawan.Fragment_K_Unit_Bisnis;
 import com.android.primaitech.siprima.Karyawan.Karyawan;
 import com.android.primaitech.siprima.Kategori_kavling.Detail_Kategori_Kavling;
+import com.android.primaitech.siprima.Kategori_kavling.Form_Kategori_Kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Kategori_kavling;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Fragment_Data_Legalitas_Kavling;
@@ -77,7 +78,7 @@ public class MenuData {
                             new Fragment_Data_Legalitas_Kavling(), new Fragment_Hpp_Lahan(), new Fragment_Pembayaran_Lahan(), new Fragment_Legalitas_Lahan(), new Fragment_Galeri_Lahan()};
     String kode_navigasi[] = {"akunbank", "divisi", "karyawan", "kategorikavling", "kavling", "pembeli", "promo"};
     Class navigasi[] = {
-            Form_Akun_Bank.class, Form_Divisi.class
+            Form_Akun_Bank.class, Form_Divisi.class, Form_Kategori_Kavling.class, Form_Kategori_Kavling.class
     };
     public static String nama_menu = "", kode_menu = "";
     public Class halaman_navigasi(String code_menu) {

@@ -22,6 +22,7 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Divisi.Form_Divisi;
 import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
+import com.android.primaitech.siprima.Karyawan.Temp.Temp_Karyawan;
 import com.android.primaitech.siprima.Kategori_kavling.Adapter.Adapter_Kategori_Kavling;
 import com.android.primaitech.siprima.Kategori_kavling.Model.Kategori_Kavling_Model;
 import com.android.primaitech.siprima.Kategori_kavling.Temp.Temp_Kategori_Kavling;
@@ -98,6 +99,7 @@ public class Kategori_kavling extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Form_Kategori_Kavling.class);
                 Temp_Kategori_Kavling.getInstance(v.getContext()).setTipeForm("add");
+                Temp_Karyawan.getInstance(v.getContext()).setTipe("2");
                 startActivity(intent);
             }
         });
@@ -287,6 +289,7 @@ public class Kategori_kavling extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("kode_proyek", AuthData.getInstance(getBaseContext()).getKode_proyek());
                 return params;
             }
         };
