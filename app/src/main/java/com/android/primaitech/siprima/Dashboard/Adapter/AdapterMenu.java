@@ -14,11 +14,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Cuti.Cuti;
+import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Dashboard.Detail_Menu;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
+import com.android.primaitech.siprima.Dashboard.Temp.Temp_Menu;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -27,11 +32,11 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
     private ArrayList<MenuModel> listdata;
     private Activity activity;
     private Context context;
-    public AdapterMenu(Activity activity, ArrayList<MenuModel> listdata) {
+    public AdapterMenu(Activity activity, ArrayList<MenuModel> listdata, Context context) {
         this.listdata = listdata;
         this.activity = activity;
+        this.context = context;
     }
-
     @Override
     public AdapterMenu.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -48,11 +53,16 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
 //        Glide.with(activity)
 //                .load(listdata.get(position).getGambar())
 //                .into(holder.thumbnail);
-        holder.thumbnail.setImageResource(listdata.get(position).getGambar());
+        int id = listdata.get(position).getGambar();
+        if (id == 0){
+            id = R.drawable.logo;
+        }
+        holder.thumbnail.setImageResource(id);
         holder.progress.setVisibility(View.GONE);
         holder.kode_menu.setText(listdata.get(position).getKode_menu());
         holder.link.setVisibility(View.GONE);
         holder.kode_menu.setVisibility(View.GONE);
+        holder.mContext = context;
     }
     @Override
     public int getItemCount() {
@@ -62,9 +72,8 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
         private CardView cv;
         private TextView link, judul, kode_menu;
         private ImageView thumbnail;
-
         ProgressBar progress;
-        String jumlah;
+        Context mContext;
         public ViewHolder(View v) {
             super(v);
             link=(TextView)v.findViewById(R.id.link);
@@ -77,14 +86,42 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
                 public void onClick(View v) {
                     MenuData menuData = new MenuData();
                     try {
-                        Intent intent = new Intent(v.getContext(), menuData.halaman(kode_menu.getText().toString()));
-                        AuthData.getInstance(v.getContext()).setKodeMenu(kode_menu.getText().toString());
-                        AuthData.getInstance(v.getContext()).setNamaMenu(judul.getText().toString());
-                        intent.putExtra("kode_menu", kode_menu.getText().toString());
-                        intent.putExtra("nama_menu",judul.getText().toString());
-                        v.getContext().startActivity(intent);
+
+
+                            if (mContext instanceof Detail_Menu) {
+                                ((Detail_Menu)mContext).checkData(kode_menu.getText().toString());
+                            }
+                            if (mContext instanceof Dashboard) {
+                                ((Dashboard)mContext).checkData(kode_menu.getText().toString());
+                            }
+                            int jumlah = 0;
+                            if (Temp_Menu.getInstance(v.getContext()).getJumlah() == null || Temp_Menu.getInstance(v.getContext()).getJumlah().equals("0"))
+                                jumlah = 0;
+                            else
+                                jumlah = Integer.parseInt(Temp_Menu.getInstance(v.getContext()).getJumlah());
+
+                            Log.d("pesan", "jumlah menunya adalah "+jumlah);
+                            Log.d("pesan", "kode menunya adalah "+kode_menu.getText().toString());
+                        if (jumlah > 0){
+                            Log.d("pesan", "ada di detail menunya");
+                            Intent intent =  new Intent(v.getContext(), Detail_Menu.class);
+                            Temp_Menu.getInstance(v.getContext()).setMenu(judul.getText().toString());
+                            Temp_Menu.getInstance(v.getContext()).setKode_Menu(kode_menu.getText().toString());
+                            intent.putExtra("kode_menu", kode_menu.getText().toString());
+                            intent.putExtra("nama_menu",judul.getText().toString());
+                            v.getContext().startActivity(intent);
+                        }else{
+                            Log.d("pesan", "ada di menunya sekarang");
+                            Intent intent = new Intent(v.getContext(), menuData.halaman(kode_menu.getText().toString()));
+//                            Intent intent = new Intent(v.getContext(), menuData.halaman(kode_menu.getText().toString()));
+                            AuthData.getInstance(v.getContext()).setKodeMenu(kode_menu.getText().toString());
+                            AuthData.getInstance(v.getContext()).setNamaMenu(judul.getText().toString());
+                            intent.putExtra("kode_menu", kode_menu.getText().toString());
+                            intent.putExtra("nama_menu",judul.getText().toString());
+                            v.getContext().startActivity(intent);
+                        }
                     } catch (Exception e) {
-                        Log.d("pesan", "error");
+                        Log.d("pesan", "error "+e.getMessage());
                     }
                 }
             });

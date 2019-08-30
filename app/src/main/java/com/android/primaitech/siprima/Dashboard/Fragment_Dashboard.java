@@ -75,7 +75,7 @@ public class Fragment_Dashboard extends Fragment {
     SimpleDateFormat th = new SimpleDateFormat("yyyy");
     String tglnow = tgl.format(c);
     String tahunnow = th.format(c);
-    TextView nama_pengguna, nama_usaha, level_akun;
+    TextView nama_pengguna, nama_usaha, level_akun, komisi, komisi_kavling;
 
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String now = df.format(c);
@@ -95,6 +95,8 @@ public class Fragment_Dashboard extends Fragment {
         level_akun = (TextView)v.findViewById(R.id.level_akun);
         tanggal = (TextView)v.findViewById(R.id.tanggal);
         tahun = (TextView)v.findViewById(R.id.tahun);
+        komisi = (TextView)v.findViewById(R.id.komisi);
+        komisi_kavling = (TextView)v.findViewById(R.id.komisi_kavling);
         banner = (LinearLayout)v.findViewById(R.id.banner);
         loading = (LinearLayout)v.findViewById(R.id.loading);
         img_loading = (ImageView)v.findViewById(R.id.img_loading);
@@ -102,7 +104,7 @@ public class Fragment_Dashboard extends Fragment {
                 .load(R.drawable.loading)
                 .into(img_loading);
         nama_pengguna = (TextView)v.findViewById(R.id.nama_pengguna);
-        adapter = new AdapterMenu(getActivity(),listdata);
+        adapter = new AdapterMenu(getActivity(),listdata, getContext());
         dashboard_menu.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
@@ -129,7 +131,10 @@ public class Fragment_Dashboard extends Fragment {
             }
         });
 
-        checkConnection();
+//        checkConnection();
+        loadJson();
+        loadKomisi();
+        dataDashboard(2);
         return v;
     }
     private void loadDataFromSQlite(){
@@ -148,6 +153,8 @@ public class Fragment_Dashboard extends Fragment {
                 md.setJudul(cursor.getString(1));
                 md.setLink(cursor.getString(2));
                 int id = getResources().getIdentifier(cursor.getString(0).toLowerCase(), "drawable", getActivity().getPackageName());
+                Log.d("pesan", "nama menunya adalah "+cursor.getString(1)+" filenya "+id);
+
                 md.setGambar(id);
                 listdata.add(md);
             }
@@ -200,6 +207,7 @@ public class Fragment_Dashboard extends Fragment {
             Log.d("pesan", "Sqlite Ada Data");
             //jika online mengambil data dari api terlebih dahulu
 //            loadDataFromSQlite();
+            dataDashboard(2);
             validasi();
         } else {
             Log.d("pesan", "Sqlite Tidak Ada Data");
@@ -336,7 +344,7 @@ public class Fragment_Dashboard extends Fragment {
                             JSONObject data = arr.getJSONObject(0);
                             JSONObject dataRole = arrRole.getJSONObject(0);
                             nama_usaha.setText((data.getString("nama_usaha").equals("null") ? "PrimaGroup" : data.getString("nama_usaha")));
-                            level_akun.setText(data.getString("nama_role"));
+                            level_akun.setText(dataRole.getString("nama_role"));
                             ServerAccess serverAccess = new ServerAccess();
 //                            if(status == 1){
 //                                db.insertRole_User(dataRole.getString("kode_role"), dataRole.getString("nama_role"), dataRole.getString("revisi_code"));
@@ -413,16 +421,23 @@ public class Fragment_Dashboard extends Fragment {
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.Menu, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                JSONObject res = null;
+//                JSONObject res = null;
+                JSONArray res = null;
                 try {
-                    res = new JSONObject(response);
-                    JSONArray arr = res.getJSONArray("data");
-                    for(int i = 0; i < arr.length(); i++) {
+//                    res = new JSONObject(response);
+//                    JSONArray arr = res.getJSONArray("data");
+                    res = new JSONArray(response);
+                    for(int i = 0; i < res.length(); i++) {
                         try {
-                            JSONObject data = arr.getJSONObject(i);
+                            JSONObject data = res.getJSONObject(i);
                             MenuModel md = new MenuModel();
                             int id = getResources().getIdentifier(data.getString("kode_menu").toLowerCase(), "drawable", getActivity().getPackageName());
                             db.insertMenu(data.getString("kode_menu").toLowerCase(), data.getString("nama_menu"), data.getString("link"), id);
+//                            md.setKode_menu(data.getString("kode_menu").toLowerCase());
+//                            md.setJudul(data.getString("nama_menu"));
+//                            md.setLink(data.getString("link"));
+//                            int id = getResources().getIdentifier(data.getString("kode_menu").toLowerCase(), "drawable", getContext().getPackageName());
+//                            md.setGambar(id);
                         } catch (Exception ea) {
                             ea.printStackTrace();
 
@@ -455,5 +470,45 @@ public class Fragment_Dashboard extends Fragment {
 
         RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
     }
+    private void loadKomisi()
+    {
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject res = null;
+//                JSONArray res = null;
+                try {
 
+                            res = new JSONObject(response);
+                            JSONObject data = res.getJSONObject("data");
+                            komisi.setText("Rp "+ServerAccess.numberFormat(data.getInt("komisi")));
+                            komisi_kavling.setText(data.getString("kavling")+" Kavling ");
+
+
+                    loadDataFromSQlite();
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
+                params.put("tipedata", "komisi");
+                params.put("kode_karyawan", AuthData.getInstance(getContext()).getAksesData());
+                return params;
+            }
+        };
+
+        RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
+    }
 }

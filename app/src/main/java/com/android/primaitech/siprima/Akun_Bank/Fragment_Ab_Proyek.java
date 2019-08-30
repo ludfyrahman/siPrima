@@ -6,8 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Pembeli.Fragment_Calon_Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Ab_Proyek extends Fragment {
+public class Fragment_Ab_Proyek extends AppCompatActivity {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
     private Adapter_Akun_Bank adapter;
@@ -50,22 +54,33 @@ public class Fragment_Ab_Proyek extends Fragment {
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_ab_proyek, container, false);
-        listdata = (RecyclerView)v.findViewById(R.id.listdata);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment_ab_proyek);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.backward);
+        Intent data = getIntent();
+        toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+            }
+        });
+        listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
-        tambah = (FloatingActionButton)v.findViewById(R.id.tambah);
-        not_found = (LinearLayout)v.findViewById(R.id.not_found);
+        tambah = (FloatingActionButton)findViewById(R.id.tambah);
+        not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Akun_Bank(getActivity(),(ArrayList<Akun_Bank_Model>) list, getContext());
-        mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        pd = new ProgressDialog(Fragment_Ab_Proyek.this);
+        adapter = new Adapter_Akun_Bank(Fragment_Ab_Proyek.this,(ArrayList<Akun_Bank_Model>) list, this);
+        mManager = new LinearLayoutManager(Fragment_Ab_Proyek.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        refresh = (FrameLayout) v.findViewById(R.id.refresh);
-        swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
+        refresh = (FrameLayout) findViewById(R.id.refresh);
+        swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         swLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -78,13 +93,13 @@ public class Fragment_Ab_Proyek extends Fragment {
             public void onClick(View view) {
                 Akun_bank m = new Akun_bank();
                 m.tipe_akun="2";
-                Intent intent = new Intent(getContext(), Form_Akun_Bank.class);
-                Temp_Akun_Bank.getInstance(getContext()).setTipeForm("add");
+                Intent intent = new Intent(getBaseContext(), Form_Akun_Bank.class);
+                Temp_Akun_Bank.getInstance(getBaseContext()).setTipeForm("add");
                 startActivity(intent);
             }
         });
         validate();
-        return v;
+//        return v;
     }
     public void reload(){
         not_found.setVisibility(View.GONE);
@@ -94,15 +109,69 @@ public class Fragment_Ab_Proyek extends Fragment {
         swLayout.setRefreshing(false);
     }
     private void validate(){
-        Bundle bundle = getArguments();
-        if(bundle.getString("buat").equals("1"))
-            tambah.show();
-        buat = bundle.getString("buat");
-        edit = bundle.getString("edit");
-        hapus = bundle.getString("hapus");
-        detail = bundle.getString("detail");
-        kode_menu = bundle.getString("kode_menu");
+//        Bundle bundle = getArguments();
+//        if(bundle.getString("buat").equals("1"))
+//            tambah.show();
+//        buat = bundle.getString("buat");
+//        edit = bundle.getString("edit");
+//        hapus = bundle.getString("hapus");
+//        detail = bundle.getString("detail");
+//        kode_menu = bundle.getString("kode_menu");
+        pd.setMessage("Menampilkan Data");
+        pd.setCancelable(false);
+        pd.show();
 
+        final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(response);
+                    JSONArray arr = res.getJSONArray("data");
+                    if(arr.length() > 0) {
+                        try {
+                            JSONObject data = arr.getJSONObject(0);
+                            buat = data.getString("buat");
+                            edit = data.getString("edit");
+                            hapus = data.getString("hapus");
+                            detail = data.getString("detail");
+                            if(data.getString("buat").equals("1"))
+                                tambah.show();
+                        } catch (Exception ea) {
+                            ea.printStackTrace();
+
+                        }
+                    }else{
+                        pd.cancel();
+                        Log.d("erro", "onResponse: kosong");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    pd.cancel();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pd.cancel();
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("tipedata", "subMenuAkses");
+                params.put("kode_menu", kode_menu);
+                params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
+                return params;
+            }
+        };
+
+        RequestHandler.getInstance(Fragment_Ab_Proyek.this).addToRequestQueue(senddata);
     }
     private void loadJson()
     {
@@ -158,13 +227,13 @@ public class Fragment_Ab_Proyek extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 params.put("tipe", "2");
-                params.put("kode_usaha", AuthData.getInstance(getContext()).getKode_unit());
+                params.put("kode_usaha", AuthData.getInstance(getBaseContext()).getKode_unit());
                 return params;
             }
         };
 
-        RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
 }

@@ -24,6 +24,7 @@ import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Form_Pembeli;
@@ -63,19 +64,18 @@ public class Adapter_Pembeli extends RecyclerView.Adapter<Adapter_Pembeli.ViewHo
         holder.nama_pembeli.setText(listdata.get(position).getNama_pembeli());
         holder.no_ktp.setText(listdata.get(position).getNo_ktp());
         holder.no_hp.setText(listdata.get(position).getNo_hp());
-        Fragment fragment;
         holder.status.setText(status[listdata.get(position).getStatus()]);
         holder.status_pembeli = listdata.get(position).getStatus();
         if(listdata.get(position).getStatus() == 1) {
-            fragment = new Fragment_Pembeli();
-            edit = ((Fragment_Pembeli) fragment).edit;
-            hapus = ((Fragment_Pembeli) fragment).hapus;
-            detail = ((Fragment_Pembeli) fragment).detail;
+            Fragment_Pembeli cl = new Fragment_Pembeli();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }else{
-            fragment = new Fragment_Calon_Pembeli();
-            edit = ((Fragment_Calon_Pembeli) fragment).edit;
-            hapus = ((Fragment_Calon_Pembeli) fragment).hapus;
-            detail = ((Fragment_Calon_Pembeli) fragment).detail;
+            Fragment_Calon_Pembeli cl = new Fragment_Calon_Pembeli();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }
         if(!edit.equals("1"))
             holder.edit.setVisibility(View.GONE);

@@ -64,6 +64,7 @@ public class Detail_Penjualan extends AppCompatActivity {
         Intent data = getIntent();
         nama_menu = data.getStringExtra("nama_menu");
         kode = data.getStringExtra("kode");
+        Log.d("pesan", "kode penjualan adalah "+data.getStringExtra("kode"));
         if(data.hasExtra("nama_menu")){
             toolbar.setTitle(data.getStringExtra("nama_menu"));
         }

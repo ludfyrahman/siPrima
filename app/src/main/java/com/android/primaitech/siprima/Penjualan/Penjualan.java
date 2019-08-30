@@ -244,6 +244,7 @@ public class Penjualan extends AppCompatActivity {
                                 md.setNama_penjual(data.getString("nama_karyawan"));
                                 md.setNama_penjualan(data.getString("nama_kategori")+" "+data.getString("nama_kavling"));
                                 md.setKode(data.getString("kode_penjualan"));
+                                md.setStatus(ServerAccess.statusPenjualan[data.getInt("status_penjualan")]);
                                 md.setHarga_jual_bersih(ServerAccess.numberConvert(data.getString("harga_jual_bersih")));
                                 md.setTanggal_penjualan(ServerAccess.parseDate(data.getString("create_at")));
                                 list.add(md);

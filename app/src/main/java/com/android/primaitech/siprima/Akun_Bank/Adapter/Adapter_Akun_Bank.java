@@ -21,6 +21,8 @@ import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
 import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
+import com.android.primaitech.siprima.Pembeli.Fragment_Calon_Pembeli;
+import com.android.primaitech.siprima.Pembeli.Fragment_Pembeli;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;
@@ -54,17 +56,16 @@ public class Adapter_Akun_Bank extends RecyclerView.Adapter<Adapter_Akun_Bank.Vi
         holder.no_rekening.setText(listdata.get(position).getNo_rekening());
         holder.saldo.setText(listdata.get(position).getSaldo());
         holder.tipe_akun = listdata.get(position).getTipe_akun();
-        Fragment fragment;
         if(listdata.get(position).getTipe_akun().equals("1")) {
-            fragment = new Fragment_Ab_Unit_Bisnis();
-            edit = ((Fragment_Ab_Unit_Bisnis) fragment).edit;
-            hapus = ((Fragment_Ab_Unit_Bisnis) fragment).hapus;
-            detail = ((Fragment_Ab_Unit_Bisnis) fragment).detail;
+            Fragment_Ab_Unit_Bisnis cl = new Fragment_Ab_Unit_Bisnis();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }else{
-            fragment = new Fragment_Ab_Proyek();
-            edit = ((Fragment_Ab_Proyek) fragment).edit;
-            hapus = ((Fragment_Ab_Proyek) fragment).hapus;
-            detail = ((Fragment_Ab_Proyek) fragment).detail;
+            Fragment_Ab_Proyek cl = new Fragment_Ab_Proyek();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }
         if(!edit.equals("1"))
             holder.edit.setVisibility(View.GONE);

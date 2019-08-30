@@ -238,11 +238,11 @@ public class Unit_Bisnis extends AppCompatActivity {
                                 Unit_Bisnis_Model md = new Unit_Bisnis_Model();
                                 md.setKode_unit(data.getString("kode_unit"));
                                 md.setNama_unit(data.getString("nama_unit"));
-                                md.setTipe(data.getString("tipe"));
+                                md.setTipe(ServerAccess.tipe_unit[data.getInt("tipe")]);
                                 md.setLogo(ServerAccess.BASE_URL+"/"+ data.getString("logo"));
                                 md.setUrl_web(data.getString("url_web"));
                                 md.setTgl_mulai(data.getString("tgl_mulai"));
-                                md.setStatus(data.getString("status"));
+                                md.setStatus(ServerAccess.status[data.getInt("status")]);
                                 list.add(md);
                             } catch (Exception ea) {
                                 ea.printStackTrace();

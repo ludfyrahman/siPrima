@@ -1,6 +1,7 @@
 package com.android.primaitech.siprima.Karyawan;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Karyawan.Adapter.Adapter_Karyawan;
 import com.android.primaitech.siprima.Karyawan.Model.Karyawan_Model;
 import com.android.primaitech.siprima.R;
@@ -38,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_K_Unit_Bisnis extends Fragment {
+public class Fragment_K_Unit_Bisnis extends AppCompatActivity {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
     private Adapter_Karyawan adapter;
@@ -51,22 +54,33 @@ public class Fragment_K_Unit_Bisnis extends Fragment {
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment_k_unit_bisnis, container, false);
-        listdata = (RecyclerView)v.findViewById(R.id.listdata);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment_k_unit_bisnis);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.backward);
+        Intent data = getIntent();
+        toolbar.setTitle(AuthData.getInstance(getBaseContext()).getNama_menu());
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+            }
+        });
+        listdata = (RecyclerView)findViewById(R.id.listdata);
         listdata.setHasFixedSize(true);
-        tambah = (FloatingActionButton)v.findViewById(R.id.tambah);
-        not_found = (LinearLayout)v.findViewById(R.id.not_found);
+        tambah = (FloatingActionButton)findViewById(R.id.tambah);
+        not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
-        pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Karyawan(getActivity(),(ArrayList<Karyawan_Model>) list, getContext());
-        mManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        pd = new ProgressDialog(Fragment_K_Unit_Bisnis.this);
+        adapter = new Adapter_Karyawan(Fragment_K_Unit_Bisnis.this,(ArrayList<Karyawan_Model>) list, this);
+        mManager = new LinearLayoutManager(Fragment_K_Unit_Bisnis.this,LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        refresh = (FrameLayout) v.findViewById(R.id.refresh);
-        swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
+        refresh = (FrameLayout) findViewById(R.id.refresh);
+        swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         swLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -75,7 +89,7 @@ public class Fragment_K_Unit_Bisnis extends Fragment {
             }
         });
         validate();
-        return v;
+//        return v;
     }
     public void reload(){
         not_found.setVisibility(View.GONE);
@@ -85,15 +99,69 @@ public class Fragment_K_Unit_Bisnis extends Fragment {
         swLayout.setRefreshing(false);
     }
     private void validate(){
-        Bundle bundle = getArguments();
-        if(bundle.getString("buat").equals("1"))
-            tambah.show();
-        buat = bundle.getString("buat");
-        edit = bundle.getString("edit");
-        hapus = bundle.getString("hapus");
-        detail = bundle.getString("detail");
-        kode_menu = bundle.getString("kode_menu");
+//        Bundle bundle = getArguments();
+//        if(bundle.getString("buat").equals("1"))
+//            tambah.show();
+//        buat = bundle.getString("buat");
+//        edit = bundle.getString("edit");
+//        hapus = bundle.getString("hapus");
+//        detail = bundle.getString("detail");
+//        kode_menu = bundle.getString("kode_menu");
+        pd.setMessage("Menampilkan Data");
+        pd.setCancelable(false);
+        pd.show();
 
+        final String kode_menu = AuthData.getInstance(getBaseContext()).getKode_menu();
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.result, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(response);
+                    JSONArray arr = res.getJSONArray("data");
+                    if(arr.length() > 0) {
+                        try {
+                            JSONObject data = arr.getJSONObject(0);
+                            buat = data.getString("buat");
+                            edit = data.getString("edit");
+                            hapus = data.getString("hapus");
+                            detail = data.getString("detail");
+                            if(data.getString("buat").equals("1"))
+                                tambah.show();
+                        } catch (Exception ea) {
+                            ea.printStackTrace();
+
+                        }
+                    }else{
+                        pd.cancel();
+                        Log.d("erro", "onResponse: kosong");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    pd.cancel();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pd.cancel();
+                        Log.d("volley", "errornya : " + error.getMessage());
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
+                params.put("tipedata", "subMenuAkses");
+                params.put("kode_menu", kode_menu);
+                params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
+                return params;
+            }
+        };
+
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
     private void loadJson()
     {
@@ -149,11 +217,11 @@ public class Fragment_K_Unit_Bisnis extends Fragment {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
+                params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 return params;
             }
         };
 
-        RequestHandler.getInstance(getActivity()).addToRequestQueue(senddata);
+        RequestHandler.getInstance(getBaseContext()).addToRequestQueue(senddata);
     }
 }

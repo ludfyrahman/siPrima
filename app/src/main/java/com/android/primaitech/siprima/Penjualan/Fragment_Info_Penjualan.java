@@ -187,6 +187,7 @@ public class Fragment_Info_Penjualan extends Fragment {
         pd.setCancelable(false);
         pd.show();
         final String nama_kav = detail_penjualan.nama_menu;
+        Log.d("pesan", "kode penjualan di info penjualan adalah "+detail_penjualan.kode);
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PENJUALAN+"detailpenjualan", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -239,7 +240,7 @@ public class Fragment_Info_Penjualan extends Fragment {
                     tgl_bayarbooking_kredit = data.getString("tanggal_bayar_booking");
                     kredit_jml_angsur_bulanan = data.getString("angsuran_bulanan");
                     kredit_tgl_bayar_angsuran = data.getString("tanggal_bayar_angsuran");
-                    lainlainkredit = data.getString("lainlainkredit");
+                    lainlainkredit = data.getString("lain_lain");
                     switch (data.getInt("status_penjualan")){
                         case 0:
                             batalkan.setVisibility(View.VISIBLE);
@@ -283,6 +284,7 @@ public class Fragment_Info_Penjualan extends Fragment {
                             batalkan.setVisibility(View.GONE);
                             break;
                         default:
+                            Log.d("pesan", " di default gan");
                             tolak.setVisibility(View.VISIBLE);
                             tolak.setText("Tidak Ada Akses");
                             terima.setVisibility(View.GONE);

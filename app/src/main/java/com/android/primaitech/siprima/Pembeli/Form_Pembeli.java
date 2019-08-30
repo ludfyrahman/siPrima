@@ -190,7 +190,7 @@ public class Form_Pembeli extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    startActivity(new Intent(Form_Pembeli.this, Pembeli.class));
+                                    startActivity(new Intent(Form_Pembeli.this, Fragment_Calon_Pembeli.class));
                                 } else {
                                     Toast.makeText(
                                             Form_Pembeli.this,

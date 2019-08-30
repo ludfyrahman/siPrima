@@ -40,6 +40,7 @@ import com.android.primaitech.siprima.Pembeli.Fragment_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Penjualan.Detail_Penjualan;
 import com.android.primaitech.siprima.Penjualan.Penjualan;
+import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
 import com.android.primaitech.siprima.Promo.Detail_Promo;
 import com.android.primaitech.siprima.Promo.Promo;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
@@ -58,13 +59,15 @@ public class MenuData {
                         "menu6", "menu1", "menu9", "menu2", "menu14", "menu15", "menu3", "menu11", "menu10", "menu4",
                         "menu17", "menu25", "menu19", "menu26", "menu13", "menu24", "menu23","menu31","menu18", "menu33",
                         "menu32", "menu27", "menu20", "menu16", "menu12", "menu29", "menu28", "menu22", "menu8", "menu38",
-                        "menu5", "menu7", "menu42"
+                        "menu5", "menu7", "menu42", "submenu3", "submenu4", "submenu24", "submenu25","submenu31", "submenu32",
+                        "submenu1", "submenu2","submenu29", "submenu30",
                     };
     Class halaman[] = {
             Proyek.class, Unit_Bisnis.class, Kategori_kavling.class, Proyek.class, Promo.class, Akun_bank.class, Proyek.class, Karyawan.class, Pembeli.class, RAB.class,
             Proyek.class, Proyek.class, Proyek.class, Proyek.class, Artikel.class, Akun_bank.class, Proyek.class, Proyek.class, Proyek.class, Proyek.class,
             Proyek.class, Proyek.class, Proyek.class, Proyek.class, Divisi.class, Kegiatan.class, Cuti.class, Proyek.class, Kavling.class, Proyek.class,
-            Penjualan.class, Lahan.class, Kehadiran.class
+            Penjualan.class, Lahan.class, Kehadiran.class, Penjualan.class, Tambah_Penjualan.class, Fragment_Pembeli.class, Fragment_Calon_Pembeli.class, Fragment_Ab_Unit_Bisnis.class, Fragment_Ab_Proyek.class,
+            Fragment_Rab_Unit_Bisnis.class, Fragment_Rab_Proyek.class, Fragment_K_Unit_Bisnis.class, Fragment_K_Proyek.class
             };
     Class detail_halaman[] = {
             Detail_Proyek.class, Detail_Proyek.class, Detail_Kategori_Kavling.class, Detail_Proyek.class, Detail_Promo.class, Detail_Akun_Bank.class, Detail_Proyek.class, Detail_Karyawan.class, Detail_Pembeli.class, Detail_RAB.class,
@@ -72,9 +75,9 @@ public class MenuData {
             Detail_Proyek.class, Detail_Proyek.class, Detail_Proyek.class, Detail_Proyek.class, Detail_Divisi.class, Detail_Kegiatan.class, Detail_Cuti.class, Detail_Proyek.class, Detail_Kavling.class, Detail_Proyek.class,
             Detail_Penjualan.class, Detail_Proyek.class, Kehadiran.class
     };
-    String kode_submenu[] = {"submenu31", "submenu32", "submenu29", "submenu30", "submenu1", "submenu2", "submenu24", "submenu25", "submenu26", "submenu22",
+    String kode_submenu[] = {"submenu26", "submenu22",
                             "submenu23", "menu43", "submenu19", "submenu20", "submenu52"};
-    Fragment fragment[] = {new Fragment_Ab_Unit_Bisnis(), new Fragment_Ab_Proyek(), new Fragment_K_Unit_Bisnis(), new Fragment_K_Proyek(), new Fragment_Rab_Unit_Bisnis(), new Fragment_Rab_Proyek(), new Fragment_Pembeli(), new Fragment_Calon_Pembeli(), new Fragment_Follow_Up(), new Fragment_Info_Progress(),
+    Fragment fragment[] = { new Fragment_Follow_Up(), new Fragment_Info_Progress(),
                             new Fragment_Data_Legalitas_Kavling(), new Fragment_Hpp_Lahan(), new Fragment_Pembayaran_Lahan(), new Fragment_Legalitas_Lahan(), new Fragment_Galeri_Lahan()};
     String kode_navigasi[] = {"akunbank", "divisi", "karyawan", "kategorikavling", "kavling", "pembeli", "promo"};
     Class navigasi[] = {

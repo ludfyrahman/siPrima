@@ -62,15 +62,15 @@ public class Adapter_Karyawan extends RecyclerView.Adapter<Adapter_Karyawan.View
         holder.tanggal_gabung.setText(listdata.get(position).getTanggal_gabung());
         Fragment fragment;
         if(listdata.get(position).getTipe_karyawan().equals("1")) {
-            fragment = new Fragment_K_Unit_Bisnis();
-            edit = ((Fragment_K_Unit_Bisnis) fragment).edit;
-            hapus = ((Fragment_K_Unit_Bisnis) fragment).hapus;
-            detail = ((Fragment_K_Unit_Bisnis) fragment).detail;
+            Fragment_K_Unit_Bisnis cl = new Fragment_K_Unit_Bisnis();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }else{
-            fragment = new Fragment_K_Proyek();
-            edit = ((Fragment_K_Proyek) fragment).edit;
-            hapus = ((Fragment_K_Proyek) fragment).hapus;
-            detail = ((Fragment_K_Proyek) fragment).detail;
+            Fragment_K_Proyek cl = new Fragment_K_Proyek();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }
         if(!edit.equals("1"))
             holder.edit.setVisibility(View.GONE);

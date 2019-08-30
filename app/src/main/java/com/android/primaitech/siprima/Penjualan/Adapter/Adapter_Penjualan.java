@@ -58,6 +58,7 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
         holder.nama_penjual.setText(listdata.get(position).getNama_penjual());
         holder.tanggal_penjualan.setText(listdata.get(position).getTanggal_penjualan());
         holder.harga_deal.setText(listdata.get(position).getHarga_jual_bersih());
+        holder.status.setText(listdata.get(position).getStatus());
 //        Glide.with(activity)
 //                .load(listdata.get(position).getCover())
 //                .into(holder.gambar);
@@ -79,7 +80,7 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cv;
-        private TextView kode, nama_penjualan, nama_pembeli, nama_penjual, tanggal_penjualan, harga_deal, edit, hapus;
+        private TextView kode, nama_penjualan, nama_pembeli, nama_penjual, tanggal_penjualan, harga_deal, edit, hapus, status;
         String detailStatus;
         ImageView gambar;
         Context mContext;
@@ -89,6 +90,7 @@ public class Adapter_Penjualan extends RecyclerView.Adapter<Adapter_Penjualan.Vi
             nama_penjualan=(TextView)v.findViewById(R.id.nama_penjualan);
             nama_pembeli = (TextView)v.findViewById(R.id.nama_pembeli);
             nama_penjual = (TextView)v.findViewById(R.id.nama_penjual);
+            status = (TextView)v.findViewById(R.id.status);
             tanggal_penjualan = (TextView)v.findViewById(R.id.tanggal_penjualan);
             harga_deal = (TextView)v.findViewById(R.id.harga_deal);
             edit = (TextView)v.findViewById(R.id.edit);

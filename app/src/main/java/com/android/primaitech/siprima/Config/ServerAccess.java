@@ -8,12 +8,13 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.3/siprima/";
+//    public static final String BASE_URL = "http://192.168.1.5/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
-//    public static final String BASE_URL = "http://10.78.164.194/siprima/";
+    public static final String BASE_URL = "http://192.168.18.128/siprima/";
 //    public static final String BASE_URL = "http://siprima.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";
     public static final String ROOT_API = BASE_URL+"api/";
+    public static final String SubMenu = BASE_URL+"api/api/submenu";
     public static final String result = ROOT_API+"api/getdataresult/";
     public static final String delete = ROOT_API+"api/delete/";
     public static final String asset = BASE_URL+"assets/";
@@ -53,6 +54,8 @@ public class ServerAccess {
     public static String status_karyawan[] = {"-","Aktif", "Menunggu Konfirmasi", "Ditolak"};
     public static String gender[] = {"-","Laki Laki", "Perempuan"};
     public static String status_pernikahan[] = {"Belum Menikah","Sudah Menikah"};
+    public static String tipe_unit[] = {"","Developer", "Jasa", "Penjualan"};
+    public static String status[] = {"Tidak Aktif","Aktif"};
 
     public static String numberFormat(int val){
         NumberFormat nf =NumberFormat.getInstance();

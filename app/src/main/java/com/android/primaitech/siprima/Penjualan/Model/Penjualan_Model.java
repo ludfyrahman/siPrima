@@ -8,6 +8,15 @@ public class Penjualan_Model {
     String tanggal_penjualan;
     String harga_jual_bersih;
     String cover;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getCover() {
         return cover;

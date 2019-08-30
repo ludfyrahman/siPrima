@@ -22,14 +22,10 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Kavling.Form_Kavling"></activity>
+        <activity android:name=".Dashboard.Detail_Menu"></activity>
+        <activity android:name=".Kavling.Form_Kavling" />
         <activity android:name=".Karyawan.Form_Karyawan" />
         <activity android:name=".Karyawan.Pilih_Karyawan" />
-        <activity android:name=".Unit_Bisnis.Fragment_Karyawan_Unit_Bisnis" />
-        <activity android:name=".Unit_Bisnis.Fragment_Akun_Keuangan" />
-        <activity android:name=".Unit_Bisnis.Fragment_Data_Proyek" />
-        <activity android:name=".Unit_Bisnis.Fragment_Data_RAB" />
-        <activity android:name=".Unit_Bisnis.Fragment_Info_Unit_Bisnis" />
         <activity android:name=".Lahan.Form_Lahan" />
         <activity android:name=".Kategori_kavling.Form_Kategori_Kavling" />
         <activity android:name=".Proyek.Form_Proyek" />
@@ -37,8 +33,12 @@
         <activity android:name=".Divisi.Form_Divisi" />
         <activity android:name=".Unit_Bisnis.Detail_Unit_Bisnis" />
         <activity android:name=".Unit_Bisnis.Pilih_Unit_Bisnis" />
+        <activity android:name=".Akun_Bank.Fragment_Ab_Unit_Bisnis" />
         <activity android:name=".Proyek.Pilih_Proyek" />
+        <activity android:name=".Akun_Bank.Fragment_Ab_Proyek" />
         <activity android:name=".RAB.Pilih_RAB" />
+        <activity android:name=".RAB.Fragment_Rab_Unit_Bisnis" />
+        <activity android:name=".RAB.Fragment_Rab_Proyek" />
         <activity android:name=".Akun_Bank.Form_Akun_Bank" />
         <activity android:name=".Unit_Bisnis.Unit_Bisnis" />
         <activity android:name=".Lahan.Detail_Lahan" />
@@ -53,6 +53,8 @@
         <activity android:name=".Kegiatan.Kegiatan" />
         <activity android:name=".Kavling.Pilih_Kavling" />
         <activity android:name=".Pembeli.Pilih_Pembeli" />
+        <activity android:name=".Pembeli.Fragment_Calon_Pembeli" />
+        <activity android:name=".Pembeli.Fragment_Pembeli" />
         <activity android:name=".Kehadiran.Kehadiran" />
         <activity android:name=".Penjualan.Form_Konfirmasi" />
         <activity android:name=".Penjualan.Form_Pembayaran" />
@@ -78,6 +80,8 @@
         <activity android:name=".Kavling.Kavling" />
         <activity android:name=".Keluhan.Keluhan" />
         <activity android:name=".Karyawan.Karyawan" />
+        <activity android:name=".Karyawan.Fragment_K_Unit_Bisnis" />
+        <activity android:name=".Karyawan.Fragment_K_Proyek" />
         <activity android:name=".Promo.Promo" />
         <activity android:name=".Divisi.Divisi" />
         <activity android:name=".Proyek.Proyek" />

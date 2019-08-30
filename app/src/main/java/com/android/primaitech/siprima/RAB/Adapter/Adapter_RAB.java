@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
+import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
@@ -57,17 +59,16 @@ public class Adapter_RAB extends RecyclerView.Adapter<Adapter_RAB.ViewHolder>  {
 //        holder.sisa_anggaran.setText(listdata.get(position).getSisa_anggaran());
         holder.status.setText(listdata.get(position).getStatus());
         holder.tanggal.setText(listdata.get(position).getCreate_at());
-        Fragment fragment;
         if(listdata.get(position).getTipe_rab().equals("1")) {
-            fragment = new Fragment_Rab_Unit_Bisnis();
-            edit = ((Fragment_Rab_Unit_Bisnis) fragment).edit;
-            hapus = ((Fragment_Rab_Unit_Bisnis) fragment).hapus;
-            detail = ((Fragment_Rab_Unit_Bisnis) fragment).detail;
+            Fragment_Rab_Unit_Bisnis cl = new Fragment_Rab_Unit_Bisnis();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }else{
-            fragment = new Fragment_Rab_Proyek();
-            edit = ((Fragment_Rab_Proyek) fragment).edit;
-            hapus = ((Fragment_Rab_Proyek) fragment).hapus;
-            detail = ((Fragment_Rab_Proyek) fragment).detail;
+            Fragment_Rab_Proyek cl = new Fragment_Rab_Proyek();
+            edit = cl.edit;
+            hapus = cl.hapus;
+            detail = cl.detail;
         }
         if(!edit.equals("1"))
             holder.edit.setVisibility(View.GONE);
