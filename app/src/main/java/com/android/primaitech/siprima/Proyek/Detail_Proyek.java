@@ -21,8 +21,10 @@ import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
+import com.android.primaitech.siprima.Hpp.Temp.Temp_Hpp;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
+import com.android.primaitech.siprima.Lahan.Fragment_Hpp_Lahan;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -88,6 +90,7 @@ public class Detail_Proyek extends AppCompatActivity {
         Intent data = getIntent();
         datapenjualan = new ArrayList<>();
         final String kode = data.getStringExtra("kode");
+        Temp_Hpp.getInstance(getBaseContext()).setKode_Produk(kode);
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_PROYEK + "detailproyek", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -178,6 +181,7 @@ public class Detail_Proyek extends AppCompatActivity {
         mSectionsPagerAdapter.addFragment(new Fragment_Data_Kavling(), "Data Kavling", 3);
         mSectionsPagerAdapter.addFragment(new Fragment_Data_Karyawan_Proyek(), "Data Karyawan", 4);
         mSectionsPagerAdapter.addFragment(new Fragment_Data_Legalitas(), "Data Legalitas", 5);
+        mSectionsPagerAdapter.addFragment(new Fragment_Hpp_Proyek(), "Hpp Proyek", 6);
 
         viewPager.setAdapter(mSectionsPagerAdapter);
         mSectionsPagerAdapter.notifyDataSetChanged();

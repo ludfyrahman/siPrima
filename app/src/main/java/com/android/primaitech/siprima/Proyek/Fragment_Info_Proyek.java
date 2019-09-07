@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.R;
+import com.android.primaitech.siprima.Tipe_Rumah.Tipe_Rumah;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -39,6 +41,7 @@ import java.util.Map;
 public class Fragment_Info_Proyek extends Fragment {
     ProgressDialog pd;
     LinearLayout bg;
+    Button tipe_rumah;
     TextView nama_proyek, alamat, nama_dokumen, saldo_cash, kecamatan, kelurahan, tanggal_mulai, luas_proyek, link_web, nama_lahan, nama_unit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +57,18 @@ public class Fragment_Info_Proyek extends Fragment {
         luas_proyek = (TextView)v.findViewById(R.id.luas_proyek);
         link_web = (TextView)v.findViewById(R.id.link_web);
         nama_lahan = (TextView)v.findViewById(R.id.nama_lahan);
+        tipe_rumah = (Button) v.findViewById(R.id.tipe_rumah);
         bg = (LinearLayout)v.findViewById(R.id.bg);
+        tipe_rumah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Detail_Proyek detail_proyek = new Detail_Proyek();
+                final String kode =detail_proyek.kode;
+                Intent intent = new Intent(v.getContext(), Tipe_Rumah.class);
+                intent.putExtra("kode_proyek", kode);
+                v.getContext().startActivity(intent);
+            }
+        });
         loadJson();
         return v;
     }

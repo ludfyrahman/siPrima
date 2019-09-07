@@ -75,10 +75,8 @@ public class MenuData {
             Detail_Proyek.class, Detail_Proyek.class, Detail_Proyek.class, Detail_Proyek.class, Detail_Divisi.class, Detail_Kegiatan.class, Detail_Cuti.class, Detail_Proyek.class, Detail_Kavling.class, Detail_Proyek.class,
             Detail_Penjualan.class, Detail_Proyek.class, Kehadiran.class
     };
-    String kode_submenu[] = {"submenu26", "submenu22",
-                            "submenu23", "menu43", "submenu19", "submenu20", "submenu52"};
-    Fragment fragment[] = { new Fragment_Follow_Up(), new Fragment_Info_Progress(),
-                            new Fragment_Data_Legalitas_Kavling(), new Fragment_Hpp_Lahan(), new Fragment_Pembayaran_Lahan(), new Fragment_Legalitas_Lahan(), new Fragment_Galeri_Lahan()};
+    String kode_submenu[] = {"submenu26", "submenu22", "submenu23", "menu43", "submenu19", "submenu20", "submenu52"};
+    Fragment fragment[] = { new Fragment_Follow_Up(), new Fragment_Info_Progress(), new Fragment_Data_Legalitas_Kavling(), new Fragment_Hpp_Lahan(), new Fragment_Pembayaran_Lahan(), new Fragment_Legalitas_Lahan(), new Fragment_Galeri_Lahan()};
     String kode_navigasi[] = {"akunbank", "divisi", "karyawan", "kategorikavling", "kavling", "pembeli", "promo"};
     Class navigasi[] = {
             Form_Akun_Bank.class, Form_Divisi.class, Form_Kategori_Kavling.class, Form_Kategori_Kavling.class

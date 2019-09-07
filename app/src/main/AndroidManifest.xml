@@ -2,18 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.primaitech.siprima">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".Config.AppController"
         android:allowBackup="true"
@@ -22,7 +10,12 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Dashboard.Detail_Menu"></activity>
+        <activity android:name=".Hpp.Form_Hpp_Proyek"></activity>
+        <activity android:name=".Tipe_Rumah.Form_Tipe_Rumah" />
+        <activity android:name=".Proyek.Fragment_Hpp_Proyek" />
+        <activity android:name=".Tipe_Rumah.Detail_Tipe_Rumah" />
+        <activity android:name=".Tipe_Rumah.Tipe_Rumah" />
+        <activity android:name=".Dashboard.Detail_Menu" />
         <activity android:name=".Kavling.Form_Kavling" />
         <activity android:name=".Karyawan.Form_Karyawan" />
         <activity android:name=".Karyawan.Pilih_Karyawan" />
@@ -100,5 +93,17 @@
 
         <receiver android:name=".Config.AlertReceiver" />
     </application>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

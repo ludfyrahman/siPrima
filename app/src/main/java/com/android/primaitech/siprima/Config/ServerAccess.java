@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServerAccess {
-//    public static final String BASE_URL = "http://192.168.1.5/siprima/";
+    public static final String BASE_URL = "http://192.168.1.30/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
-    public static final String BASE_URL = "http://192.168.18.128/siprima/";
+//    public static final String BASE_URL = "http://10.135.207.113/siprima/";
 //    public static final String BASE_URL = "http://siprima.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";
     public static final String ROOT_API = BASE_URL+"api/";
@@ -23,9 +23,11 @@ public class ServerAccess {
     public static final String URL_LOGIN=ROOT_API+"auth/authlogin";
     public static final String URL_PEMBELI=ROOT_API+"pembeli/";
     public static final String URL_KAVLING=ROOT_API+"kavling/";
+    public static final String URL_TIPE_RUMAH=ROOT_API+"tiperumah/";
     public static final String URL_DIVISI=ROOT_API+"divisi/";
     public static final String URL_KARYAWAN=ROOT_API+"karyawan/";
     public static final String URL_RAB=ROOT_API+"rab/";
+    public static final String URL_HPP=ROOT_API+"hpp/";
     public static final String URL_LAHAN=ROOT_API+"lahan/";
     public static final String URL_UNIT_BISNIS=ROOT_API+"unitbisnis/";
     public static final String URL_PROYEK=ROOT_API+"proyek/";
@@ -80,7 +82,7 @@ public class ServerAccess {
     }
     public static String numberConvert(String val){
         double v = Double.parseDouble(val);
-        DecimalFormat formatter = new DecimalFormat("###.###");
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
         String format = formatter.format(v);
         return "Rp "+format;
     }

@@ -1,4 +1,4 @@
-package com.android.primaitech.siprima.Lahan.Model;
+package com.android.primaitech.siprima.Hpp.Model;
 
 public class Hpp_Lahan_Model {
     String kode_hpp, nama_biaya, jumlah_biaya;

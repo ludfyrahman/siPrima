@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hpp"
+        android:id="@+id/title"
+        android:fontFamily="@font/josefinsans_regular"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Nama Biaya"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/input"
+                android:hint="Ex Nama Biaya"
+                android:id="@+id/nama_biaya"
+                android:inputType="text"
+                android:paddingBottom="8dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:textSize="15sp"
+                android:textColor="@color/colorAbuabu"
+                android:paddingLeft="18dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="Jumlah Biaya"/>
+            <ru.kolotnev.formattedittext.DecimalEditText
+                android:id="@+id/jumlah_biaya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@mipmap/input"
+                android:ems="0"
+                android:fontFamily="@font/josefinsans_regular"
+                android:hint="Exp 20000"
+                android:inputType="number"
+                android:textSize="15sp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingBottom="12dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/simpan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simpan"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite" />
+</LinearLayout>

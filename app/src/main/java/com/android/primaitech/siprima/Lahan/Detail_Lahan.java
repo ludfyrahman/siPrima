@@ -101,8 +101,9 @@ public class Detail_Lahan extends AppCompatActivity {
                         try {
                             JSONObject data = arr.getJSONObject(i);
                             if(data.getString("aksesnya").equals("1")){
-                                if (data.getString("show_menu").equals("1")){
+//                                if (data.getString("show_menu").equals("1")){
                                     MenuData menuData = new MenuData();
+                                    Log.d("pesan", "kode menunya adalah "+data.getString("kode_menu"));
                                     Fragment frag = menuData.frag(data.getString("kode_menu").toLowerCase());
                                     Bundle bundle = new Bundle();
                                     bundle.putString("buat", data.getString("buat"));
@@ -113,7 +114,7 @@ public class Detail_Lahan extends AppCompatActivity {
                                     frag.setArguments(bundle);
                                     mSectionsPagerAdapter.addFragment(frag, data.getString("nama_menu").toLowerCase(), count);
                                     count++;
-                                }
+//                                }
                             }
                         } catch (Exception ea) {
                             ea.printStackTrace();
@@ -145,7 +146,7 @@ public class Detail_Lahan extends AppCompatActivity {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("tipedata", "submenu");
-                params.put("kode_menu", kode_menu);
+                params.put("kode_menu", "MENU7");
                 params.put("kode", AuthData.getInstance(Detail_Lahan.this).getAuthKey());
                 params.put("kode_role", AuthData.getInstance(getBaseContext()).getKode_role());
                 return params;

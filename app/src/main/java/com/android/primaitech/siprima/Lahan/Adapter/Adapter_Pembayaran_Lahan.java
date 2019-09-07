@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.primaitech.siprima.Lahan.Fragment_Hpp_Lahan;
 import com.android.primaitech.siprima.Lahan.Lahan;
-import com.android.primaitech.siprima.Lahan.Model.Hpp_Lahan_Model;
 import com.android.primaitech.siprima.Lahan.Model.Pembayaran_Lahan_Model;
 import com.android.primaitech.siprima.R;
 import com.bumptech.glide.Glide;

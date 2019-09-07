@@ -72,7 +72,20 @@ public class Database_Helper extends SQLiteOpenHelper {
         Role_User role = new Role_User(
                 cursor.getString(cursor.getColumnIndex(Role_User.final_kode_role)),
                 cursor.getString(cursor.getColumnIndex(Role_User.final_nama_role)),
-                cursor.getString(cursor.getColumnIndex(Role_User.final_revisi_code)));
+                cursor.getString(cursor.getColumnIndex(Role_User.final_revisi_code)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_kode_menu)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_nama_menu)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_tipe)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_kode_parent)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_akses)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_buat)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_edit)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_hapus)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_akses_view)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_show_menu)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_sub_show)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_urutan)),
+                cursor.getString(cursor.getColumnIndex(Role_User.final_bisa_hapus)));
 
         // close the db connection
         cursor.close();

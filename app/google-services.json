@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "313560985717",
+    "firebase_url": "https://siprima.firebaseio.com",
+    "project_id": "siprima",
+    "storage_bucket": "siprima.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313560985717:android:c1868bfc39bccb05b5083c",
+        "android_client_info": {
+          "package_name": "com.android.primaitech.siprima"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313560985717-griufnm6spa6bbosqqh57naua6oci38q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6xlBBv2v_mI-4OFNyK0Q0hmGWRHSEa5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313560985717-griufnm6spa6bbosqqh57naua6oci38q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

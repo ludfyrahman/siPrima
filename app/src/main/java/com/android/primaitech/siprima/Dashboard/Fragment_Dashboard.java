@@ -483,8 +483,6 @@ public class Fragment_Dashboard extends Fragment {
                             JSONObject data = res.getJSONObject("data");
                             komisi.setText("Rp "+ServerAccess.numberFormat(data.getInt("komisi")));
                             komisi_kavling.setText(data.getString("kavling")+" Kavling ");
-
-
                     loadDataFromSQlite();
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {

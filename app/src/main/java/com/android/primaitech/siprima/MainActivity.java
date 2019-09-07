@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         PACKAGE_NAME = getApplicationContext().getPackageName();
+        Log.d("pesan", "package namenya adalah "+PACKAGE_NAME);
         final Intent i = new Intent(this, Login.class);
         Thread timer = new Thread() {
             public void run() {

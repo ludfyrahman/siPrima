@@ -8,7 +8,7 @@ import com.android.primaitech.siprima.Cuti.Temp.Temp_Cuti;
 public class Temp_Pembeli {
     private static Temp_Pembeli mInstance;
     private static Context mCtx;
-    private static final String SHARED_PREF_NAME = "prefcuti";
+    private static final String SHARED_PREF_NAME = "prefpembeli";
     private static final String nama_pembeli = "nama_pembeli";
     private static final String nik = "nik";
     private static final String no_hp = "no_hp";

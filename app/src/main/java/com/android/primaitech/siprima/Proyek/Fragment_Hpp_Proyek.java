@@ -1,10 +1,12 @@
-package com.android.primaitech.siprima.Lahan;
+package com.android.primaitech.siprima.Proyek;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,10 +20,18 @@ import android.widget.TextView;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
+import com.android.primaitech.siprima.Cuti.Form_Cuti;
+import com.android.primaitech.siprima.Cuti.Temp.Temp_Cuti;
 import com.android.primaitech.siprima.Hpp.Adapter.Adapter_Hpp_Lahan;
+import com.android.primaitech.siprima.Hpp.Adapter.Adapter_Hpp_Proyek;
+import com.android.primaitech.siprima.Hpp.Form_Hpp_Proyek;
 import com.android.primaitech.siprima.Hpp.Model.Hpp_Lahan_Model;
-import com.android.primaitech.siprima.Proyek.Detail_Proyek;
+import com.android.primaitech.siprima.Hpp.Temp.Temp_Hpp;
+import com.android.primaitech.siprima.Lahan.Detail_Lahan;
 import com.android.primaitech.siprima.R;
+import com.android.primaitech.siprima.Tipe_Rumah.Form_Tipe_Rumah;
+import com.android.primaitech.siprima.Tipe_Rumah.Temp.Temp_Tipe_Rumah;
+import com.android.primaitech.siprima.Tipe_Rumah.Tipe_Rumah;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -37,10 +47,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Fragment_Hpp_Lahan extends Fragment {
+public class Fragment_Hpp_Proyek extends Fragment {
     public static String buat, edit, hapus, detail;
     FloatingActionButton tambah;
-    private Adapter_Hpp_Lahan adapter;
+    private Adapter_Hpp_Proyek adapter;
     private List<Hpp_Lahan_Model> list;
     private RecyclerView listdata;
     FrameLayout refresh;
@@ -50,13 +60,12 @@ public class Fragment_Hpp_Lahan extends Fragment {
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
     ProgressDialog pd;
-    Detail_Proyek detail_proyek = new Detail_Proyek();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.activity_fragment_hpp_lahan, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment_hpp_proyek, container, false);
         listdata = (RecyclerView) v.findViewById(R.id.listdata);
         hpp_lahan_kotor = (TextView)v.findViewById(R.id.hpp_lahan_kotor);
         hpp_lahan_efektif = (TextView)v.findViewById(R.id.hpp_lahan_efektif);
@@ -65,12 +74,12 @@ public class Fragment_Hpp_Lahan extends Fragment {
         not_found = (LinearLayout) v.findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(getActivity());
-        adapter = new Adapter_Hpp_Lahan(getActivity(),(ArrayList<Hpp_Lahan_Model>) list, getContext());
+        adapter = new Adapter_Hpp_Proyek(getActivity(),(ArrayList<Hpp_Lahan_Model>) list, getContext());
         mManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         loadJson();
-        loadData();
+//        loadData();
         validate();
         refresh = (FrameLayout) v.findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) v.findViewById(R.id.swlayout);
@@ -81,18 +90,31 @@ public class Fragment_Hpp_Lahan extends Fragment {
                 reload();
             }
         });
+        tambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Form_Hpp_Proyek bt = new Form_Hpp_Proyek();
+                Bundle bundle = new Bundle();
+                bt.setArguments(bundle);
+                Temp_Hpp.getInstance(getActivity()).setTipeForm("add");
+                bt.show(getFragmentManager(), "Cuti");
+            }
+        });
         return v;
     }
     private void validate(){
         Bundle bundle = getArguments();
-        if(bundle.getString("buat").equals("1"))
+//        if(bundle.getString("buat").equals("1"))
             tambah.show();
-        buat = bundle.getString("buat");
-        edit = bundle.getString("edit");
-        hapus = bundle.getString("hapus");
-        detail = bundle.getString("detail");
-        kode_menu = bundle.getString("kode_menu");
-
+//        buat = bundle.getString("buat");
+        buat = "1";
+//        edit = bundle.getString("edit");
+        edit = "1";
+//        hapus = bundle.getString("hapus");
+        hapus = "1";
+//        detail = bundle.getString("detail");
+        detail = "1";
+//        kode_menu = bundle.getString("kode_menu");
     }
     public void reload() {
         not_found.setVisibility(View.GONE);
@@ -106,22 +128,25 @@ public class Fragment_Hpp_Lahan extends Fragment {
         pd.setMessage("Menampilkan Data");
         pd.setCancelable(false);
         pd.show();
-        final Detail_Lahan detail_lahan = new Detail_Lahan();
-        final String kode = detail_lahan.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_LAHAN + "detaillahanlengkap", new Response.Listener<String>() {
+        final Detail_Proyek detail_proyek = new Detail_Proyek();
+        final String kode = detail_proyek.kode;
+        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_HPP + "getdatahpp", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONObject res = null;
                 try {
                     pd.cancel();
                     res = new JSONObject(response);
-                    JSONArray arr = res.getJSONArray("datahpp");
+                    JSONArray arr = res.getJSONArray("data");
+
                     if(arr.length() > 0) {
+                        int ttl = 0;
                         for (int i = 0; i < arr.length(); i++) {
                             try {
                                 JSONObject data = arr.getJSONObject(i);
                                 Hpp_Lahan_Model md = new Hpp_Lahan_Model();
-//                                md.setDesain_rumah(R.drawable.menu8);
+                                ttl=Integer.parseInt(data.getString("jumlah_biaya"))+ttl;
+                                Log.d("pesan", "ttlnya di looping "+ttl);
                                 md.setKode_hpp(data.getString("kode_hpp"));
                                 md.setNama_biaya(data.getString("nama_biaya"));
                                 md.setJumlah_biaya(data.getString("jumlah_biaya"));
@@ -130,6 +155,8 @@ public class Fragment_Hpp_Lahan extends Fragment {
                                 ea.printStackTrace();
                             }
                         }
+                        Log.d("pesan", "ttlnya adalah "+ttl);
+//                        hpp_lahan_kotor.setText(ttl);
                         pd.cancel();
                         adapter.notifyDataSetChanged();
                     }else{
@@ -154,52 +181,8 @@ public class Fragment_Hpp_Lahan extends Fragment {
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
-                params.put("kode_lahan", kode);
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(senddata);
-    }
-    private void loadData() {
-        final Detail_Lahan detail_lahan = new Detail_Lahan();
-        final String kode = detail_lahan.kode;
-        StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_LAHAN+"detaillahanlengkap", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                JSONObject res = null;
-                try {
-                    res = new JSONObject(response);
-                    JSONObject data = res.getJSONObject("data");
-                    hpp_lahan_kotor.setText(ServerAccess.numberConvert(data.getString("hpp_lahan")));
-                    int luasefektif = 0;
-                    if (data.getString("status").equals("2")){
-                        luasefektif = Integer.parseInt(data.getString("lahan_terbangun")) / 100 * Integer.parseInt(data.getString("luas_proyek"));
-                    }
-                    Log.d("pesan", "loadata berjalan ");
-                    Log.d("pesan", "hpp lahan adalah "+data.getString("hpp_lahan"));
-                    String hpp_lahan = data.getString("hpp_lahan");
-                    Log.d("pesan", "hpp lahan adalah "+Long.parseLong(hpp_lahan));
-                    Log.d("pesan", "luas efektif adalah "+luasefektif);
-//                    Log.d("pesan", "hpp_lahan_efektif adalah "+Long.parseLong(hpp_lahan)/ luasefektif);
-//                    hpp_lahan_efektif.setText(ServerAccess.numberFormat( Long.parseInt(hpp_lahan)/ luasefektif));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("volley", "errornya : " + error.getMessage());
-                    }
-                }) {
-
-            @Override
-            public Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("kode", AuthData.getInstance(getContext()).getAuthKey());
-                params.put("kode_lahan", kode);
+                params.put("tipe", "1");
+                params.put("kode_produk", kode);
                 return params;
             }
         };
