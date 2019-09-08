@@ -1,24 +1,20 @@
 package com.android.primaitech.siprima.Penjualan;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +22,6 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Penjualan.Detail_Penjualan;
-import com.android.primaitech.siprima.Penjualan.Model.Riyawat_Pembayaran_Model;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,12 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class Terima_Penjualan extends BottomSheetDialogFragment {

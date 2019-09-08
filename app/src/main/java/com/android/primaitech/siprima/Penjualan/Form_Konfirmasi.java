@@ -2,9 +2,9 @@ package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
 import com.android.primaitech.siprima.Penjualan.Temp.Temp_Penjualan;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -27,7 +25,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.githang.stepview.StepView;
-import com.google.android.gms.maps.model.Dash;
 
 import org.json.JSONException;
 import org.json.JSONObject;

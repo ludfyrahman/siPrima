@@ -5,31 +5,22 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
-import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
-import com.android.primaitech.siprima.Akun_Bank.Temp.Temp_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Divisi.Form_Divisi;
 import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
 import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
-import com.android.primaitech.siprima.Pembeli.Pembeli;
-import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Proyek;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
-import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
-import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 

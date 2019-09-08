@@ -1,21 +1,18 @@
 package com.android.primaitech.siprima.Hpp;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +20,6 @@ import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Cuti.Cuti;
-import com.android.primaitech.siprima.Cuti.Temp.Temp_Cuti;
 import com.android.primaitech.siprima.Hpp.Temp.Temp_Hpp;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.Tipe_Rumah.Tipe_Rumah;
@@ -41,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class Form_Hpp_Proyek extends BottomSheetDialogFragment {

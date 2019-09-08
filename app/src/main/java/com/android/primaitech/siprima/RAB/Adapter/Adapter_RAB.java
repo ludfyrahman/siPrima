@@ -5,20 +5,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek;
-import com.android.primaitech.siprima.Akun_Bank.Fragment_Ab_Unit_Bisnis;
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.RAB.Detail_RAB;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Proyek;

@@ -2,9 +2,9 @@ package com.android.primaitech.siprima.Penjualan;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,9 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
-import com.android.primaitech.siprima.MainActivity;
 import com.android.primaitech.siprima.Penjualan.Temp.Temp_Penjualan;
 import com.android.primaitech.siprima.R;
 import com.githang.stepview.StepView;

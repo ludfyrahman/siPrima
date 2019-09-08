@@ -5,8 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Divisi.Form_Divisi;
-import com.android.primaitech.siprima.Divisi.Temp.Temp_Divisi;
 import com.android.primaitech.siprima.R;
 import com.android.primaitech.siprima.Tipe_Rumah.Detail_Tipe_Rumah;
 import com.android.primaitech.siprima.Tipe_Rumah.Form_Tipe_Rumah;
 import com.android.primaitech.siprima.Tipe_Rumah.Model.Tipe_Rumah_Model;
 import com.android.primaitech.siprima.Tipe_Rumah.Temp.Temp_Tipe_Rumah;
 import com.android.primaitech.siprima.Tipe_Rumah.Tipe_Rumah;
-import com.android.primaitech.siprima.Unit_Bisnis.Adapter.Adapter_Unit_Bisnis;
-import com.android.primaitech.siprima.Unit_Bisnis.Detail_Unit_Bisnis;
-import com.android.primaitech.siprima.Unit_Bisnis.Model.Unit_Bisnis_Model;
-import com.android.primaitech.siprima.Unit_Bisnis.Unit_Bisnis;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 

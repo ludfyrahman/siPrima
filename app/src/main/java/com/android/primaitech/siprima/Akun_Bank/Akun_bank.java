@@ -1,34 +1,25 @@
 package com.android.primaitech.siprima.Akun_Bank;
 
 import android.content.Intent;
-import android.nfc.Tag;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.android.primaitech.siprima.Akun_Bank.Model.Akun_Bank_Model;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
-import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
-import com.android.primaitech.siprima.RAB.Fragment_Rab_Unit_Bisnis;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -39,12 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import lecho.lib.hellocharts.model.Line;
 
 public class Akun_bank extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;

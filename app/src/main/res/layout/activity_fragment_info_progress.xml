@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite">
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:id="@+id/swlayout"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/listdata"
             android:scrollbars="vertical"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_gravity="center"
@@ -44,7 +44,7 @@
             android:fontFamily="@font/josefinsans_semibold"
             android:text="@string/empty_data_desc"/>
     </LinearLayout>
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/tambah"
         app:srcCompat="@drawable/add"
         android:backgroundTint="@color/colorPrimary"

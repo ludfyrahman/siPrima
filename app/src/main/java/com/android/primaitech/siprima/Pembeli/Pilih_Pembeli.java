@@ -2,24 +2,20 @@ package com.android.primaitech.siprima.Pembeli;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Divisi.Adapter.Adapter_Divisi;
-import com.android.primaitech.siprima.Divisi.Model.Divisi_Model;
 import com.android.primaitech.siprima.Follow_Up.Tambah_Follow_Up;
 import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pilih_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;

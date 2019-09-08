@@ -3,23 +3,19 @@ package com.android.primaitech.siprima.Dashboard.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Cuti.Cuti;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Dashboard.Detail_Menu;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;

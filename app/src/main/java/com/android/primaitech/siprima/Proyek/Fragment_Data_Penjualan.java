@@ -1,14 +1,14 @@
 package com.android.primaitech.siprima.Proyek;
 
 import android.app.ProgressDialog;
-import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +18,8 @@ import android.widget.LinearLayout;
 
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
-import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
-import com.android.primaitech.siprima.Penjualan.Adapter.Adapter_Penjualan;
 import com.android.primaitech.siprima.Penjualan.Model.Penjualan_Model;
-import com.android.primaitech.siprima.Penjualan.Penjualan;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Penjualan_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;

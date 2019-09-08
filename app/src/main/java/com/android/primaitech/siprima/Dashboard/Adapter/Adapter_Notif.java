@@ -1,24 +1,17 @@
 package com.android.primaitech.siprima.Dashboard.Adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Cuti.Adapter.Adapter_Cuti;
-import com.android.primaitech.siprima.Cuti.Cuti;
-import com.android.primaitech.siprima.Cuti.Detail_Cuti;
-import com.android.primaitech.siprima.Cuti.Model.Cuti_Model;
 import com.android.primaitech.siprima.Dashboard.Model.Notif_Model;
 import com.android.primaitech.siprima.R;
 

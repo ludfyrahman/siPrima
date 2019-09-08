@@ -5,8 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;

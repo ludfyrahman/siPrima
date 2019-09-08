@@ -2,17 +2,15 @@ package com.android.primaitech.siprima.Dashboard;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.primaitech.siprima.Config.AppController;
@@ -22,9 +20,6 @@ import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Adapter.AdapterMenu;
 import com.android.primaitech.siprima.Dashboard.Model.MenuModel;
 import com.android.primaitech.siprima.Dashboard.Temp.Temp_Menu;
-import com.android.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
-import com.android.primaitech.siprima.Kavling.Kavling;
-import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;

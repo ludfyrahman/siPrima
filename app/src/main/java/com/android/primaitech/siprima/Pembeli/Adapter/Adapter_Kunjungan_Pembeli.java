@@ -5,26 +5,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Divisi.Divisi;
 import com.android.primaitech.siprima.Follow_Up.Detail_Follow_Up;
-import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Fragment_Calon_Pembeli;
-import com.android.primaitech.siprima.Pembeli.Fragment_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Model.Kunjungan_Pembeli_Model;
-import com.android.primaitech.siprima.Pembeli.Model.Pembeli_Model;
-import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 
 import java.util.ArrayList;

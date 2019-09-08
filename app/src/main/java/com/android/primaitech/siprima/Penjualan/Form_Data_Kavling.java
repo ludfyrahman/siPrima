@@ -2,10 +2,10 @@ package com.android.primaitech.siprima.Penjualan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,10 +17,7 @@ import android.widget.TextView;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kavling.Detail_Kavling;
 import com.android.primaitech.siprima.Kavling.Pilih_Kavling;
-import com.android.primaitech.siprima.Pembeli.Pilih_Pembeli;
 import com.android.primaitech.siprima.Penjualan.Temp.Temp_Penjualan;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;

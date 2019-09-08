@@ -8,9 +8,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
-import com.android.primaitech.siprima.Dashboard.Dashboard;
 import com.android.primaitech.siprima.Follow_Up.Detail_Follow_Up;
 import com.android.primaitech.siprima.R;
 

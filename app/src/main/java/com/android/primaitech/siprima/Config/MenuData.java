@@ -1,6 +1,6 @@
 package com.android.primaitech.siprima.Config;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.android.primaitech.siprima.Akun_Bank.Akun_bank;
 import com.android.primaitech.siprima.Akun_Bank.Detail_Akun_Bank;
@@ -44,7 +44,6 @@ import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
 import com.android.primaitech.siprima.Promo.Detail_Promo;
 import com.android.primaitech.siprima.Promo.Promo;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;
-import com.android.primaitech.siprima.Proyek.Fragment_Data_Legalitas;
 import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.RAB.Detail_RAB;
 import com.android.primaitech.siprima.RAB.Fragment_Rab_Proyek;

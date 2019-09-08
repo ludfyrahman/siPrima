@@ -2,22 +2,20 @@ package com.android.primaitech.siprima.Proyek;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.primaitech.siprima.Akun_Bank.Form_Akun_Bank;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Karyawan.Temp.Temp_Karyawan;
 import com.android.primaitech.siprima.Proyek.Adapter.Adapter_Pilih_Proyek;
 import com.android.primaitech.siprima.Proyek.Model.Proyek_Model;
 import com.android.primaitech.siprima.Proyek.Temp.Temp_Proyek;

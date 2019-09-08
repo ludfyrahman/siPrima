@@ -2,11 +2,9 @@ package com.android.primaitech.siprima.Kegiatan.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Kegiatan.Detail_Kegiatan;
-import com.android.primaitech.siprima.Kegiatan.Kegiatan;
 import com.android.primaitech.siprima.Kegiatan.Model.Galeri_Kegiatan_Model;
-import com.android.primaitech.siprima.Kegiatan.Model.Kegiatan_Model;
-import com.android.primaitech.siprima.Lahan.Detail_Lahan;
-import com.android.primaitech.siprima.MainActivity;
 import com.android.primaitech.siprima.R;
 import com.bumptech.glide.Glide;
-import com.github.tntkhang.fullscreenimageview.library.FullScreenImageViewActivity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Adapter_Galeri_Kegiatan extends RecyclerView.Adapter<Adapter_Galeri_Kegiatan.ViewHolder>  {
     private ArrayList<Galeri_Kegiatan_Model> listdata;

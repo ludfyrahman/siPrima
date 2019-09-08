@@ -1,24 +1,19 @@
 package com.android.primaitech.siprima.Kavling.Adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Kavling.Kavling;
 import com.android.primaitech.siprima.Kavling.Model.Kavling_Model;
-import com.android.primaitech.siprima.Penjualan.Detail_Penjualan;
 import com.android.primaitech.siprima.Penjualan.Form_Data_Kavling;
 import com.android.primaitech.siprima.R;
 import com.bumptech.glide.Glide;

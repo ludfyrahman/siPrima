@@ -5,9 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.primaitech.siprima.Akun_Bank.Detail_Akun_Bank;
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Karyawan.Adapter.Adapter_Karyawan;
 import com.android.primaitech.siprima.Karyawan.Detail_Karyawan;
-import com.android.primaitech.siprima.Karyawan.Fragment_K_Proyek;
-import com.android.primaitech.siprima.Karyawan.Fragment_K_Unit_Bisnis;
 import com.android.primaitech.siprima.Karyawan.Karyawan;
 import com.android.primaitech.siprima.Karyawan.Model.Karyawan_Model;
 import com.android.primaitech.siprima.Proyek.Detail_Proyek;

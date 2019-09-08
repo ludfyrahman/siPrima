@@ -1,18 +1,14 @@
 package com.android.primaitech.siprima.Follow_Up;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.InputType;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,19 +18,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.android.primaitech.siprima.Config.AlertReceiver;
 import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.MenuData;
-import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.ServerAccess;
-import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kavling.Pilih_Kavling;
-import com.android.primaitech.siprima.MainActivity;
-import com.android.primaitech.siprima.Pembeli.Detail_Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.Pembeli.Pilih_Pembeli;
-import com.android.primaitech.siprima.Penjualan.Tambah_Penjualan;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -44,9 +33,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;

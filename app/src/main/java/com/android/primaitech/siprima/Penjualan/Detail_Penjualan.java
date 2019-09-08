@@ -1,41 +1,27 @@
 package com.android.primaitech.siprima.Penjualan;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.android.primaitech.siprima.Config.AppController;
 import com.android.primaitech.siprima.Config.AuthData;
 import com.android.primaitech.siprima.Config.RequestHandler;
 import com.android.primaitech.siprima.Config.SectionsPagerAdapter;
 import com.android.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.Dashboard.Dashboard;
-import com.android.primaitech.siprima.Kavling.Detail_Kavling;
-import com.android.primaitech.siprima.Proyek.Detail_Proyek;
-import com.android.primaitech.siprima.Proyek.Fragment_Data_Karyawan_Proyek;
-import com.android.primaitech.siprima.Proyek.Fragment_Data_Kavling;
-import com.android.primaitech.siprima.Proyek.Fragment_Data_Legalitas;
-import com.android.primaitech.siprima.Proyek.Fragment_Data_Penjualan;
-import com.android.primaitech.siprima.Proyek.Fragment_Grafik_Penjualan;
-import com.android.primaitech.siprima.Proyek.Fragment_Info_Proyek;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

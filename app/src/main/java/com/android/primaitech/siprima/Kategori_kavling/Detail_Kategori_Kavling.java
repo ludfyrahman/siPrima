@@ -1,12 +1,11 @@
 package com.android.primaitech.siprima.Kategori_kavling;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
-import com.android.primaitech.siprima.Proyek.Proyek;
 import com.android.primaitech.siprima.R;
 
 public class Detail_Kategori_Kavling extends AppCompatActivity {
