@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     android:background="@color/colorWhite"
-    tools:context=".Dashboard.Dashboard">
+    tools:context="com.primagroup.primaitech.siprima.Dashboard.Dashboard">
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

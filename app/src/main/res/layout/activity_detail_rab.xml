@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RAB.Detail_RAB">
+    tools:context="com.primagroup.primaitech.siprima.RAB.Detail_RAB">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

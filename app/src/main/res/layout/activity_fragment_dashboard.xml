@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/refresh"
-    tools:context=".Dashboard.Fragment_Dashboard">
+    tools:context="com.primagroup.primaitech.siprima.Dashboard.Fragment_Dashboard">
     <androidx.cardview.widget.CardView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

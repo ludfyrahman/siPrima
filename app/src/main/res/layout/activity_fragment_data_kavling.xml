@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    tools:context=".Akun_Bank.Fragment_Ab_Proyek">
+    tools:context="com.primagroup.primaitech.siprima.Akun_Bank.Fragment_Ab_Proyek">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:id="@+id/swlayout"
