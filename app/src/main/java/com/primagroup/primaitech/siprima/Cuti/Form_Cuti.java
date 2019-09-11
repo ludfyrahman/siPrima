@@ -180,9 +180,9 @@ public class Form_Cuti extends BottomSheetDialogFragment {
         });
         if (Temp_Cuti.getInstance(getContext()).getTipe_form().equals("edit")){
             loadJson();
-            title.setText("Ubah Akun Bank ");
+            title.setText("Ubah Cuti ");
         }else{
-            title.setText("Tambah Akun Bank ");
+            title.setText("Tambah Cuti");
         }
         return  v;
     }

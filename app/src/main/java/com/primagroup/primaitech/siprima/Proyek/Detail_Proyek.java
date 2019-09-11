@@ -172,6 +172,7 @@ public class Detail_Proyek extends AppCompatActivity {
         mSectionsPagerAdapter.addFragment(new Fragment_Data_Karyawan_Proyek(), "Data Karyawan", 4);
         mSectionsPagerAdapter.addFragment(new Fragment_Data_Legalitas(), "Data Legalitas", 5);
         mSectionsPagerAdapter.addFragment(new Fragment_Hpp_Proyek(), "Hpp Proyek", 6);
+        mSectionsPagerAdapter.addFragment(new Fragment_Siteplan(), "Site Plan", 7);
 
         viewPager.setAdapter(mSectionsPagerAdapter);
         mSectionsPagerAdapter.notifyDataSetChanged();

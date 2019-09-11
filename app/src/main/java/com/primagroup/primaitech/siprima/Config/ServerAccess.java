@@ -7,9 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ServerAccess {
-    public static final String BASE_URL = "http://192.168.1.14/siprima/";
+    public static final String BASE_URL = "http://192.168.1.7/siprima/";
 //    public static final String BASE_URL = "http://192.168.43.234/siprima/";
-//    public static final String BASE_URL = "http://10.135.207.113/siprima/";
+//    public static final String BASE_URL = "http://10.10.3.168/siprima/";
 //    public static final String BASE_URL = "http://siprima.primaitech.com/";
     public static final String Menu = BASE_URL+"api/api";
     public static final String ROOT_API = BASE_URL+"api/";
