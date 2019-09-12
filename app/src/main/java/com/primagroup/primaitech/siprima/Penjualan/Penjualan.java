@@ -21,7 +21,10 @@ import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.MenuData;
 import com.primagroup.primaitech.siprima.Config.RequestHandler;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
+import com.primagroup.primaitech.siprima.Config.Stack_Menu;
 import com.primagroup.primaitech.siprima.Dashboard.Dashboard;
+import com.primagroup.primaitech.siprima.Dashboard.Detail_Menu;
+import com.primagroup.primaitech.siprima.Dashboard.Temp.Temp_Menu;
 import com.primagroup.primaitech.siprima.Penjualan.Adapter.Adapter_Penjualan;
 import com.primagroup.primaitech.siprima.Penjualan.Model.Penjualan_Model;
 import com.android.primaitech.siprima.R;
@@ -65,7 +68,7 @@ public class Penjualan extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                back();
             }
         });
         listdata = (RecyclerView)findViewById(R.id.listdata);
@@ -96,8 +99,17 @@ public class Penjualan extends AppCompatActivity {
         });
         validate();
     }
+    private void back(){
+        Stack_Menu.hapusKodeMenuTeratas();
+        Stack_Menu.hapusNamaMenuTeratas();
+        Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
+        Intent intent = new Intent(getBaseContext(), Detail_Menu.class);
+        intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+        intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+        startActivity(intent);
+    }
     public void onBackPressed() {
-        startActivity(new Intent(Penjualan.this, Dashboard.class));
+        back();
     }
     public void reload(){
         not_found.setVisibility(View.GONE);

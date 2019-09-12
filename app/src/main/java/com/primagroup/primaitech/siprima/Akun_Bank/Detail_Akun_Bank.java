@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.primagroup.primaitech.siprima.Config.AuthData;
+import com.primagroup.primaitech.siprima.Config.MenuData;
 import com.primagroup.primaitech.siprima.Config.RequestHandler;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
 import com.android.primaitech.siprima.R;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.primagroup.primaitech.siprima.Config.Stack_Menu;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +47,12 @@ public class Detail_Akun_Bank extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Akun_bank.class));
+//                startActivity(new Intent(getApplicationContext(), Akun_bank.class));
+                MenuData menuData = new MenuData();
+                Intent intent = new Intent(v.getContext(), menuData.halaman(Stack_Menu.TampilkanKodeMenuTeratas()));
+                intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+                intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+                v.getContext().startActivity(intent);
             }
         });
         pd = new ProgressDialog(Detail_Akun_Bank.this);

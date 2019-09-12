@@ -19,6 +19,7 @@ import com.primagroup.primaitech.siprima.Config.AppController;
 import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.RequestHandler;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
+import com.primagroup.primaitech.siprima.Config.Stack_Menu;
 import com.primagroup.primaitech.siprima.Cuti.Adapter.Adapter_Cuti;
 import com.primagroup.primaitech.siprima.Cuti.Model.Cuti_Model;
 import com.primagroup.primaitech.siprima.Cuti.Temp.Temp_Cuti;
@@ -29,6 +30,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.primagroup.primaitech.siprima.Dashboard.Detail_Menu;
+import com.primagroup.primaitech.siprima.Dashboard.Temp.Temp_Menu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +73,7 @@ public class Cuti extends  AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                back();
             }
         });
         listdata = (RecyclerView)findViewById(R.id.listdata);
@@ -105,10 +108,19 @@ public class Cuti extends  AppCompatActivity {
         });
         validate();
     }
+    private void back(){
+        Stack_Menu.hapusKodeMenuTeratas();
+        Stack_Menu.hapusNamaMenuTeratas();
+        Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
+        Intent intent = new Intent(getBaseContext(), Detail_Menu.class);
+        intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+        intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
-//        spv_dev_list_komplain.this.finish();
-        startActivity(new Intent(getBaseContext(), Dashboard.class));
+        back();
     }
     public void reload(){
         not_found.setVisibility(View.GONE);

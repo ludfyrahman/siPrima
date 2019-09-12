@@ -17,6 +17,7 @@ import com.primagroup.primaitech.siprima.Config.AppController;
 import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.MenuData;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
+import com.primagroup.primaitech.siprima.Config.Stack_Menu;
 import com.primagroup.primaitech.siprima.Dashboard.Adapter.AdapterMenu;
 import com.primagroup.primaitech.siprima.Dashboard.Model.MenuModel;
 import com.primagroup.primaitech.siprima.Dashboard.Temp.Temp_Menu;
@@ -51,12 +52,21 @@ public class Detail_Menu extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
-        Intent data = getIntent();
-        toolbar.setTitle("Detail Menu "+ Temp_Menu.getInstance(getBaseContext()).getMenu());
+        toolbar.setTitle("Detail Menu "+ Stack_Menu.TampilkanNamaMenuTeratas());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                if (Stack_Menu.jumlahNamaMenu() > 1 && Stack_Menu.jumlahKodeMenu() > 1){
+                    Stack_Menu.hapusKodeMenuTeratas();
+                    Stack_Menu.hapusNamaMenuTeratas();
+                    Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
+                    Intent intent = new Intent(v.getContext(), Detail_Menu.class);
+                    intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+                    intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+                    v.getContext().startActivity(intent);
+                }else{
+                    startActivity(new Intent(getBaseContext(), Dashboard.class));
+                }
             }
         });
         listdata = (RecyclerView)findViewById(R.id.listdata);
@@ -78,6 +88,7 @@ public class Detail_Menu extends AppCompatActivity {
                 reload();
             }
         });
+        Log.d("pesan", "stack data terakhir "+ Stack_Menu.TampilkanKodeMenuTeratas());
     }
     public void reload(){
         not_found.setVisibility(View.GONE);

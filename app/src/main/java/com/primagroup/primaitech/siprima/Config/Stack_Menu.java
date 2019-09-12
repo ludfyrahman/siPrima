@@ -8,8 +8,11 @@ public class Stack_Menu {
     public static void pushKodemenu(String val){
         kode_menu.push(val);
     }
-    public static int countKodeMenu(){
+    public static int jumlahKodeMenu(){
         return kode_menu.size();
+    }
+    public static int jumlahNamaMenu(){
+        return nama_menu.size();
     }
     public static String hapusKodeMenuTeratas(){
         String cardAtTop = kode_menu.pop();

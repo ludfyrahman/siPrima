@@ -21,7 +21,10 @@ import com.primagroup.primaitech.siprima.Config.AppController;
 import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.RequestHandler;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
+import com.primagroup.primaitech.siprima.Config.Stack_Menu;
 import com.primagroup.primaitech.siprima.Dashboard.Dashboard;
+import com.primagroup.primaitech.siprima.Dashboard.Detail_Menu;
+import com.primagroup.primaitech.siprima.Dashboard.Temp.Temp_Menu;
 import com.primagroup.primaitech.siprima.Kavling.Adapter.Adapter_Kavling;
 import com.primagroup.primaitech.siprima.Kavling.Model.Kavling_Model;
 import com.android.primaitech.siprima.R;
@@ -67,7 +70,7 @@ public class Kavling extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                back();
             }
         });
         listdata = (RecyclerView)findViewById(R.id.listdata);
@@ -112,10 +115,19 @@ public class Kavling extends AppCompatActivity {
         });
         validate();
     }
+    private void back(){
+        Stack_Menu.hapusKodeMenuTeratas();
+        Stack_Menu.hapusNamaMenuTeratas();
+        Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
+        Intent intent = new Intent(getBaseContext(), Detail_Menu.class);
+        intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+        intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+        startActivity(intent);
+    }
     @Override
     public void onBackPressed() {
 //        spv_dev_list_komplain.this.finish();
-        startActivity(new Intent(getBaseContext(), Dashboard.class));
+        back();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

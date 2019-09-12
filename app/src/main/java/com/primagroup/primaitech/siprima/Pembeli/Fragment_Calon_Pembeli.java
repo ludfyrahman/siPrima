@@ -17,9 +17,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.primagroup.primaitech.siprima.Config.AuthData;
+import com.primagroup.primaitech.siprima.Config.MenuData;
 import com.primagroup.primaitech.siprima.Config.RequestHandler;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
+import com.primagroup.primaitech.siprima.Config.Stack_Menu;
 import com.primagroup.primaitech.siprima.Dashboard.Dashboard;
+import com.primagroup.primaitech.siprima.Dashboard.Detail_Menu;
+import com.primagroup.primaitech.siprima.Dashboard.Temp.Temp_Menu;
 import com.primagroup.primaitech.siprima.Pembeli.Adapter.Adapter_Pembeli;
 import com.primagroup.primaitech.siprima.Pembeli.Model.Pembeli_Model;
 import com.primagroup.primaitech.siprima.Pembeli.Temp.Temp_Pembeli;
@@ -64,26 +68,13 @@ public class Fragment_Calon_Pembeli extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                back();
             }
         });
         listdata = (RecyclerView)findViewById(R.id.listdata);
 
         listdata.setHasFixedSize(true);
         tambah = (FloatingActionButton)findViewById(R.id.tambah);
-        listdata.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                if (listdata != null) {
-                    if (listdata.getScrollY()==0) {
-//                        Toast.makeText(getContext(),"top",Toast.LENGTH_SHORT).show();
-//                        tambah.setVerticalScrollbarPosition(12);
-                    } else {
-
-                    }
-                }
-            }
-        });
         not_found = (LinearLayout)findViewById(R.id.not_found);
         list = new ArrayList<>();
         pd = new ProgressDialog(Fragment_Calon_Pembeli.this);
@@ -114,12 +105,25 @@ public class Fragment_Calon_Pembeli extends AppCompatActivity {
         validate();
 //        return v;
     }
+    private void back(){
+        Stack_Menu.hapusKodeMenuTeratas();
+        Stack_Menu.hapusNamaMenuTeratas();
+        Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
+        Intent intent = new Intent(getBaseContext(), Detail_Menu.class);
+        intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+        intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+        startActivity(intent);
+    }
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
         loadJson(); // your code
         listdata.getAdapter().notifyDataSetChanged();
         swLayout.setRefreshing(false);
+    }
+    @Override
+    public void onBackPressed() {
+        back();
     }
     private void validate(){
         Log.d("pesan", "menu yang aktif adalah "+AuthData.getInstance(getBaseContext()).getAuthKey());
