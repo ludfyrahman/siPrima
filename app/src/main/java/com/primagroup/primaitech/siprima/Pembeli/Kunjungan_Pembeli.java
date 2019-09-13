@@ -35,6 +35,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.primagroup.primaitech.siprima.Pembeli.Temp.Temp_Pembeli;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +59,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
     LinearLayout not_found;
     public static String kode_menu = "";
     SwipeRefreshLayout swLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
         final Intent data = getIntent();
-        toolbar.setTitle("Follow Up "+data.getStringExtra("nama_pembeli"));
+        toolbar.setTitle("Follow Up "+Temp_Pembeli.getInstance(getBaseContext()).getNama_pembeli());
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         listdata.setLayoutManager(mManager);
         listdata.setAdapter(adapter);
         pd = new ProgressDialog(Kunjungan_Pembeli.this);
-        loadJson();
+//        loadJson();
         refresh = (FrameLayout) findViewById(R.id.refresh);
         swLayout = (SwipeRefreshLayout) findViewById(R.id.swlayout);
         swLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
@@ -105,7 +105,13 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        reload();
+        // put your code here...
 
+    }
     public void reload(){
         not_found.setVisibility(View.GONE);
         list.clear();
@@ -113,7 +119,6 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
         listdata.getAdapter().notifyDataSetChanged();
         swLayout.setRefreshing(false);
     }
-
     public  void delete(final String kode){
 
         StringRequest senddata = new StringRequest(Request.Method.POST, ServerAccess.URL_KUNJUNGAN+"deletekunjungan", new Response.Listener<String>() {
@@ -128,7 +133,11 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                                 data.getString("pesan"),
                                 Toast.LENGTH_LONG
                         ).show();
-                        startActivity(new Intent(Kunjungan_Pembeli.this, Pembeli.class));
+                        Intent d = getIntent();
+                        Intent intent = new Intent(getBaseContext(), Kunjungan_Pembeli.class);
+                        intent.putExtra("nama_pembeli", d.getStringExtra("nama_pembeli"));
+                        intent.putExtra("kode_pembeli", d.getStringExtra("kode_pembeli"));
+                        startActivity(intent);
                     } else {
                         Toast.makeText(
                                 Kunjungan_Pembeli.this,
@@ -290,7 +299,8 @@ public class Kunjungan_Pembeli extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("kode", AuthData.getInstance(getBaseContext()).getAuthKey());
                 params.put("tipedata", "kunjungan_pembeli");
-                params.put("kode_pembeli", kode_pembeli);
+                params.put("kode_pembeli", Temp_Pembeli.getInstance(getBaseContext()).getKode_pembeli());
+                params.put("kode_karyawan", AuthData.getInstance(getBaseContext()).getAksesData());
                 return params;
             }
         };

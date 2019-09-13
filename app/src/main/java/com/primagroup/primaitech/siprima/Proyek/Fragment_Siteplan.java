@@ -15,11 +15,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.android.primaitech.siprima.R;
+import com.primagroup.primaitech.siprima.Config.ServerAccess;
 
 public class Fragment_Siteplan extends Fragment {
     WebView main_website;
     WebSettings webSettings;
     public String TAG = "pesan";
+    Detail_Proyek detail_proyek = new Detail_Proyek();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +33,8 @@ public class Fragment_Siteplan extends Fragment {
         main_website.getSettings().setDefaultTextEncodingName("UTF-8");
         main_website.getSettings().setBlockNetworkImage(false);
         main_website.getSettings().setBuiltInZoomControls(true);
-        main_website.loadUrl("http://primagroup.primaitech.com/proyek/map/8VG1564F");
+//        main_website.loadUrl("http://primagroup.primaitech.com/proyek/map/8VG1564F");
+        main_website.loadUrl(ServerAccess.ROOT_API+"api/maps/"+detail_proyek.kode);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             main_website.getSettings().setMixedContentMode(
                     WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);

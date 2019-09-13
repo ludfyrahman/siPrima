@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.maps.model.Dash;
 import com.primagroup.primaitech.siprima.Config.AppController;
 import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.MenuData;
@@ -52,7 +53,12 @@ public class Detail_Menu extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backward);
-        toolbar.setTitle("Detail Menu "+ Stack_Menu.TampilkanNamaMenuTeratas());
+        Log.d("pesan", "jumlah data kode menu adalah "+Stack_Menu.jumlahKodeMenu());
+        if (Stack_Menu.jumlahKodeMenu() > 1){
+            toolbar.setTitle("Detail Menu "+ Stack_Menu.TampilkanNamaMenuTeratas());
+        }else{
+            startActivity(new Intent(getBaseContext(), Dashboard.class));
+        }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +94,6 @@ public class Detail_Menu extends AppCompatActivity {
                 reload();
             }
         });
-        Log.d("pesan", "stack data terakhir "+ Stack_Menu.TampilkanKodeMenuTeratas());
     }
     public void reload(){
         not_found.setVisibility(View.GONE);

@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.primagroup.primaitech.siprima.Config.Stack_Menu;
+import com.primagroup.primaitech.siprima.Pembeli.Temp.Temp_Pembeli;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,8 @@ public class Detail_Pembeli extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), Kunjungan_Pembeli.class);
                 intent.putExtra("nama_pembeli", nama_pembeli.getText().toString());
                 intent.putExtra("kode_pembeli", kode_pembeli);
+                Temp_Pembeli.getInstance(getBaseContext()).setNamaPembeli(nama_pembeli.getText().toString());
+                Temp_Pembeli.getInstance(getBaseContext()).setKodePembeli(kode_pembeli);
                 startActivity(intent);
             }
         });

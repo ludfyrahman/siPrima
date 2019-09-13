@@ -66,7 +66,7 @@ public class Form_Kegiatan extends BottomSheetDialogFragment {
 
                     if(arr.getBoolean("status")){
                         Toast.makeText(getActivity(), arr.getString("pesan"), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), Dashboard.class);
+                        Intent intent = new Intent(getActivity(), Kegiatan.class);
                         startActivity(intent);
                     }else{
                         Toast.makeText(getActivity(), arr.getString("pesan"), Toast.LENGTH_SHORT).show();

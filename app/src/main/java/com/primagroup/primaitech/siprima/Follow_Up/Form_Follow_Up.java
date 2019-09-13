@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
 import com.primagroup.primaitech.siprima.Config.VolleyMultipartRequest;
+import com.primagroup.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
 import com.primagroup.primaitech.siprima.Pembeli.Pembeli;
 import com.android.primaitech.siprima.R;
 import com.android.volley.AuthFailureError;
@@ -279,7 +280,7 @@ public class Form_Follow_Up extends AppCompatActivity {
                                             data.getString("pesan"),
                                             Toast.LENGTH_LONG
                                     ).show();
-                                    startActivity(new Intent(Form_Follow_Up.this, Pembeli.class));
+                                    startActivity(new Intent(Form_Follow_Up.this, Kunjungan_Pembeli.class));
 
                                 } else {
                                     Toast.makeText(
@@ -334,11 +335,18 @@ public class Form_Follow_Up extends AppCompatActivity {
                 /*
                  * Here we are passing image by renaming it with a unique name
                  * */
+
                 @Override
                 protected Map<String, DataPart> getByteData() {
                     Map<String, DataPart> params = new HashMap<>();
-                    long imagename = System.currentTimeMillis();
-                    params.put("foto_kunjungan", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                    if (bitmap == null){
+                        Log.d("pesan", "bitmap null");
+                    }else{
+                        Log.d("pesan", "bitmap tidak null");
+                        Log.d("pesan", "data gambarnya adalah "+bitmap);
+                        long imagename = System.currentTimeMillis();
+                        params.put("foto_kunjungan", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                    }
                     return params;
                 }
             };

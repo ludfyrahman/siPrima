@@ -3,7 +3,7 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MyFirebaseInstanceIdService{
+public class MyFirebaseInstanceIdService {
     private static final String REG_TOKEN = "REG_TOKEN";
 
     public void onTokenRefresh(String token) {

@@ -111,11 +111,14 @@ public class Cuti extends  AppCompatActivity {
     private void back(){
         Stack_Menu.hapusKodeMenuTeratas();
         Stack_Menu.hapusNamaMenuTeratas();
-        Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
         Intent intent = new Intent(getBaseContext(), Detail_Menu.class);
-        intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
-        intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+        if (Stack_Menu.jumlahKodeMenu() > 0){
+            Temp_Menu.getInstance(getBaseContext()).setKode_Menu(Stack_Menu.TampilkanKodeMenuTeratas());
+            intent.putExtra("kode_menu", Stack_Menu.TampilkanKodeMenuTeratas());
+            intent.putExtra("nama_menu",Stack_Menu.TampilkanNamaMenuTeratas());
+        }
         startActivity(intent);
+
     }
 
     @Override

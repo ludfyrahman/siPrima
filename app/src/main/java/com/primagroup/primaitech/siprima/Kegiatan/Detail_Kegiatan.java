@@ -195,6 +195,7 @@ public class Detail_Kegiatan extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(senddata);
     }
     public void reload(){
+        not_found.setVisibility(View.GONE);
         list.clear();
         loadJson();
     }

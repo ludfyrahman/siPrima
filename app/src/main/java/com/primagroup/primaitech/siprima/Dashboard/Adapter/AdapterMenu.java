@@ -96,9 +96,6 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
                                 jumlah = 0;
                             else
                                 jumlah = Integer.parseInt(Temp_Menu.getInstance(v.getContext()).getJumlah());
-
-                            Log.d("pesan", "jumlah menunya adalah "+jumlah);
-                            Log.d("pesan", "kode menunya adalah "+kode_menu.getText().toString());
                         if (jumlah > 0){
                             Log.d("pesan", "ada di detail menunya");
                             Stack_Menu.pushKodemenu(kode_menu.getText().toString());
@@ -111,6 +108,8 @@ public class AdapterMenu extends RecyclerView.Adapter<AdapterMenu.ViewHolder>  {
                             v.getContext().startActivity(intent);
                         }else{
                             Log.d("pesan", "ada di menunya sekarang");
+                            Stack_Menu.pushKodemenu(kode_menu.getText().toString());
+                            Stack_Menu.pushNamamenu(judul.getText().toString());
                             Intent intent = new Intent(v.getContext(), menuData.halaman(kode_menu.getText().toString()));
                             AuthData.getInstance(v.getContext()).setKodeMenu(kode_menu.getText().toString());
                             AuthData.getInstance(v.getContext()).setNamaMenu(judul.getText().toString());

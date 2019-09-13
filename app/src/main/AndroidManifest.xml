@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.primaitech.siprima" >
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.android.primaitech.siprima">
 
     <application
         android:name="com.primagroup.primaitech.siprima.Config.AppController"
@@ -22,9 +9,9 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name="com.primagroup.primaitech.siprima.Proyek.Fragment_Siteplan" >
-        </activity>
+        android:theme="@style/AppTheme">
+        <activity android:name="com.primagroup.primaitech.siprima.Akun.Reset_Password"></activity>
+        <activity android:name="com.primagroup.primaitech.siprima.Proyek.Fragment_Siteplan"></activity>
         <activity android:name="com.primagroup.primaitech.siprima.Hpp.Form_Hpp_Proyek" />
         <activity android:name="com.primagroup.primaitech.siprima.Tipe_Rumah.Form_Tipe_Rumah" />
         <activity android:name="com.primagroup.primaitech.siprima.Proyek.Fragment_Hpp_Proyek" />
@@ -98,7 +85,7 @@
         <activity android:name="com.primagroup.primaitech.siprima.Akun.Ubah_Profil" />
         <activity android:name="com.primagroup.primaitech.siprima.Dashboard.Dashboard" />
         <activity android:name="com.primagroup.primaitech.siprima.Akun.Login" />
-        <activity android:name="com.primagroup.primaitech.siprima.MainActivity" >
+        <activity android:name="com.primagroup.primaitech.siprima.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -106,18 +93,39 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.primagroup.primaitech.siprima.Config.MyFirebaseMessagingService" >
+        <receiver android:name="com.primagroup.primaitech.siprima.Config.AlertReceiver" />
+        <service android:name="com.primagroup.primaitech.siprima.Config.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.primagroup.primaitech.siprima.Config.MyFirebaseInstanceIdService" >
+        <service android:name="com.primagroup.primaitech.siprima.Config.MyFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-        <receiver android:name="com.primagroup.primaitech.siprima.Config.AlertReceiver" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
     </application>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

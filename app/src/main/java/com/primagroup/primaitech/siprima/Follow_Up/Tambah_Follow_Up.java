@@ -22,6 +22,7 @@ import com.primagroup.primaitech.siprima.Config.AppController;
 import com.primagroup.primaitech.siprima.Config.AuthData;
 import com.primagroup.primaitech.siprima.Config.MenuData;
 import com.primagroup.primaitech.siprima.Config.ServerAccess;
+import com.primagroup.primaitech.siprima.Pembeli.Kunjungan_Pembeli;
 import com.primagroup.primaitech.siprima.Pembeli.Pembeli;
 import com.primagroup.primaitech.siprima.Pembeli.Pilih_Pembeli;
 import com.android.primaitech.siprima.R;
@@ -30,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.primagroup.primaitech.siprima.Pembeli.Temp.Temp_Pembeli;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,7 +91,7 @@ public class Tambah_Follow_Up extends AppCompatActivity {
         });
         nama_pembeli = (TextView) findViewById(R.id.nama_pembeli);
         if(data.hasExtra("nama_pembeli")) {
-            nama_pembeli.setText(data.getStringExtra("nama_pembeli"));
+            nama_pembeli.setText(Temp_Pembeli.getInstance(getBaseContext()).getNama_pembeli());
         }else{
             nama_pembeli.setText("Pilih Pembeli");
             nama_pembeli.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +164,7 @@ public class Tambah_Follow_Up extends AppCompatActivity {
     }
     private void simpan(){
         Intent data = getIntent();
-        final String kode_pembeliFinal= data.getStringExtra("kode_pembeli");
+        final String kode_pembeliFinal= Temp_Pembeli.getInstance(getBaseContext()).getKode_pembeli();
         final String tanggal_temu = tanggal_pertemuan.getText().toString().trim();
         final String alamat_pertemuan = alamat.getText().toString().trim();
         Log.d("pesan", "nilai value status adalah "+status);
