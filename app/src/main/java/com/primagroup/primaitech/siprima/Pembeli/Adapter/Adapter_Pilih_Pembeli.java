@@ -25,7 +25,6 @@ public class Adapter_Pilih_Pembeli extends RecyclerView.Adapter<Adapter_Pilih_Pe
     private ArrayList<Pembeli_Model> listdata;
     private Activity activity;
     private Context context;
-    String edit,hapus, detail;
     public Adapter_Pilih_Pembeli(Activity activity, ArrayList<Pembeli_Model> listdata) {
         this.listdata = listdata;
         this.activity = activity;

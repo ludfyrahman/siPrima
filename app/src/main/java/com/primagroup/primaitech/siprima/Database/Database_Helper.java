@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.primagroup.primaitech.siprima.Database.Model.Master_SQLite;
 import com.primagroup.primaitech.siprima.Database.Model.Menu_Table;
@@ -18,12 +19,11 @@ public class Database_Helper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.d("pesan", "helper oncreate berjalan");
         db.execSQL(Role_User.CREATE_TABLE);
         db.execSQL(Menu_Table.CREATE_TABLE);
         db.execSQL(Master_SQLite.CREATE_TABLE);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + Role_User.TABLE_NAME);

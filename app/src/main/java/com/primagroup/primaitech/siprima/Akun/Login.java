@@ -82,10 +82,7 @@ public class Login extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.finishAffinity(Login.this);
                         finish();
-
-
                     }
-
                 })
                 .setNegativeButton("Tidak", null)
                 .show();

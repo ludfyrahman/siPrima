@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.primagroup.primaitech.siprima.Config.Stack_Menu;
+import com.primagroup.primaitech.siprima.Database.Database_Helper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,10 +29,12 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
+    Database_Helper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new Database_Helper(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         PACKAGE_NAME = getApplicationContext().getPackageName();
         testing();
